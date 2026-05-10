@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Épilation à la cire — Black & Beauty Studio</title>
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .page-hero {
+    padding: 180px 24px 100px;
+    text-align: center;
+    position: relative; overflow: hidden;
+    background: radial-gradient(ellipse at center, rgba(161,11,27,0.2) 0%, transparent 60%), var(--noir-profond);
+  }
+  .page-hero h1 { font-family: var(--titre-deco); font-size: clamp(48px, 8vw, 96px); margin: 16px 0; }
+  .page-hero .script-sub { font-family: var(--script); font-size: clamp(28px, 4vw, 42px); color: var(--rouge-rubis); }
+
+  .epil-affiche {
+    max-width: 1200px; margin: 0 auto;
+    padding: 80px 60px;
+    background:
+      radial-gradient(ellipse at top left, rgba(161,11,27,0.18) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(107,5,16,0.15) 0%, transparent 55%),
+      var(--noir-velours);
+    border: 1px solid rgba(226,169,179,0.2);
+    position: relative;
+  }
+  .epil-affiche::before {
+    content: ''; position: absolute; inset: 16px;
+    border: 1px solid rgba(226,169,179,0.1); pointer-events: none;
+  }
+  .affiche-header { text-align: center; margin-bottom: 56px; }
+  .affiche-header img { height: 100px; margin-bottom: 16px; }
+  .affiche-header h2 {
+    font-family: var(--titre-deco);
+    font-size: clamp(56px, 10vw, 110px);
+    line-height: 0.9; letter-spacing: 0.04em; margin: 16px 0;
+  }
+
+  .epil-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 60px 50px;
+  }
+  @media (max-width: 900px) { .epil-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+  .epil-cat-title {
+    font-family: var(--script);
+    font-size: 38px;
+    color: var(--rose-metal);
+    text-align: center;
+    margin-bottom: 28px;
+    border-bottom: 1px solid rgba(226,169,179,0.2);
+    padding-bottom: 12px;
+    text-shadow: 0 0 16px rgba(226,169,179,0.3);
+  }
+
+  .a-savoir {
+    margin-top: 60px;
+    text-align: center;
+    border: 1px solid rgba(226,169,179,0.2);
+    padding: 28px;
+    background: rgba(13,7,9,0.6);
+  }
+  .a-savoir h4 {
+    font-family: var(--titre);
+    font-size: 16px; letter-spacing: 0.4em;
+    text-transform: uppercase; color: var(--rose-metal);
+    margin-bottom: 16px;
+  }
+  .a-savoir p {
+    font-size: 13px; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--argent-doux);
+    margin-bottom: 8px;
+  }
+  .a-savoir .script-merci {
+    font-family: var(--script); font-size: 32px;
+    color: var(--rose-metal); margin-top: 16px;
+    text-transform: none; letter-spacing: 0;
+  }
+</style>
+</head>
+<body class="bg-marbre">
+
+<nav class="nav">
+  <a href="/" class="nav-logo"><img src="assets/images/logo_nobg.png" alt=""><span>Black &amp; Beauty</span></a>
+  <ul class="nav-links">
+    <li><a href="/" data-page="home">Accueil</a></li>
+    <li><a href="/onglerie" data-page="onglerie">Onglerie</a></li>
+    <li><a href="/epilation" data-page="epilation">Épilation</a></li>
+    <li><a href="/galerie" data-page="galerie">Galerie</a></li>
+    <li><a href="/apropos" data-page="apropos">À propos</a></li>
+    <li><a href="/faq" data-page="faq">FAQ</a></li>
+    <li><a href="/reservation" data-page="reservation" style="color: var(--rose-metal);">✠ Réserver</a></li>
+  </ul>
+</nav>
+
+<section class="page-hero" id="ambiance-host">
+  <div class="eyebrow">✠ Cire professionnelle ✠</div>
+  <h1 class="title-metal">Épilation cire</h1>
+  <div class="script-sub">une peau de reine</div>
+</section>
+
+<section class="section">
+  <div class="epil-affiche">
+    <div class="affiche-header">
+      <img src="assets/images/logo_nobg.png" alt="">
+      <div class="eyebrow">✠ Liste de prix ✠</div>
+      <h2 class="title-metal">Waxing</h2>
+    </div>
+
+    <div class="epil-grid">
+      <!-- VISAGE -->
+      <div>
+        <div class="epil-cat-title">Visage</div>
+        <div class="price-row"><span class="name">Sourcils</span><span class="dots"></span><span class="price">15$</span></div>
+        <div class="price-row"><span class="name">Lèvre supérieure</span><span class="dots"></span><span class="price">10$</span></div>
+        <div class="price-row"><span class="name">Menton</span><span class="dots"></span><span class="price">10$</span></div>
+        <div class="price-row"><span class="name">Joues</span><span class="dots"></span><span class="price">15$</span></div>
+        <div class="price-row"><span class="name">Visage complet</span><span class="dots"></span><span class="price">40$</span></div>
+
+        <div class="epil-cat-title" style="margin-top: 56px;">Corps</div>
+        <div class="price-row"><span class="name">Aisselles</span><span class="dots"></span><span class="price">20$</span></div>
+        <div class="price-row"><span class="name">Bras complets</span><span class="dots"></span><span class="price">30$</span></div>
+        <div class="price-row"><span class="name">Demi-bras</span><span class="dots"></span><span class="price">20$</span></div>
+        <div class="price-row"><span class="name">Mains &amp; doigts</span><span class="dots"></span><span class="price">10$</span></div>
+        <div class="price-row"><span class="name">Torse</span><span class="dots"></span><span class="price">30$</span></div>
+        <div class="price-row"><span class="name">Ventre</span><span class="dots"></span><span class="price">15$</span></div>
+        <div class="price-row"><span class="name">Bas du dos</span><span class="dots"></span><span class="price">20$</span></div>
+        <div class="price-row"><span class="name">Dos complet</span><span class="dots"></span><span class="price">40$</span></div>
+      </div>
+
+      <!-- MAILLOT -->
+      <div>
+        <div class="epil-cat-title">Maillot</div>
+        <div class="price-row"><span class="name">Classique</span><span class="dots"></span><span class="price">25$</span></div>
+        <div class="price-row"><span class="name">Échancré</span><span class="dots"></span><span class="price">35$</span></div>
+        <div class="price-row"><span class="name">Intégral</span><span class="dots"></span><span class="price">45$</span></div>
+        <div class="price-row"><span class="name">Brésilien</span><span class="dots"></span><span class="price">50$</span></div>
+        <div class="price-row"><span class="name">Intégral + interfessier</span><span class="dots"></span><span class="price">60$</span></div>
+        <div class="price-row"><span class="name">Interfessier</span><span class="dots"></span><span class="price">20$</span></div>
+      </div>
+
+      <!-- JAMBES -->
+      <div>
+        <div class="epil-cat-title">Jambes</div>
+        <div class="price-row"><span class="name">Demi-jambes</span><span class="dots"></span><span class="price">25$</span></div>
+        <div class="price-row"><span class="name">Jambes complètes</span><span class="dots"></span><span class="price">45$</span></div>
+        <div class="price-row"><span class="name">Cuisses</span><span class="dots"></span><span class="price">25$</span></div>
+        <div class="price-row"><span class="name">Genoux</span><span class="dots"></span><span class="price">10$</span></div>
+        <div class="price-row"><span class="name">Pieds &amp; orteils</span><span class="dots"></span><span class="price">10$</span></div>
+      </div>
+    </div>
+
+    <div class="a-savoir">
+      <div class="divider-cross" style="margin: 0 0 16px;">
+        <svg viewBox="0 0 24 36" width="20" height="20"><path d="M 12 0 L 14 8 L 22 10 L 22 14 L 14 16 L 14 32 L 12 36 L 10 32 L 10 16 L 2 14 L 2 10 L 10 8 Z" fill="#E2A9B3"/></svg>
+      </div>
+      <h4>À savoir</h4>
+      <p>Les prix peuvent varier selon la quantité de poils</p>
+      <p>et la zone à épiler.</p>
+      <div class="script-merci">Merci pour votre confiance ♡</div>
+    </div>
+  </div>
+
+  <div style="text-align: center; margin-top: 60px;">
+    <a href="/reservation" class="btn btn-primary">Réserver une séance</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div><img src="assets/images/logo_nobg.png" style="height: 56px; margin-bottom: 20px;"><p style="color: var(--argent-doux); font-size: 13px; line-height: 1.8;">Studio privé · Montréal</p></div>
+    <div><h4>Services</h4><a href="/onglerie">Onglerie</a><a href="/epilation">Épilation</a><a href="/galerie">Galerie</a></div>
+    <div><h4>Studio</h4><a href="/apropos">À propos</a><a href="/faq">FAQ</a><a href="/reservation">Réservation</a></div>
+    <div><h4>Contact</h4><a href="https://instagram.com">Instagram</a><a href="https://tiktok.com">TikTok</a></div>
+  </div>
+  <div class="footer-bottom">© 2026 Black &amp; Beauty Studio · ✠ Merci pour votre confiance ✠</div>
+</footer>
+
+<script src="assets/decor.js"></script>
+<script>
+  seedAmbiance(document.getElementById('ambiance-host'), { sparkles: 12, smokes: 4 });
+  initFadeUps();
+  setActiveNav('epilation');
+</script>
+</body>
+</html>

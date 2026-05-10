@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FAQ — Black & Beauty Studio</title>
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .page-hero { padding: 180px 24px 80px; text-align: center; position: relative; overflow: hidden; background: radial-gradient(ellipse at center, rgba(161,11,27,0.2) 0%, transparent 60%), var(--noir-profond); }
+  .page-hero h1 { font-family: var(--titre-deco); font-size: clamp(48px, 8vw, 96px); margin: 16px 0; }
+  .page-hero .script-sub { font-family: var(--script); font-size: clamp(28px, 4vw, 42px); color: var(--rouge-rubis); }
+
+  .faq-list { max-width: 880px; margin: 0 auto; }
+  details {
+    border: 1px solid rgba(226,169,179,0.15);
+    background: var(--noir-velours);
+    margin-bottom: 12px;
+    transition: border-color 0.3s;
+  }
+  details[open] {
+    border-color: rgba(226,169,179,0.4);
+    box-shadow: 0 0 24px rgba(161,11,27,0.15);
+  }
+  summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 24px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-family: var(--titre);
+    font-size: 14px; letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rose-metal);
+    transition: all 0.3s;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: '✠';
+    color: var(--rouge-rubis);
+    font-size: 18px;
+    transition: transform 0.4s;
+    margin-left: 16px;
+  }
+  details[open] summary::after { transform: rotate(45deg); }
+  summary:hover { background: rgba(161,11,27,0.05); }
+  .faq-content {
+    padding: 0 28px 24px;
+    color: var(--argent-givre);
+    font-size: 14px; line-height: 1.9;
+    border-top: 1px solid rgba(226,169,179,0.08);
+    padding-top: 20px;
+    margin-top: 4px;
+  }
+  .faq-content strong { color: var(--rose-metal); font-weight: 500; }
+
+  .faq-cat-title {
+    font-family: var(--titre);
+    font-size: 13px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--rouge-rubis);
+    text-align: center;
+    margin: 48px 0 24px;
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+  }
+  .faq-cat-title::before, .faq-cat-title::after {
+    content: ''; flex: 1; max-width: 80px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--rouge-rubis), transparent);
+  }
+</style>
+</head>
+<body class="bg-marbre">
+
+<nav class="nav">
+  <a href="/" class="nav-logo"><img src="assets/images/logo_nobg.png" alt=""><span>Black &amp; Beauty</span></a>
+  <ul class="nav-links">
+    <li><a href="/" data-page="home">Accueil</a></li>
+    <li><a href="/onglerie" data-page="onglerie">Onglerie</a></li>
+    <li><a href="/epilation" data-page="epilation">Épilation</a></li>
+    <li><a href="/galerie" data-page="galerie">Galerie</a></li>
+    <li><a href="/apropos" data-page="apropos">À propos</a></li>
+    <li><a href="/faq" data-page="faq">FAQ</a></li>
+    <li><a href="/reservation" data-page="reservation" style="color: var(--rose-metal);">✠ Réserver</a></li>
+  </ul>
+</nav>
+
+<section class="page-hero" id="ambiance-host">
+  <div class="eyebrow">✠ Toutes vos questions ✠</div>
+  <h1 class="title-metal">FAQ</h1>
+  <div class="script-sub">demandes fréquentes</div>
+</section>
+
+<section class="section">
+  <div class="faq-list">
+    <div class="faq-cat-title">Réservation</div>
+
+    <details open>
+      <summary>Comment prendre rendez-vous ?</summary>
+      <div class="faq-content">
+        Vous pouvez réserver directement via notre <strong>module Amelia</strong> sur la page Réservation. Sélectionnez votre service, la longueur souhaitée, choisissez votre créneau et payez le dépôt de 20$. Vous recevrez immédiatement une confirmation par email.
+      </div>
+    </details>
+
+    <details>
+      <summary>Pourquoi un dépôt de 20$ ?</summary>
+      <div class="faq-content">
+        Le dépôt de 20$ garantit votre sérieux et bloque le créneau que je vous réserve. <strong>Il est intégralement déduit du prix final</strong> de votre service. Les annulations de dernière minute me coûtent une cliente potentielle, d'où cette politique.
+      </div>
+    </details>
+
+    <details>
+      <summary>Que se passe-t-il si je suis en retard ?</summary>
+      <div class="faq-content">
+        Une marge de 15 minutes est tolérée. <strong>Au-delà, le rendez-vous est automatiquement annulé</strong> et le dépôt n'est pas remboursé. Cette règle protège la cliente suivante. Prévenez-moi par SMS dès que possible si vous prévoyez un retard.
+      </div>
+    </details>
+
+    <details>
+      <summary>Quels modes de paiement sont acceptés ?</summary>
+      <div class="faq-content">
+        Le solde se règle <strong>en argent comptant</strong> ou par <strong>virement Interac</strong> uniquement. Les cartes de crédit et de débit ne sont pas acceptées sur place.
+      </div>
+    </details>
+
+    <div class="faq-cat-title">Onglerie</div>
+
+    <details>
+      <summary>Combien de temps dure une pose acrylique ?</summary>
+      <div class="faq-content">
+        Une pose acrylique tient en moyenne <strong>3 à 4 semaines</strong>. La durée dépend de l'entretien quotidien, de la longueur choisie, et de la solidité naturelle de vos ongles. Évitez l'eau chaude prolongée et portez des gants pour la vaisselle.
+      </div>
+    </details>
+
+    <details>
+      <summary>Combien de temps dure une séance ?</summary>
+      <div class="faq-content">
+        Une pose Small/Medium prend environ <strong>1h30 à 2h</strong>. Pour les longueurs XL et plus avec nail art, prévoyez <strong>2h30 à 3h</strong>. Une dépose simple : 20-30 minutes.
+      </div>
+    </details>
+
+    <details>
+      <summary>Puis-je apporter une inspiration ?</summary>
+      <div class="faq-content">
+        Absolument et c'est même recommandé ! Apportez vos photos d'inspiration via Instagram, Pinterest ou TikTok. Plus vous êtes précise sur votre vision, mieux je peux la réaliser. Le prix du nail art (5-25$) dépend de la complexité demandée.
+      </div>
+    </details>
+
+    <div class="faq-cat-title">Épilation</div>
+
+    <details>
+      <summary>L'épilation à la cire est-elle douloureuse ?</summary>
+      <div class="faq-content">
+        L'inconfort est <strong>très bref</strong> et diminue à chaque séance. J'utilise une cire professionnelle de qualité et une technique douce qui minimise la sensation. Évitez la caféine 2h avant et hydratez bien votre peau dans les jours précédents.
+      </div>
+    </details>
+
+    <details>
+      <summary>Quelle longueur de poils pour l'épilation ?</summary>
+      <div class="faq-content">
+        Idéalement <strong>3 à 5 mm</strong> (équivalent 2-3 semaines après le rasage). Plus court, la cire n'accroche pas. Plus long, c'est inconfortable — je peux tailler sur place si besoin.
+      </div>
+    </details>
+
+    <details>
+      <summary>À quelle fréquence faut-il revenir ?</summary>
+      <div class="faq-content">
+        Toutes les <strong>4 à 6 semaines</strong> pour des résultats optimaux. À long terme, la repousse devient plus fine et plus clairsemée.
+      </div>
+    </details>
+
+    <div class="faq-cat-title">Studio</div>
+
+    <details>
+      <summary>Où se trouve le studio ?</summary>
+      <div class="faq-content">
+        Studio privé situé à <strong>Montréal</strong>. L'adresse exacte est communiquée par SMS lors de la confirmation de votre rendez-vous, pour préserver l'intimité du lieu.
+      </div>
+    </details>
+
+    <details>
+      <summary>Acceptez-vous les enfants / accompagnants ?</summary>
+      <div class="faq-content">
+        Pour préserver l'ambiance du studio et la qualité du soin, <strong>les rendez-vous se font en tête-à-tête</strong>. Merci de venir seule sauf cas particulier discuté à l'avance.
+      </div>
+    </details>
+  </div>
+
+  <div style="text-align: center; margin-top: 64px;">
+    <p style="color: var(--argent-doux); font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 20px;">
+      Une autre question ?
+    </p>
+    <a href="/apropos" class="btn btn-ghost">Me contacter</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div><img src="assets/images/logo_nobg.png" style="height: 56px; margin-bottom: 20px;"><p style="color: var(--argent-doux); font-size: 13px; line-height: 1.8;">Studio privé · Montréal</p></div>
+    <div><h4>Services</h4><a href="/onglerie">Onglerie</a><a href="/epilation">Épilation</a><a href="/galerie">Galerie</a></div>
+    <div><h4>Studio</h4><a href="/apropos">À propos</a><a href="/faq">FAQ</a><a href="/reservation">Réservation</a></div>
+    <div><h4>Contact</h4><a href="https://instagram.com">Instagram</a><a href="https://tiktok.com">TikTok</a></div>
+  </div>
+  <div class="footer-bottom">© 2026 Black &amp; Beauty Studio · ✠ Merci pour votre confiance ✠</div>
+</footer>
+
+<script src="assets/decor.js"></script>
+<script>
+  seedAmbiance(document.getElementById('ambiance-host'), { sparkles: 8, smokes: 3 });
+  initFadeUps();
+  setActiveNav('faq');
+</script>
+</body>
+</html>

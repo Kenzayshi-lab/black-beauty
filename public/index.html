@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Black & Beauty Studio — Onglerie & Épilation Royale | Montréal</title>
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  /* —— Hero théâtral —— */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    padding: 120px 24px 80px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 50%, rgba(161,11,27,0.25) 0%, transparent 50%),
+      radial-gradient(ellipse at 70% 60%, rgba(75,30,90,0.3) 0%, transparent 55%),
+      radial-gradient(ellipse at center, #1a0d12 0%, #050505 80%);
+  }
+  .hero-content {
+    position: relative; z-index: 5;
+    text-align: center; max-width: 1100px;
+  }
+  .hero-logo {
+    width: 360px; height: 360px;
+    margin: 0 auto 32px;
+    filter: drop-shadow(0 0 60px rgba(161,11,27,0.6));
+    animation: heroLogoFloat 6s ease-in-out infinite, heroLogoGlow 4s ease-in-out infinite;
+  }
+  @keyframes heroLogoFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  @keyframes heroLogoGlow {
+    0%, 100% { filter: drop-shadow(0 0 60px rgba(161,11,27,0.6)); }
+    50% { filter: drop-shadow(0 0 100px rgba(161,11,27,0.9)) drop-shadow(0 0 40px rgba(226,169,179,0.4)); }
+  }
+  .hero h1 {
+    font-family: var(--titre-deco);
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .hero .tagline {
+    font-family: var(--script);
+    font-size: clamp(28px, 4vw, 44px);
+    color: var(--rouge-rubis);
+    margin-bottom: 28px;
+    text-shadow: 0 0 16px rgba(161,11,27,0.5);
+  }
+  .hero .subtitle {
+    font-size: 13px; letter-spacing: 0.4em;
+    text-transform: uppercase; color: var(--argent-doux);
+    margin-bottom: 48px;
+  }
+  .hero-ctas { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+
+  .scroll-cue {
+    position: absolute; bottom: 32px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px; letter-spacing: 0.4em;
+    text-transform: uppercase; color: var(--rose-metal);
+    opacity: 0.6;
+    animation: scrollCue 2s ease-in-out infinite;
+  }
+  @keyframes scrollCue {
+    0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.4; }
+    50% { transform: translateX(-50%) translateY(8px); opacity: 0.8; }
+  }
+
+  /* —— Bandeau citation —— */
+  .quote-band {
+    padding: 80px 24px;
+    text-align: center;
+    background: linear-gradient(180deg, var(--noir-profond), var(--noir-velours), var(--noir-profond));
+    position: relative;
+  }
+  .quote-band blockquote {
+    font-family: var(--script);
+    font-size: clamp(34px, 5vw, 58px);
+    color: var(--rose-metal);
+    max-width: 900px; margin: 0 auto;
+    line-height: 1.3;
+  }
+
+  /* —— Services —— */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 900px) { .services-grid { grid-template-columns: 1fr; } }
+  .service-card h3 {
+    font-size: 22px; margin-bottom: 12px;
+    color: var(--rose-metal);
+    letter-spacing: 0.12em;
+  }
+  .service-card .price-from {
+    font-family: var(--titre);
+    font-size: 11px; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--rouge-rubis);
+    margin-bottom: 16px;
+  }
+  .service-card p {
+    font-size: 14px; color: var(--argent-doux);
+    margin-bottom: 24px; line-height: 1.7;
+  }
+  .service-card .more {
+    font-family: var(--titre); font-size: 11px;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--rose-metal); text-decoration: none;
+    border-bottom: 1px solid var(--rouge-rubis);
+    padding-bottom: 4px;
+  }
+
+  /* —— Aperçu prix avec affiche style —— */
+  .price-preview {
+    background:
+      radial-gradient(ellipse at top left, rgba(161,11,27,0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(107,5,16,0.12) 0%, transparent 50%),
+      var(--noir-velours);
+    position: relative;
+  }
+
+  /* —— À propos teaser —— */
+  .about-teaser {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+  }
+  @media (max-width: 900px) { .about-teaser { grid-template-columns: 1fr; gap: 40px; } }
+  .about-img {
+    aspect-ratio: 4/5;
+    background:
+      linear-gradient(135deg, rgba(161,11,27,0.3), rgba(75,30,90,0.4)),
+      url('assets/images/affiche-prix-ongles.jpg') center/cover;
+    position: relative;
+    border: 1px solid rgba(226,169,179,0.2);
+  }
+  .about-img::before {
+    content: '';
+    position: absolute; inset: 12px;
+    border: 1px solid rgba(226,169,179,0.15);
+  }
+  .about-text h2 { font-size: clamp(36px, 5vw, 56px); margin: 16px 0 24px; }
+  .about-text p {
+    font-size: 15px; line-height: 1.9;
+    color: var(--argent-givre);
+    margin-bottom: 24px;
+  }
+
+  /* —— Instagram grid —— */
+  .insta-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 4px;
+  }
+  @media (max-width: 900px) { .insta-grid { grid-template-columns: repeat(3, 1fr); } }
+  .insta-tile {
+    aspect-ratio: 1;
+    position: relative; overflow: hidden;
+    background: var(--noir-marbre);
+    cursor: pointer;
+    border: 1px solid rgba(226,169,179,0.1);
+  }
+  .insta-tile .placeholder {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, rgba(161,11,27,0.2), rgba(13,7,9,0.9));
+    color: var(--rose-metal); opacity: 0.4;
+  }
+  .insta-tile:hover .placeholder { opacity: 1; transform: scale(1.05); }
+  .insta-tile .placeholder svg { width: 32px; height: 32px; }
+
+  /* —— CTA final —— */
+  .cta-band {
+    text-align: center;
+    padding: 140px 24px;
+    position: relative;
+    background:
+      radial-gradient(ellipse at center, rgba(161,11,27,0.25) 0%, transparent 60%),
+      var(--noir-profond);
+  }
+  .cta-band h2 {
+    font-size: clamp(40px, 6vw, 80px);
+    margin-bottom: 24px;
+  }
+  .cta-band .script-deco {
+    font-family: var(--script);
+    font-size: clamp(40px, 5vw, 64px);
+    color: var(--rose-metal); margin-bottom: 32px;
+    text-shadow: 0 0 20px rgba(226,169,179,0.4);
+  }
+
+  /* —— Politiques teaser —— */
+  .policies-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-top: 48px;
+  }
+  @media (max-width: 900px) { .policies-row { grid-template-columns: 1fr; } }
+  .policy-item {
+    text-align: center;
+    padding: 32px 24px;
+    border: 1px solid rgba(226,169,179,0.15);
+    background: rgba(13,7,9,0.5);
+  }
+  .policy-item .icon { color: var(--rouge-rubis); margin-bottom: 16px; }
+  .policy-item .icon svg { width: 36px; height: 36px; }
+  .policy-item h4 {
+    font-size: 13px; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--rose-metal);
+    margin-bottom: 12px;
+  }
+  .policy-item p { font-size: 13px; color: var(--argent-doux); }
+</style>
+</head>
+<body class="bg-marbre">
+
+<!-- ===== NAV ===== -->
+<nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="assets/images/logo_nobg.png" alt="Black & Beauty Studio">
+    <span>Black &amp; Beauty</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="/" data-page="home">Accueil</a></li>
+    <li><a href="/onglerie" data-page="onglerie">Onglerie</a></li>
+    <li><a href="/epilation" data-page="epilation">Épilation</a></li>
+    <li><a href="/galerie" data-page="galerie">Galerie</a></li>
+    <li><a href="/apropos" data-page="apropos">À propos</a></li>
+    <li><a href="/faq" data-page="faq">FAQ</a></li>
+    <li><a href="/reservation" data-page="reservation" style="color: var(--rose-metal);">✠ Réserver</a></li>
+  </ul>
+</nav>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="ambiance-host">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <img src="assets/images/logo_nobg.png" alt="Black & Beauty Studio" class="hero-logo">
+    <div class="eyebrow" style="margin-bottom: 14px;">✠ Montréal · Studio privé ✠</div>
+    <h1 class="title-metal">Black &amp; Beauty Studio</h1>
+    <div class="tagline script">L'art de la beauté, version royale</div>
+    <p class="subtitle">Onglerie acrylique · Épilation à la cire · Beauty rituals</p>
+    <div class="hero-ctas">
+      <a href="/reservation" class="btn btn-primary">Réserver mon rituel</a>
+      <a href="#services" class="btn btn-ghost">Découvrir les services</a>
+    </div>
+  </div>
+  <div class="scroll-cue">↓ &nbsp; Descendre &nbsp; ↓</div>
+</section>
+
+<!-- ===== CITATION ===== -->
+<section class="quote-band">
+  <div class="divider-cross">
+    <svg viewBox="0 0 24 36"><use href="#cross-icon"/></svg>
+  </div>
+  <blockquote>
+    « Chaque femme mérite une couronne.<br>Ici, nous la posons sur vos mains. »
+  </blockquote>
+</section>
+
+<!-- ===== SERVICES ===== -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="eyebrow">Nos univers</div>
+      <h2 class="title-metal">Services</h2>
+      <div class="divider-cross">
+        <svg viewBox="0 0 24 36" width="22" height="22"><path d="M 12 0 L 14 8 L 22 10 L 22 14 L 14 16 L 14 32 L 12 36 L 10 32 L 10 16 L 2 14 L 2 10 L 10 8 Z" fill="#A10B1B"/></svg>
+      </div>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card fade-up">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M 32 8 C 22 8 18 16 20 28 C 22 40 28 50 32 56 C 36 50 42 40 44 28 C 46 16 42 8 32 8 Z"/>
+          <path d="M 26 22 L 38 22 M 24 32 L 40 32 M 26 42 L 38 42"/>
+          <circle cx="32" cy="14" r="2" fill="currentColor"/>
+        </svg>
+        <h3>Onglerie acrylique</h3>
+        <div class="price-from">À partir de 30$</div>
+        <p>Poses Small à XXXL, French, nail art sur mesure et finitions Matte Top Coat. Une signature qui dure plus de 3 semaines.</p>
+        <a href="/onglerie" class="more">Voir tarifs →</a>
+      </div>
+
+      <div class="service-card fade-up" style="transition-delay: 0.1s;">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M 32 6 C 24 14 22 26 28 36 C 32 42 32 48 28 56 L 36 56 C 32 48 32 42 36 36 C 42 26 40 14 32 6 Z"/>
+          <ellipse cx="32" cy="22" rx="3" ry="6" fill="currentColor"/>
+        </svg>
+        <h3>Épilation à la cire</h3>
+        <div class="price-from">À partir de 10$</div>
+        <p>Visage, corps, maillot complet et brésilien. Cire de qualité professionnelle, technique douce et hygiène irréprochable.</p>
+        <a href="/epilation" class="more">Voir tarifs →</a>
+      </div>
+
+      <div class="service-card fade-up" style="transition-delay: 0.2s;">
+        <svg class="icon" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M 16 32 L 30 26 L 32 12 L 34 26 L 48 32 L 34 38 L 32 52 L 30 38 Z"/>
+          <circle cx="32" cy="32" r="3" fill="currentColor"/>
+        </svg>
+        <h3>Beauty rituals</h3>
+        <div class="price-from">Sur consultation</div>
+        <p>Décorations sur mesure, réparations, déposes et finitions. Chaque rituel est pensé pour révéler votre élégance.</p>
+        <a href="/reservation" class="more">Réserver →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== APERÇU PRIX (style affiche) ===== -->
+<section class="section price-preview">
+  <div class="container-narrow">
+    <div class="section-header fade-up">
+      <div class="eyebrow">✠ Tarifs ✠</div>
+      <h2 class="title-metal">Liste de prix</h2>
+      <p style="color: var(--argent-doux); font-size: 14px; letter-spacing: 0.15em; margin-top: 12px;">
+        — UN APERÇU DE NOS RITUELS —
+      </p>
+    </div>
+
+    <div class="gothic-frame fade-up">
+      <span class="corner-tl"></span><span class="corner-tr"></span>
+
+      <div class="price-list">
+        <div class="price-list-col">
+          <h3>Poses d'ongles acrylique</h3>
+          <div class="price-row cross"><span class="name">Small</span><span class="dots"></span><span class="price">30$</span></div>
+          <div class="price-row cross"><span class="name">Medium</span><span class="dots"></span><span class="price">40$</span></div>
+          <div class="price-row cross"><span class="name">Large</span><span class="dots"></span><span class="price">50$</span></div>
+          <div class="price-row cross"><span class="name">XLarge</span><span class="dots"></span><span class="price">60$</span></div>
+          <div class="price-row cross"><span class="name">XXLarge</span><span class="dots"></span><span class="price">70$</span></div>
+          <div class="price-row cross"><span class="name">XXXLarge</span><span class="dots"></span><span class="price">80$</span></div>
+        </div>
+        <div class="price-list-col">
+          <h3>Extras &amp; Décorations</h3>
+          <div class="price-row cross"><span class="name">Nail Art</span><span class="dots"></span><span class="price">5$ – 25$</span></div>
+          <div class="price-row cross"><span class="name">Décorations</span><span class="dots"></span><span class="price">1$ – 5$</span></div>
+          <div class="price-row cross"><span class="name">Matte Top Coat</span><span class="dots"></span><span class="price">5$</span></div>
+          <div class="price-row cross"><span class="name">French</span><span class="dots"></span><span class="price">10$</span></div>
+          <div class="price-row cross"><span class="name">Réparation</span><span class="dots"></span><span class="price">2,50$</span></div>
+          <div class="price-row cross"><span class="name">Dépose</span><span class="dots"></span><span class="price">10$ – 20$</span></div>
+        </div>
+      </div>
+
+      <div class="divider-cross" style="margin-top: 48px;">
+        <svg viewBox="0 0 24 36" width="22" height="22"><path d="M 12 0 L 14 8 L 22 10 L 22 14 L 14 16 L 14 32 L 12 36 L 10 32 L 10 16 L 2 14 L 2 10 L 10 8 Z" fill="#E2A9B3"/></svg>
+      </div>
+      <p style="text-align: center; font-size: 12px; letter-spacing: 0.25em; color: var(--argent-doux); text-transform: uppercase;">
+        ✠ Le prix dépend de la difficulté de l'art demandé ✠
+      </p>
+    </div>
+
+    <div style="text-align: center; margin-top: 48px;" class="fade-up">
+      <a href="/onglerie" class="btn btn-ghost">Voir tarifs onglerie complets</a>
+      &nbsp;
+      <a href="/epilation" class="btn btn-ghost">Voir tarifs épilation</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== À PROPOS TEASER ===== -->
+<section class="section">
+  <div class="container">
+    <div class="about-teaser">
+      <div class="about-img fade-up"></div>
+      <div class="about-text fade-up">
+        <div class="eyebrow">L'histoire</div>
+        <h2 class="title-metal">Une beauté qui ose le noir</h2>
+        <p>Black &amp; Beauty Studio est né d'une passion : celle de marier l'élégance gothique au raffinement royal. Dans notre studio privé montréalais, chaque cliente est traitée comme une reine.</p>
+        <p>Nos rituels d'onglerie acrylique et d'épilation à la cire sont pensés pour révéler la femme audacieuse en vous. Ambiance feutrée, hygiène impeccable, écoute attentive.</p>
+        <a href="/apropos" class="btn btn-ghost">Notre univers →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== INSTAGRAM ===== -->
+<section class="section" style="background: var(--noir-velours);">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="eyebrow">@blackbeautystudio.mtl</div>
+      <h2 class="title-metal">Notre Instagram</h2>
+      <p style="color: var(--argent-doux); font-size: 13px; letter-spacing: 0.2em; margin-top: 12px;">
+        SUIVEZ NOS DERNIÈRES CRÉATIONS
+      </p>
+    </div>
+    <div class="insta-grid fade-up">
+      <!-- 6 placeholders -->
+      <div class="insta-tile"><div class="placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></div></div>
+      <div class="insta-tile"><div class="placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></div></div>
+      <div class="insta-tile"><div class="placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></div></div>
+      <div class="insta-tile"><div class="placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></div></div>
+      <div class="insta-tile"><div class="placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></div></div>
+      <div class="insta-tile"><div class="placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></div></div>
+    </div>
+    <div style="text-align: center; margin-top: 40px;" class="fade-up">
+      <a href="https://instagram.com" target="_blank" class="btn btn-ghost">Suivre sur Instagram</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== POLITIQUES TEASER ===== -->
+<section class="section">
+  <div class="container-narrow">
+    <div class="section-header fade-up">
+      <div class="eyebrow">Avant votre venue</div>
+      <h2 class="title-metal">Politiques de réservation</h2>
+    </div>
+    <div class="policies-row fade-up">
+      <div class="policy-item">
+        <div class="icon">
+          <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="18" cy="18" r="14"/>
+            <path d="M 18 10 L 18 18 L 24 22"/>
+          </svg>
+        </div>
+        <h4>Dépôt 20$</h4>
+        <p>Un dépôt de 20$ est requis à la réservation, déduit du prix final.</p>
+      </div>
+      <div class="policy-item">
+        <div class="icon">
+          <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M 18 4 L 22 12 L 32 14 L 24 22 L 26 32 L 18 26 L 10 32 L 12 22 L 4 14 L 14 12 Z"/>
+          </svg>
+        </div>
+        <h4>Retard 15 min</h4>
+        <p>Annulation automatique passé 15 minutes de retard.</p>
+      </div>
+      <div class="policy-item">
+        <div class="icon">
+          <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="4" y="10" width="28" height="20" rx="2"/>
+            <path d="M 4 16 L 32 16"/>
+          </svg>
+        </div>
+        <h4>Comptant / Interac</h4>
+        <p>Paiement uniquement en argent comptant ou virement Interac.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA FINAL ===== -->
+<section class="cta-band">
+  <div class="container-narrow">
+    <div class="eyebrow fade-up">✠ Prête à oser ? ✠</div>
+    <h2 class="title-metal fade-up">Réservez votre rituel</h2>
+    <div class="script-deco fade-up">votre couronne vous attend</div>
+    <a href="/reservation" class="btn btn-primary fade-up">Réserver maintenant</a>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <a href="/" class="nav-logo" style="margin-bottom: 20px;">
+        <img src="assets/images/logo_nobg.png" alt="" style="height: 56px;">
+      </a>
+      <p style="color: var(--argent-doux); font-size: 13px; line-height: 1.8; max-width: 320px;">
+        Studio privé spécialisé en onglerie acrylique et épilation à la cire. Une beauté audacieuse, royale et gothique au cœur de Montréal.
+      </p>
+    </div>
+    <div>
+      <h4>Services</h4>
+      <a href="/onglerie">Onglerie</a>
+      <a href="/epilation">Épilation</a>
+      <a href="/galerie">Galerie</a>
+    </div>
+    <div>
+      <h4>Studio</h4>
+      <a href="/apropos">À propos</a>
+      <a href="/faq">FAQ</a>
+      <a href="/reservation">Réservation</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <a href="https://instagram.com" target="_blank">Instagram</a>
+      <a href="https://tiktok.com" target="_blank">TikTok</a>
+      <a href="mailto:contact@blackbeauty.ca">Email</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2026 Black &amp; Beauty Studio · Montréal · ✠ Merci pour votre confiance ✠
+  </div>
+</footer>
+
+<script src="assets/decor.js"></script>
+<script>
+  seedAmbiance(document.getElementById('ambiance-host'), { sparkles: 18, smokes: 6 });
+  initFadeUps();
+  setActiveNav('home');
+</script>
+</body>
+</html>

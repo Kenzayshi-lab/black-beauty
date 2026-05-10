@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Réservation — Black & Beauty Studio</title>
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .page-hero {
+    padding: 180px 24px 80px; text-align: center;
+    position: relative; overflow: hidden;
+    background: radial-gradient(ellipse at center, rgba(161,11,27,0.2) 0%, transparent 60%), var(--noir-profond);
+  }
+  .page-hero h1 { font-family: var(--titre-deco); font-size: clamp(48px, 8vw, 96px); margin: 16px 0; }
+  .page-hero .script-sub { font-family: var(--script); font-size: clamp(28px, 4vw, 42px); color: var(--rouge-rubis); }
+
+  .reserv-layout {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 48px;
+    max-width: 1280px; margin: 0 auto;
+  }
+  @media (max-width: 900px) { .reserv-layout { grid-template-columns: 1fr; } }
+
+  .amelia-zone {
+    background: var(--noir-velours);
+    border: 1px solid rgba(226,169,179,0.2);
+    padding: 40px;
+    min-height: 600px;
+    position: relative;
+  }
+  .amelia-placeholder {
+    text-align: center; padding: 80px 20px;
+    border: 2px dashed rgba(226,169,179,0.3);
+    color: var(--argent-doux);
+  }
+  .amelia-placeholder svg { width: 56px; height: 56px; color: var(--rouge-rubis); margin-bottom: 20px; }
+  .amelia-placeholder h3 {
+    font-family: var(--titre); font-size: 18px;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--rose-metal); margin-bottom: 16px;
+  }
+  .amelia-placeholder p { font-size: 14px; line-height: 1.8; max-width: 440px; margin: 0 auto 12px; }
+  .amelia-placeholder code {
+    font-family: monospace; font-size: 12px;
+    background: rgba(161,11,27,0.15);
+    padding: 4px 10px; border: 1px solid rgba(161,11,27,0.3);
+    color: var(--rose-poudre);
+  }
+
+  .policies-stack { display: flex; flex-direction: column; gap: 16px; }
+  .policy-block {
+    background: var(--noir-velours);
+    border: 1px solid rgba(226,169,179,0.2);
+    padding: 28px;
+    position: relative;
+    border-left: 3px solid var(--rouge-rubis);
+  }
+  .policy-block h4 {
+    font-family: var(--titre); font-size: 14px;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--rose-metal);
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 12px;
+  }
+  .policy-block .num {
+    width: 32px; height: 32px;
+    border: 1px solid var(--rouge-rubis);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--rouge-rubis); font-size: 14px;
+  }
+  .policy-block p { font-size: 14px; line-height: 1.7; color: var(--argent-givre); }
+  .policy-block strong { color: var(--rose-metal); font-weight: 500; }
+</style>
+</head>
+<body class="bg-marbre">
+
+<nav class="nav">
+  <a href="/" class="nav-logo"><img src="assets/images/logo_nobg.png" alt=""><span>Black &amp; Beauty</span></a>
+  <ul class="nav-links">
+    <li><a href="/" data-page="home">Accueil</a></li>
+    <li><a href="/onglerie" data-page="onglerie">Onglerie</a></li>
+    <li><a href="/epilation" data-page="epilation">Épilation</a></li>
+    <li><a href="/galerie" data-page="galerie">Galerie</a></li>
+    <li><a href="/apropos" data-page="apropos">À propos</a></li>
+    <li><a href="/faq" data-page="faq">FAQ</a></li>
+    <li><a href="/reservation" data-page="reservation" style="color: var(--rose-metal);">✠ Réserver</a></li>
+  </ul>
+</nav>
+
+<section class="page-hero" id="ambiance-host">
+  <div class="eyebrow">✠ Studio privé · Montréal ✠</div>
+  <h1 class="title-metal">Réservation</h1>
+  <div class="script-sub">votre couronne vous attend</div>
+</section>
+
+<section class="section">
+  <div class="reserv-layout">
+    <!-- Amelia -->
+    <div>
+      <div class="eyebrow" style="margin-bottom: 16px;">✠ Étape 1 : Choisir votre rituel ✠</div>
+      <h2 style="font-size: 36px; margin-bottom: 24px;" class="title-metal">Calendrier de réservation</h2>
+      <div class="amelia-zone">
+        <div class="amelia-placeholder">
+          <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="8" y="14" width="48" height="44" rx="4"/>
+            <path d="M 8 26 L 56 26 M 20 8 L 20 20 M 44 8 L 44 20"/>
+            <circle cx="20" cy="40" r="3" fill="currentColor"/>
+            <circle cx="32" cy="40" r="3" fill="currentColor"/>
+            <circle cx="44" cy="40" r="3" fill="currentColor"/>
+          </svg>
+          <h3>Module Amelia</h3>
+          <p>Le formulaire de réservation Amelia s'intégrera ici dans WordPress.</p>
+          <p>Insérer le shortcode : <code>[ameliabooking]</code></p>
+          <p style="margin-top: 24px; font-size: 12px; color: var(--rouge-rubis); letter-spacing: 0.2em;">
+            ✠ Sélection service · Date · Heure · Confirmation ✠
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Politiques -->
+    <div>
+      <div class="eyebrow" style="margin-bottom: 16px;">✠ À lire avant ✠</div>
+      <h2 style="font-size: 36px; margin-bottom: 24px;" class="title-metal">Politiques</h2>
+      <div class="policies-stack">
+        <div class="policy-block">
+          <h4><span class="num">1</span> Dépôt</h4>
+          <p>Un <strong>dépôt obligatoire de 20$</strong> est requis lors de la réservation. Ce montant est <strong>déduit du prix final</strong> de votre rendez-vous.</p>
+        </div>
+        <div class="policy-block">
+          <h4><span class="num">2</span> Retard</h4>
+          <p><strong>Annulation automatique</strong> du rendez-vous après <strong>15 minutes de retard</strong>. Le dépôt n'est pas remboursé.</p>
+        </div>
+        <div class="policy-block">
+          <h4><span class="num">3</span> Paiement</h4>
+          <p>Le solde se règle sur place en <strong>argent comptant</strong> ou par <strong>virement Interac</strong> uniquement.</p>
+        </div>
+        <div class="policy-block">
+          <h4><span class="num">4</span> Annulation</h4>
+          <p>Toute annulation doit être communiquée <strong>au moins 24h à l'avance</strong> pour conserver votre dépôt.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div><img src="assets/images/logo_nobg.png" style="height: 56px; margin-bottom: 20px;"><p style="color: var(--argent-doux); font-size: 13px; line-height: 1.8;">Studio privé · Montréal</p></div>
+    <div><h4>Services</h4><a href="/onglerie">Onglerie</a><a href="/epilation">Épilation</a><a href="/galerie">Galerie</a></div>
+    <div><h4>Studio</h4><a href="/apropos">À propos</a><a href="/faq">FAQ</a><a href="/reservation">Réservation</a></div>
+    <div><h4>Contact</h4><a href="https://instagram.com">Instagram</a><a href="https://tiktok.com">TikTok</a></div>
+  </div>
+  <div class="footer-bottom">© 2026 Black &amp; Beauty Studio · ✠ Merci pour votre confiance ✠</div>
+</footer>
+
+<script src="assets/decor.js"></script>
+<script>
+  seedAmbiance(document.getElementById('ambiance-host'), { sparkles: 10, smokes: 3 });
+  initFadeUps();
+  setActiveNav('reservation');
+</script>
+</body>
+</html>

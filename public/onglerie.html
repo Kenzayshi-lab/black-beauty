@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Onglerie acrylique — Black & Beauty Studio</title>
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .page-hero {
+    padding: 180px 24px 100px;
+    text-align: center;
+    position: relative; overflow: hidden;
+    background:
+      radial-gradient(ellipse at center, rgba(161,11,27,0.2) 0%, transparent 60%),
+      var(--noir-profond);
+  }
+  .page-hero h1 {
+    font-family: var(--titre-deco);
+    font-size: clamp(48px, 8vw, 96px);
+    margin: 16px 0;
+  }
+  .page-hero .script-sub {
+    font-family: var(--script);
+    font-size: clamp(28px, 4vw, 42px);
+    color: var(--rouge-rubis);
+  }
+
+  /* Affiche grande version */
+  .price-affiche {
+    max-width: 1100px; margin: 0 auto;
+    padding: 80px 60px;
+    background:
+      radial-gradient(ellipse at top left, rgba(161,11,27,0.18) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(107,5,16,0.15) 0%, transparent 55%),
+      var(--noir-velours);
+    border: 1px solid rgba(226,169,179,0.2);
+    position: relative;
+  }
+  .price-affiche::before {
+    content: ''; position: absolute; inset: 16px;
+    border: 1px solid rgba(226,169,179,0.1); pointer-events: none;
+  }
+  .affiche-header {
+    text-align: center; margin-bottom: 56px;
+  }
+  .affiche-header img { height: 100px; margin-bottom: 20px; }
+  .affiche-header h2 {
+    font-family: var(--titre-deco);
+    font-size: clamp(56px, 10vw, 110px);
+    line-height: 0.9;
+    letter-spacing: 0.04em;
+    margin: 16px 0;
+  }
+
+  .longueur-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 48px 0;
+  }
+  @media (max-width: 700px) { .longueur-grid { grid-template-columns: 1fr 1fr; } }
+  .longueur-card {
+    text-align: center;
+    padding: 28px 16px;
+    border: 1px solid rgba(226,169,179,0.2);
+    background: rgba(13,7,9,0.6);
+    transition: all 0.4s;
+  }
+  .longueur-card:hover {
+    border-color: var(--rose-metal);
+    box-shadow: 0 0 20px rgba(161,11,27,0.3);
+    transform: translateY(-4px);
+  }
+  .longueur-card .name {
+    font-family: var(--titre);
+    font-size: 13px; letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--rose-metal);
+    margin-bottom: 12px;
+  }
+  .longueur-card .prix {
+    font-family: var(--titre);
+    font-size: 36px; font-weight: 700;
+    color: var(--argent-givre);
+  }
+  .longueur-card .prix span { font-size: 18px; color: var(--rouge-rubis); }
+
+  .gallery-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-top: 80px;
+  }
+  @media (max-width: 700px) { .gallery-strip { grid-template-columns: 1fr 1fr; } }
+  .gallery-item {
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, rgba(161,11,27,0.15), var(--noir-marbre));
+    display: flex; align-items: center; justify-content: center;
+    color: var(--rose-metal); opacity: 0.7;
+    border: 1px solid rgba(226,169,179,0.1);
+    font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase;
+  }
+</style>
+</head>
+<body class="bg-marbre">
+
+<nav class="nav">
+  <a href="/" class="nav-logo"><img src="assets/images/logo_nobg.png" alt=""><span>Black &amp; Beauty</span></a>
+  <ul class="nav-links">
+    <li><a href="/" data-page="home">Accueil</a></li>
+    <li><a href="/onglerie" data-page="onglerie">Onglerie</a></li>
+    <li><a href="/epilation" data-page="epilation">Épilation</a></li>
+    <li><a href="/galerie" data-page="galerie">Galerie</a></li>
+    <li><a href="/apropos" data-page="apropos">À propos</a></li>
+    <li><a href="/faq" data-page="faq">FAQ</a></li>
+    <li><a href="/reservation" data-page="reservation" style="color: var(--rose-metal);">✠ Réserver</a></li>
+  </ul>
+</nav>
+
+<section class="page-hero" id="ambiance-host">
+  <div class="eyebrow">✠ Acrylique premium ✠</div>
+  <h1 class="title-metal">Onglerie</h1>
+  <div class="script-sub">l'art au bout des doigts</div>
+</section>
+
+<section class="section">
+  <div class="price-affiche">
+    <div class="affiche-header">
+      <img src="assets/images/logo_nobg.png" alt="">
+      <div class="eyebrow">✠ Liste de prix ✠</div>
+      <h2 class="title-metal">Acrylique</h2>
+    </div>
+
+    <div class="longueur-grid">
+      <div class="longueur-card"><div class="name">Small</div><div class="prix">30<span>$</span></div></div>
+      <div class="longueur-card"><div class="name">Medium</div><div class="prix">40<span>$</span></div></div>
+      <div class="longueur-card"><div class="name">Large</div><div class="prix">50<span>$</span></div></div>
+      <div class="longueur-card"><div class="name">XLarge</div><div class="prix">60<span>$</span></div></div>
+      <div class="longueur-card"><div class="name">XXLarge</div><div class="prix">70<span>$</span></div></div>
+      <div class="longueur-card"><div class="name">XXXLarge</div><div class="prix">80<span>$</span></div></div>
+    </div>
+
+    <div class="divider-cross">
+      <svg viewBox="0 0 24 36" width="22" height="22"><path d="M 12 0 L 14 8 L 22 10 L 22 14 L 14 16 L 14 32 L 12 36 L 10 32 L 10 16 L 2 14 L 2 10 L 10 8 Z" fill="#A10B1B"/></svg>
+    </div>
+
+    <div class="price-list" style="margin-top: 32px;">
+      <div class="price-list-col">
+        <h3>Extras</h3>
+        <div class="price-row cross"><span class="name">Nail Art</span><span class="dots"></span><span class="price">5$ – 25$</span></div>
+        <div class="price-row cross"><span class="name">Décorations (chaque)</span><span class="dots"></span><span class="price">1$ – 5$</span></div>
+        <div class="price-row cross"><span class="name">Matte Top Coat</span><span class="dots"></span><span class="price">5$</span></div>
+        <div class="price-row cross"><span class="name">French</span><span class="dots"></span><span class="price">10$</span></div>
+      </div>
+      <div class="price-list-col">
+        <h3>Réparations &amp; Dépose</h3>
+        <div class="price-row cross"><span class="name">Réparation (chaque)</span><span class="dots"></span><span class="price">2,50$</span></div>
+        <div class="price-row cross"><span class="name">Dépose</span><span class="dots"></span><span class="price">10$</span></div>
+        <div class="price-row cross"><span class="name">Dépose ailleurs</span><span class="dots"></span><span class="price">20$</span></div>
+      </div>
+    </div>
+
+    <p style="text-align: center; margin-top: 48px; font-size: 12px; letter-spacing: 0.25em; color: var(--argent-doux); text-transform: uppercase;">
+      ✠ Le prix dépend de la difficulté de l'art demandé ✠
+    </p>
+
+    <div style="text-align: center; margin-top: 32px;">
+      <p class="script" style="font-size: 36px; color: var(--rose-metal);">Merci pour votre confiance</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="eyebrow">Portfolio</div>
+      <h2 class="title-metal">Quelques créations</h2>
+    </div>
+    <div class="gallery-strip fade-up">
+      <div class="gallery-item">Photo 1</div>
+      <div class="gallery-item">Photo 2</div>
+      <div class="gallery-item">Photo 3</div>
+      <div class="gallery-item">Photo 4</div>
+      <div class="gallery-item">Photo 5</div>
+      <div class="gallery-item">Photo 6</div>
+      <div class="gallery-item">Photo 7</div>
+      <div class="gallery-item">Photo 8</div>
+    </div>
+    <div style="text-align: center; margin-top: 48px;">
+      <a href="/reservation" class="btn btn-primary">Réserver mon set</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div><img src="assets/images/logo_nobg.png" style="height: 56px; margin-bottom: 20px;"><p style="color: var(--argent-doux); font-size: 13px; line-height: 1.8;">Studio privé · Montréal</p></div>
+    <div><h4>Services</h4><a href="/onglerie">Onglerie</a><a href="/epilation">Épilation</a><a href="/galerie">Galerie</a></div>
+    <div><h4>Studio</h4><a href="/apropos">À propos</a><a href="/faq">FAQ</a><a href="/reservation">Réservation</a></div>
+    <div><h4>Contact</h4><a href="https://instagram.com">Instagram</a><a href="https://tiktok.com">TikTok</a></div>
+  </div>
+  <div class="footer-bottom">© 2026 Black &amp; Beauty Studio · ✠ Merci pour votre confiance ✠</div>
+</footer>
+
+<script src="assets/decor.js"></script>
+<script>
+  seedAmbiance(document.getElementById('ambiance-host'), { sparkles: 12, smokes: 4 });
+  initFadeUps();
+  setActiveNav('onglerie');
+</script>
+</body>
+</html>

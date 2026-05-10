@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Galerie — Black & Beauty Studio</title>
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .page-hero { padding: 180px 24px 80px; text-align: center; position: relative; overflow: hidden; background: radial-gradient(ellipse at center, rgba(161,11,27,0.2) 0%, transparent 60%), var(--noir-profond); }
+  .page-hero h1 { font-family: var(--titre-deco); font-size: clamp(48px, 8vw, 96px); margin: 16px 0; }
+  .page-hero .script-sub { font-family: var(--script); font-size: clamp(28px, 4vw, 42px); color: var(--rouge-rubis); }
+
+  .filter-bar { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-bottom: 56px; }
+  .filter-chip {
+    padding: 10px 24px;
+    border: 1px solid rgba(226,169,179,0.2);
+    background: transparent;
+    color: var(--argent-givre);
+    font-family: var(--titre);
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .filter-chip:hover { border-color: var(--rose-metal); color: var(--rose-metal); }
+  .filter-chip.active { background: var(--gradient-rubis); border-color: var(--rouge-rubis); color: var(--rose-poudre); box-shadow: 0 0 16px rgba(161,11,27,0.4); }
+
+  .masonry {
+    columns: 4 280px;
+    column-gap: 12px;
+  }
+  .masonry-item {
+    break-inside: avoid;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, rgba(161,11,27,0.15), var(--noir-marbre));
+    border: 1px solid rgba(226,169,179,0.1);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--rose-metal); opacity: 0.85;
+    font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.4s;
+    position: relative; overflow: hidden;
+  }
+  .masonry-item:hover { opacity: 1; border-color: var(--rose-metal); transform: scale(1.02); box-shadow: 0 8px 30px rgba(161,11,27,0.3); }
+  .masonry-item .label { position: relative; z-index: 2; padding: 12px; text-align: center; }
+  .masonry-item.h1 { aspect-ratio: 1; }
+  .masonry-item.h2 { aspect-ratio: 3/4; }
+  .masonry-item.h3 { aspect-ratio: 4/5; }
+  .masonry-item.h4 { aspect-ratio: 2/3; }
+
+  /* Avant/Après section */
+  .ba-section { padding: 100px 24px; background: var(--noir-velours); }
+  .ba-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; max-width: 1100px; margin: 0 auto; }
+  @media (max-width: 700px) { .ba-grid { grid-template-columns: 1fr; } }
+  .ba-card {
+    border: 1px solid rgba(226,169,179,0.2);
+    background: var(--noir-marbre);
+    overflow: hidden;
+    position: relative;
+  }
+  .ba-card .ba-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    aspect-ratio: 16/9;
+  }
+  .ba-card .ba-half {
+    position: relative;
+    background: linear-gradient(135deg, rgba(161,11,27,0.15), var(--noir-marbre));
+    display: flex; align-items: center; justify-content: center;
+    color: var(--rose-metal);
+    border-right: 1px solid rgba(226,169,179,0.2);
+  }
+  .ba-card .ba-half:last-child { border-right: 0; background: linear-gradient(135deg, rgba(226,169,179,0.15), var(--noir-marbre)); }
+  .ba-card .ba-half .tag {
+    position: absolute; top: 12px; left: 12px;
+    padding: 6px 14px;
+    background: rgba(5,5,5,0.85);
+    font-family: var(--titre);
+    font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+    border: 1px solid rgba(226,169,179,0.3);
+  }
+  .ba-card .ba-half.before .tag { color: var(--argent-doux); }
+  .ba-card .ba-half.after .tag { color: var(--rose-metal); border-color: var(--rouge-rubis); }
+  .ba-card .ba-info { padding: 24px; }
+  .ba-card h3 { font-size: 16px; letter-spacing: 0.2em; color: var(--rose-metal); margin-bottom: 8px; }
+  .ba-card p { font-size: 13px; color: var(--argent-doux); }
+</style>
+</head>
+<body class="bg-marbre">
+
+<nav class="nav">
+  <a href="/" class="nav-logo"><img src="assets/images/logo_nobg.png" alt=""><span>Black &amp; Beauty</span></a>
+  <ul class="nav-links">
+    <li><a href="/" data-page="home">Accueil</a></li>
+    <li><a href="/onglerie" data-page="onglerie">Onglerie</a></li>
+    <li><a href="/epilation" data-page="epilation">Épilation</a></li>
+    <li><a href="/galerie" data-page="galerie">Galerie</a></li>
+    <li><a href="/apropos" data-page="apropos">À propos</a></li>
+    <li><a href="/faq" data-page="faq">FAQ</a></li>
+    <li><a href="/reservation" data-page="reservation" style="color: var(--rose-metal);">✠ Réserver</a></li>
+  </ul>
+</nav>
+
+<section class="page-hero" id="ambiance-host">
+  <div class="eyebrow">✠ Portfolio ✠</div>
+  <h1 class="title-metal">Galerie</h1>
+  <div class="script-sub">l'art au bout des doigts</div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="filter-bar">
+      <button class="filter-chip active">Tout</button>
+      <button class="filter-chip">French</button>
+      <button class="filter-chip">Nail Art</button>
+      <button class="filter-chip">Gothique</button>
+      <button class="filter-chip">Strass &amp; Décor</button>
+      <button class="filter-chip">Saisonnier</button>
+    </div>
+
+    <div class="masonry">
+      <div class="masonry-item h2" style="background:url(assets/images/gallery-2.jpg) center/cover no-repeat;"><span class="label" style="background:rgba(5,5,5,0.5);">French rouge</span></div>
+      <div class="masonry-item h1" style="background:url(assets/images/gallery-1.jpg) center/cover no-repeat;"><span class="label" style="background:rgba(5,5,5,0.5);">Nail art</span></div>
+      <div class="masonry-item h3"><span class="label">Photo 03<br>Gothique</span></div>
+      <div class="masonry-item h4"><span class="label">Photo 04<br>Strass</span></div>
+      <div class="masonry-item h1"><span class="label">Photo 05<br>Matte black</span></div>
+      <div class="masonry-item h2"><span class="label">Photo 06<br>French</span></div>
+      <div class="masonry-item h3"><span class="label">Photo 07<br>Royal red</span></div>
+      <div class="masonry-item h1"><span class="label">Photo 08<br>Croix</span></div>
+      <div class="masonry-item h4"><span class="label">Photo 09<br>Marbre</span></div>
+      <div class="masonry-item h2"><span class="label">Photo 10<br>Pointu</span></div>
+      <div class="masonry-item h1"><span class="label">Photo 11<br>Stiletto</span></div>
+      <div class="masonry-item h3"><span class="label">Photo 12<br>Almond</span></div>
+    </div>
+
+    <p style="text-align: center; margin-top: 32px; font-size: 12px; letter-spacing: 0.25em; color: var(--argent-doux); text-transform: uppercase;">
+      ✠ Placeholders — vos photos viendront ici ✠
+    </p>
+  </div>
+</section>
+
+<section class="ba-section">
+  <div class="container">
+    <div class="section-header fade-up">
+      <div class="eyebrow">✠ Transformations ✠</div>
+      <h2 class="title-metal">Avant · Après</h2>
+    </div>
+
+    <div class="ba-grid">
+      <div class="ba-card fade-up">
+        <div class="ba-images">
+          <div class="ba-half before"><span class="tag">Avant</span><span style="opacity: 0.4;">Photo</span></div>
+          <div class="ba-half after"><span class="tag">Après</span><span style="opacity: 0.4;">Photo</span></div>
+        </div>
+        <div class="ba-info"><h3>Reconstruction XXL</h3><p>Pose complète après dépose d'un travail extérieur. Forme amande, finition matte top coat.</p></div>
+      </div>
+
+      <div class="ba-card fade-up" style="transition-delay: 0.1s;">
+        <div class="ba-images">
+          <div class="ba-half before"><span class="tag">Avant</span><span style="opacity: 0.4;">Photo</span></div>
+          <div class="ba-half after"><span class="tag">Après</span><span style="opacity: 0.4;">Photo</span></div>
+        </div>
+        <div class="ba-info"><h3>French gothique</h3><p>Pose Medium avec french bordeaux, scintillements rouges en bord libre.</p></div>
+      </div>
+
+      <div class="ba-card fade-up">
+        <div class="ba-images">
+          <div class="ba-half before"><span class="tag">Avant</span><span style="opacity: 0.4;">Photo</span></div>
+          <div class="ba-half after"><span class="tag">Après</span><span style="opacity: 0.4;">Photo</span></div>
+        </div>
+        <div class="ba-info"><h3>Nail art croix</h3><p>Pose Large avec hand-painted gothic crosses sur fond noir mat.</p></div>
+      </div>
+
+      <div class="ba-card fade-up" style="transition-delay: 0.1s;">
+        <div class="ba-images">
+          <div class="ba-half before"><span class="tag">Avant</span><span style="opacity: 0.4;">Photo</span></div>
+          <div class="ba-half after"><span class="tag">Après</span><span style="opacity: 0.4;">Photo</span></div>
+        </div>
+        <div class="ba-info"><h3>Stiletto royal</h3><p>Pose XXXLarge stiletto, finition rose chromé avec strass appliqués.</p></div>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 56px;">
+      <a href="/reservation" class="btn btn-primary">Ma transformation</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div><img src="assets/images/logo_nobg.png" style="height: 56px; margin-bottom: 20px;"><p style="color: var(--argent-doux); font-size: 13px; line-height: 1.8;">Studio privé · Montréal</p></div>
+    <div><h4>Services</h4><a href="/onglerie">Onglerie</a><a href="/epilation">Épilation</a><a href="/galerie">Galerie</a></div>
+    <div><h4>Studio</h4><a href="/apropos">À propos</a><a href="/faq">FAQ</a><a href="/reservation">Réservation</a></div>
+    <div><h4>Contact</h4><a href="https://instagram.com">Instagram</a><a href="https://tiktok.com">TikTok</a></div>
+  </div>
+  <div class="footer-bottom">© 2026 Black &amp; Beauty Studio · ✠ Merci pour votre confiance ✠</div>
+</footer>
+
+<script src="assets/decor.js"></script>
+<script>
+  seedAmbiance(document.getElementById('ambiance-host'), { sparkles: 8, smokes: 3 });
+  initFadeUps();
+  setActiveNav('galerie');
+
+  // Filter chips
+  document.querySelectorAll('.filter-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>
