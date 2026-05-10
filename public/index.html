@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Black & Beauty Studio — Onglerie & Épilation Royale | Montréal</title>
-<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="/assets/styles.css">
 <style>
   /* —— Hero théâtral —— */
   .hero {
@@ -220,13 +220,16 @@
   }
   .policy-item p { font-size: 13px; color: var(--argent-doux); }
 </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cinzel+Decorative:wght@400;700;900&family=Montserrat:wght@200;300;400;500;600;700&family=Italianno&display=swap" rel="stylesheet">
 </head>
 <body class="bg-marbre">
 
 <!-- ===== NAV ===== -->
 <nav class="nav">
   <a href="/" class="nav-logo">
-    <img src="assets/images/logo_nobg.png" alt="Black & Beauty Studio">
+    <img src="/assets/images/logo.png" alt="Black & Beauty Studio">
     <span>Black &amp; Beauty</span>
   </a>
   <ul class="nav-links">
@@ -244,7 +247,7 @@
 <section class="hero" id="ambiance-host">
   <div class="hero-bg"></div>
   <div class="hero-content">
-    <img src="assets/images/logo_nobg.png" alt="Black & Beauty Studio" class="hero-logo">
+    <img src="/assets/images/logo.png" alt="Black & Beauty Studio" class="hero-logo">
     <div class="eyebrow" style="margin-bottom: 14px;">✠ Montréal · Studio privé ✠</div>
     <h1 class="title-metal">Black &amp; Beauty Studio</h1>
     <div class="tagline script">L'art de la beauté, version royale</div>
@@ -464,7 +467,7 @@
   <div class="footer-grid">
     <div>
       <a href="/" class="nav-logo" style="margin-bottom: 20px;">
-        <img src="assets/images/logo_nobg.png" alt="" style="height: 56px;">
+        <img src="/assets/images/logo.png" alt="" style="height: 56px;">
       </a>
       <p style="color: var(--argent-doux); font-size: 13px; line-height: 1.8; max-width: 320px;">
         Studio privé spécialisé en onglerie acrylique et épilation à la cire. Une beauté audacieuse, royale et gothique au cœur de Montréal.
@@ -494,7 +497,7 @@
   </div>
 </footer>
 
-<script src="assets/decor.js"></script>
+<script src="/assets/decor.js"></script>
 <script>
   seedAmbiance(document.getElementById('ambiance-host'), { sparkles: 18, smokes: 6 });
   initFadeUps();

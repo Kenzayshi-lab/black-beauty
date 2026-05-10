@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Réservation — Black & Beauty Studio</title>
-<link rel="stylesheet" href="assets/styles.css">
+<link rel="stylesheet" href="/assets/styles.css">
 <style>
   .page-hero {
     padding: 180px 24px 80px; text-align: center;
@@ -73,11 +73,14 @@
   .policy-block p { font-size: 14px; line-height: 1.7; color: var(--argent-givre); }
   .policy-block strong { color: var(--rose-metal); font-weight: 500; }
 </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cinzel+Decorative:wght@400;700;900&family=Montserrat:wght@200;300;400;500;600;700&family=Italianno&display=swap" rel="stylesheet">
 </head>
 <body class="bg-marbre">
 
 <nav class="nav">
-  <a href="/" class="nav-logo"><img src="assets/images/logo_nobg.png" alt=""><span>Black &amp; Beauty</span></a>
+  <a href="/" class="nav-logo"><img src="/assets/images/logo.png" alt=""><span>Black &amp; Beauty</span></a>
   <ul class="nav-links">
     <li><a href="/" data-page="home">Accueil</a></li>
     <li><a href="/onglerie" data-page="onglerie">Onglerie</a></li>
@@ -148,7 +151,7 @@
 
 <footer class="footer">
   <div class="footer-grid">
-    <div><img src="assets/images/logo_nobg.png" style="height: 56px; margin-bottom: 20px;"><p style="color: var(--argent-doux); font-size: 13px; line-height: 1.8;">Studio privé · Montréal</p></div>
+    <div><img src="/assets/images/logo.png" style="height: 56px; margin-bottom: 20px;"><p style="color: var(--argent-doux); font-size: 13px; line-height: 1.8;">Studio privé · Montréal</p></div>
     <div><h4>Services</h4><a href="/onglerie">Onglerie</a><a href="/epilation">Épilation</a><a href="/galerie">Galerie</a></div>
     <div><h4>Studio</h4><a href="/apropos">À propos</a><a href="/faq">FAQ</a><a href="/reservation">Réservation</a></div>
     <div><h4>Contact</h4><a href="https://instagram.com">Instagram</a><a href="https://tiktok.com">TikTok</a></div>
@@ -156,7 +159,7 @@
   <div class="footer-bottom">© 2026 Black &amp; Beauty Studio · ✠ Merci pour votre confiance ✠</div>
 </footer>
 
-<script src="assets/decor.js"></script>
+<script src="/assets/decor.js"></script>
 <script>
   seedAmbiance(document.getElementById('ambiance-host'), { sparkles: 10, smokes: 3 });
   initFadeUps();
