@@ -166,9 +166,26 @@ window.initMobileNav = function() {
   document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
 };
 
-// Auto-initialisation du menu mobile sur chaque page
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', window.initMobileNav);
-} else {
+// Liens légaux ajoutés au bas de page (toutes les pages, sans modifier chaque footer)
+window.initLegalFooterLinks = function() {
+  const bottom = document.querySelector('.footer-bottom');
+  if (!bottom || bottom.querySelector('.legal-links')) return;
+  const wrap = document.createElement('div');
+  wrap.className = 'legal-links';
+  wrap.innerHTML =
+    '<a href="/politique-confidentialite">Confidentialité</a>' +
+    '<span aria-hidden="true">✠</span>' +
+    '<a href="/politique-securite">Sécurité</a>';
+  bottom.appendChild(wrap);
+};
+
+// Auto-initialisation sur chaque page
+window.initSiteChrome = function() {
   window.initMobileNav();
+  window.initLegalFooterLinks();
+};
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', window.initSiteChrome);
+} else {
+  window.initSiteChrome();
 }

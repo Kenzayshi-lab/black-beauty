@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Politique de sécurité — Black & Beauty Studio</title>
+<meta name="description" content="Politique de sécurité et de cybersécurité de Black & Beauty Studio : mesures de protection des données et procédure de divulgation responsable des vulnérabilités.">
+<meta name="robots" content="index, follow">
+<link rel="stylesheet" href="/assets/styles.css">
+<style>
+  .page-hero { padding: 180px 24px 70px; text-align: center; position: relative; overflow: hidden; background: radial-gradient(ellipse at center, rgba(161,11,27,0.2) 0%, transparent 60%), var(--noir-profond); }
+  .page-hero h1 { font-family: var(--titre-deco); font-size: clamp(36px, 6vw, 72px); margin: 16px 0; }
+  .page-hero .script-sub { font-family: var(--script); font-size: clamp(26px, 4vw, 40px); color: var(--rouge-rubis); }
+
+  .legal { max-width: 880px; margin: 0 auto; }
+  .legal-meta { text-align: center; margin-bottom: 56px; font-size: 12px; letter-spacing: 0.15em; color: var(--argent-doux); line-height: 2; }
+
+  .legal section.block { margin-bottom: 44px; scroll-margin-top: 110px; }
+  .legal h2.block-title {
+    font-family: var(--titre); font-size: clamp(18px, 3vw, 22px);
+    letter-spacing: 0.14em; color: var(--rose-metal);
+    display: flex; align-items: baseline; gap: 14px;
+    padding-bottom: 14px; margin-bottom: 20px;
+    border-bottom: 1px solid rgba(226,169,179,0.15);
+  }
+  .legal h2.block-title .n { color: var(--rouge-rubis); font-size: 15px; }
+  .legal p { font-size: 14.5px; line-height: 1.9; color: var(--argent-givre); margin-bottom: 16px; }
+  .legal ul { margin: 0 0 16px 0; padding-left: 22px; }
+  .legal li { font-size: 14.5px; line-height: 1.85; color: var(--argent-givre); margin-bottom: 8px; }
+  .legal strong { color: var(--rose-metal); font-weight: 500; }
+  .legal a.inline { color: var(--rose-metal); text-decoration: underline; text-underline-offset: 3px; }
+  .legal code { font-family: monospace; font-size: 12.5px; background: rgba(161,11,27,0.15); border: 1px solid rgba(161,11,27,0.3); color: var(--rose-poudre); padding: 2px 7px; }
+
+  .measure-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 8px 0 8px; }
+  @media (max-width: 640px) { .measure-grid { grid-template-columns: 1fr; } }
+  .measure {
+    background: var(--noir-velours); border: 1px solid rgba(226,169,179,0.18);
+    border-top: 2px solid var(--rouge-rubis); padding: 22px 24px;
+  }
+  .measure h3 { font-family: var(--titre); font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rose-metal); margin-bottom: 10px; }
+  .measure p { font-size: 13.5px; line-height: 1.75; margin: 0; color: var(--argent-doux); }
+
+  .callout { background: var(--noir-velours); border: 1px solid rgba(226,169,179,0.2); padding: 24px 28px; margin: 8px 0 16px; border-left: 3px solid var(--rouge-rubis); }
+  .todo { color: var(--rose-poudre); background: rgba(161,11,27,0.14); border: 1px solid rgba(161,11,27,0.3); padding: 1px 8px; font-size: 12.5px; }
+</style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cinzel+Decorative:wght@400;700;900&family=Montserrat:wght@200;300;400;500;600;700&family=Italianno&display=swap" rel="stylesheet">
+</head>
+<body class="bg-marbre">
+
+<nav class="nav">
+  <a href="/" class="nav-logo"><img src="/assets/images/logo.png" alt=""><span>Black &amp; Beauty</span></a>
+  <ul class="nav-links">
+    <li><a href="/" data-page="home">Accueil</a></li>
+    <li><a href="/onglerie" data-page="onglerie">Onglerie</a></li>
+    <li><a href="/epilation" data-page="epilation">Épilation</a></li>
+    <li><a href="/galerie" data-page="galerie">Galerie</a></li>
+    <li><a href="/apropos" data-page="apropos">À propos</a></li>
+    <li><a href="/faq" data-page="faq">FAQ</a></li>
+    <li><a href="/reservation" data-page="reservation" style="color: var(--rose-metal);">✠ Réserver</a></li>
+  </ul>
+</nav>
+
+<section class="page-hero" id="ambiance-host">
+  <div class="eyebrow">✠ Protection &amp; cybersécurité ✠</div>
+  <h1 class="title-metal">Politique de sécurité</h1>
+  <div class="script-sub">un studio, un rempart</div>
+</section>
+
+<section class="section">
+  <div class="legal">
+    <div class="legal-meta">
+      Dernière mise à jour : <strong style="color:var(--rose-metal)">8 septembre 2026</strong><br>
+      Cette politique complète notre <a class="inline" href="/politique-confidentialite">Politique de confidentialité</a>.
+    </div>
+
+    <section class="block">
+      <h2 class="block-title"><span class="n">01</span> Notre engagement</h2>
+      <p>La confiance de nos clientes est précieuse. Nous nous engageons à protéger les renseignements que vous nous confiez ainsi que l'intégrité de ce site au moyen de mesures de sécurité <strong>techniques</strong> et <strong>organisationnelles</strong> proportionnées aux risques. Aucune information sensible n'est stockée sur ce site : il s'agit d'un site vitrine statique, sans base de données de clientes ni système de paiement en ligne.</p>
+    </section>
+
+    <section class="block">
+      <h2 class="block-title"><span class="n">02</span> Mesures techniques du site</h2>
+      <div class="measure-grid">
+        <div class="measure">
+          <h3>Chiffrement (HTTPS)</h3>
+          <p>Toutes les connexions sont chiffrées en TLS. La politique <code>HSTS</code> force l'usage du HTTPS et empêche toute connexion non sécurisée.</p>
+        </div>
+        <div class="measure">
+          <h3>Anti-injection (CSP)</h3>
+          <p>Une <em>Content Security Policy</em> restreint les sources de scripts, styles et images afin de contrer les attaques par injection de code (XSS).</p>
+        </div>
+        <div class="measure">
+          <h3>Anti-détournement</h3>
+          <p><code>X-Frame-Options</code> et <code>frame-ancestors</code> empêchent l'intégration du site dans un cadre malveillant (clickjacking).</p>
+        </div>
+        <div class="measure">
+          <h3>En-têtes durcis</h3>
+          <p><code>X-Content-Type-Options</code>, <code>Referrer-Policy</code> et <code>Permissions-Policy</code> limitent les fuites d'information et l'accès aux fonctions sensibles du navigateur.</p>
+        </div>
+        <div class="measure">
+          <h3>Hébergement sécurisé</h3>
+          <p>Le site est hébergé sur une infrastructure professionnelle (Vercel) offrant redondance, certificats gérés et protection réseau.</p>
+        </div>
+        <div class="measure">
+          <h3>Aucune donnée de paiement</h3>
+          <p>Aucun numéro de carte n'est saisi ni stocké. Les paiements se font en argent comptant ou par virement Interac, hors du site.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2 class="block-title"><span class="n">03</span> Mesures organisationnelles</h2>
+      <ul>
+        <li><strong>Accès limité</strong> — seules les personnes autorisées du Studio ont accès aux renseignements des clientes, selon le principe du besoin d'en connaître.</li>
+        <li><strong>Comptes protégés</strong> — les comptes utilisés pour les communications (Instagram, courriel) sont protégés par des mots de passe robustes et l'authentification à deux facteurs lorsque disponible.</li>
+        <li><strong>Appareils sécurisés</strong> — les appareils servant à gérer les rendez-vous sont verrouillés et tenus à jour.</li>
+        <li><strong>Minimisation</strong> — nous ne collectons que le nécessaire et supprimons ce qui ne l'est plus.</li>
+        <li><strong>Sensibilisation</strong> — vigilance constante face à l'hameçonnage et aux tentatives d'usurpation.</li>
+      </ul>
+    </section>
+
+    <section class="block">
+      <h2 class="block-title"><span class="n">04</span> Divulgation responsable d'une vulnérabilité</h2>
+      <p>Si vous êtes chercheuse ou chercheur en sécurité et découvrez une faille sur ce site, nous vous invitons à nous la signaler de façon responsable. Nous nous engageons à ne pas entreprendre de poursuite à l'encontre des personnes agissant de <strong>bonne foi</strong>, sans porter atteinte aux données ni au service.</p>
+      <div class="callout">
+        <p style="margin:0">
+          <strong>Signalement :</strong> <a class="inline" href="mailto:contact@blackbeauty.ca?subject=S%C3%A9curit%C3%A9%20-%20signalement%20de%20vuln%C3%A9rabilit%C3%A9">contact@blackbeauty.ca</a><br>
+          <strong>Détails machine :</strong> <a class="inline" href="/.well-known/security.txt">/.well-known/security.txt</a><br>
+          <strong>Délai de réponse visé :</strong> 5 jours ouvrables.
+        </p>
+      </div>
+      <p style="font-size:13.5px;color:var(--argent-doux)">Merci de <strong>ne pas</strong> divulguer publiquement la faille avant que nous ayons eu l'occasion de la corriger, de ne pas accéder à des données qui ne vous appartiennent pas et de ne pas dégrader le service (pas de déni de service, pas d'ingénierie sociale de notre clientèle).</p>
+    </section>
+
+    <section class="block">
+      <h2 class="block-title"><span class="n">05</span> Gestion des incidents</h2>
+      <p>En cas d'incident de sécurité touchant des renseignements personnels, nous appliquons la procédure décrite dans notre <a class="inline" href="/politique-confidentialite#incident">Politique de confidentialité</a> : réduction des conséquences, tenue d'un registre, et notification des personnes concernées et de la Commission d'accès à l'information lorsqu'un risque de préjudice sérieux existe.</p>
+    </section>
+
+    <section class="block">
+      <h2 class="block-title"><span class="n">06</span> Limites</h2>
+      <p>Aucun système n'est infaillible. Malgré nos efforts pour appliquer les meilleures pratiques, nous ne pouvons garantir une sécurité absolue. Nous améliorons nos mesures de façon continue et vous invitons à protéger de votre côté vos propres accès (mots de passe, appareils).</p>
+    </section>
+
+    <section class="block">
+      <h2 class="block-title"><span class="n">07</span> Nous joindre</h2>
+      <div class="callout">
+        <p style="margin:0">
+          <strong>Black &amp; Beauty Studio</strong> — Montréal (Québec)<br>
+          Sécurité &amp; confidentialité : <a class="inline" href="mailto:contact@blackbeauty.ca">contact@blackbeauty.ca</a>
+        </p>
+      </div>
+    </section>
+
+    <div style="text-align:center;margin-top:56px;">
+      <a href="/politique-confidentialite" class="btn btn-ghost">← Politique de confidentialité</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div><img src="/assets/images/logo.png" alt="" style="height: 56px; margin-bottom: 20px;"><p style="color: var(--argent-doux); font-size: 13px; line-height: 1.8;">Studio privé · Montréal</p></div>
+    <div><h4>Services</h4><a href="/onglerie">Onglerie</a><a href="/epilation">Épilation</a><a href="/galerie">Galerie</a></div>
+    <div><h4>Studio</h4><a href="/apropos">À propos</a><a href="/faq">FAQ</a><a href="/reservation">Réservation</a></div>
+    <div><h4>Contact</h4><a href="https://www.instagram.com/black_and_beauty_studio/">Instagram</a><a href="https://tiktok.com">TikTok</a></div>
+  </div>
+  <div class="footer-bottom">© 2026 Black &amp; Beauty Studio · ✠ Merci pour votre confiance ✠</div>
+</footer>
+
+<script src="/assets/decor.js"></script>
+<script>
+  seedAmbiance(document.getElementById('ambiance-host'), { sparkles: 8, smokes: 3 });
+  initFadeUps();
+</script>
+</body>
+</html>

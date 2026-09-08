@@ -1,0 +1,10 @@
+# Black & Beauty Studio — politique de divulgation responsable
+# https://tools.ietf.org/html/rfc9116
+
+Contact: mailto:contact@blackbeauty.ca
+Expires: 2027-09-08T00:00:00.000Z
+Preferred-Languages: fr, en
+Policy: /politique-securite
+
+# Merci de signaler toute vulnérabilité de bonne foi.
+# Ne pas divulguer publiquement avant correction ; ne pas dégrader le service.
