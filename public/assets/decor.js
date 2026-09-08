@@ -112,7 +112,63 @@ window.initFadeUps = function() {
 
 // Nav active
 window.setActiveNav = function(page) {
-  document.querySelectorAll('.nav-links a').forEach(a => {
+  document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(a => {
     if (a.dataset.page === page) a.classList.add('active');
   });
 };
+
+// Menu mobile — construit à partir de .nav-links existant (aucune modif du HTML/nav requise)
+window.initMobileNav = function() {
+  const nav = document.querySelector('.nav');
+  if (!nav || nav.querySelector('.nav-toggle')) return;
+  const links = nav.querySelector('.nav-links');
+  if (!links) return;
+
+  // Bouton hamburger
+  const toggle = document.createElement('button');
+  toggle.className = 'nav-toggle';
+  toggle.type = 'button';
+  toggle.setAttribute('aria-label', 'Ouvrir le menu');
+  toggle.setAttribute('aria-expanded', 'false');
+  toggle.innerHTML = '<span></span><span></span><span></span>';
+  nav.appendChild(toggle);
+
+  // Panneau plein écran cloné depuis les liens existants
+  const panel = document.createElement('div');
+  panel.className = 'mobile-menu';
+  const list = document.createElement('ul');
+  links.querySelectorAll('a').forEach(a => {
+    const li = document.createElement('li');
+    li.appendChild(a.cloneNode(true));
+    list.appendChild(li);
+  });
+  panel.appendChild(list);
+  document.body.appendChild(panel);
+
+  const close = () => {
+    panel.classList.remove('open');
+    toggle.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Ouvrir le menu');
+    document.body.style.overflow = '';
+  };
+  const open = () => {
+    panel.classList.add('open');
+    toggle.classList.add('open');
+    toggle.setAttribute('aria-expanded', 'true');
+    toggle.setAttribute('aria-label', 'Fermer le menu');
+    document.body.style.overflow = 'hidden';
+  };
+  toggle.addEventListener('click', () => {
+    panel.classList.contains('open') ? close() : open();
+  });
+  panel.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+};
+
+// Auto-initialisation du menu mobile sur chaque page
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', window.initMobileNav);
+} else {
+  window.initMobileNav();
+}

@@ -377,10 +377,63 @@ h1, h2, h3, h4 {
 .fade-up { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
 .fade-up.in { opacity: 1; transform: translateY(0); }
 
+/* —— Menu mobile (hamburger + panneau) —— */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 46px; height: 46px;
+  padding: 11px;
+  background: transparent;
+  border: 1px solid rgba(226,169,179,0.3);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  z-index: 120;
+}
+.nav-toggle span {
+  display: block;
+  width: 100%; height: 1.5px;
+  background: var(--rose-metal);
+  transition: transform 0.35s cubic-bezier(0.2,0.8,0.2,1), opacity 0.2s;
+}
+.nav-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+.mobile-menu {
+  position: fixed; inset: 0;
+  z-index: 110;
+  display: flex; align-items: center; justify-content: center;
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(161,11,27,0.18) 0%, transparent 60%),
+    linear-gradient(180deg, rgba(5,5,5,0.98), rgba(13,7,9,0.98));
+  backdrop-filter: blur(10px);
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s;
+}
+.mobile-menu.open { opacity: 1; visibility: visible; }
+.mobile-menu ul {
+  list-style: none;
+  display: flex; flex-direction: column;
+  gap: 30px; text-align: center;
+}
+.mobile-menu a {
+  color: var(--argent-givre);
+  text-decoration: none;
+  font-family: var(--titre);
+  font-size: 15px; letter-spacing: 0.3em;
+  text-transform: uppercase; font-weight: 500;
+  transition: color 0.3s, letter-spacing 0.3s;
+}
+.mobile-menu a:hover,
+.mobile-menu a.active { color: var(--rose-metal); letter-spacing: 0.36em; }
+
 /* —— Mobile —— */
 @media (max-width: 900px) {
   .nav { padding: 14px 20px; }
   .nav-links { display: none; }
+  .nav-toggle { display: flex; }
   .nav-logo img { height: 36px; }
   .section { padding: 80px 24px; }
   .price-list { grid-template-columns: 1fr; gap: 40px; }
