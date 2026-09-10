@@ -449,3 +449,10 @@ h1, h2, h3, h4 {
   .gothic-frame { padding: 28px 20px; }
   .rose-corner { width: 120px; height: 120px; }
 }
+@media (max-width: 600px) {
+  .section { padding: 72px 18px; }
+  .price-list-col { min-width: 0; }
+  .price-list-col h3 { letter-spacing: 0.2em; }
+  .price-row { font-size: 12.5px; letter-spacing: 0.1em; }
+  .price-row .dots { margin: 0 8px; }
+}
