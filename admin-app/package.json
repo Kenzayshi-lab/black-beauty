@@ -1,6 +1,6 @@
 {
   "name": "bbstudio-admin",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "Console d'administration de Black & Beauty Studio",
   "scripts": {
@@ -8,12 +8,17 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "create-user": "tsx scripts/create-user.ts"
   },
   "dependencies": {
+    "@node-rs/argon2": "^2.0.0",
+    "ioredis": "^5.4.2",
     "next": "^15.1.0",
+    "next-auth": "5.0.0-beta.25",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "zod": "^3.24.0"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",
@@ -22,6 +27,7 @@
     "autoprefixer": "^10.4.20",
     "postcss": "^8.5.0",
     "tailwindcss": "^3.4.17",
+    "tsx": "^4.19.2",
     "typescript": "^5.7.0"
   },
   "engines": {

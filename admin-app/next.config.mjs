@@ -2,14 +2,15 @@
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
-  // Log les requetes API en dev pour debug
   logging: {
     fetches: { fullUrl: false }
   },
-  // Empeche toute image externe (pas d'images distantes dans l'admin)
   images: {
     remotePatterns: []
-  }
+  },
+  // @node-rs/argon2 est un package natif — ne pas le bundler cote client,
+  // le laisser passer par le runtime Node de la route handler.
+  serverExternalPackages: ["@node-rs/argon2", "ioredis"]
 };
 
 export default nextConfig;

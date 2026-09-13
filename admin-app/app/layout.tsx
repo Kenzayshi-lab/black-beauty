@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
+import { headers } from "next/headers";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Console admin — Black & Beauty Studio",
   description: "Console d'administration privee",
-  // Ceinture + bretelles : noindex meta en plus des headers HTTP.
   robots: {
     index: false,
     follow: false,
@@ -13,7 +13,6 @@ export const metadata: Metadata = {
     nosnippet: true,
     noimageindex: true
   },
-  // Empeche les previews de lien (WhatsApp, iMessage, etc.)
   openGraph: { images: [] },
   twitter: { card: "summary" },
   referrer: "no-referrer"
@@ -25,11 +24,19 @@ export const viewport: Viewport = {
   themeColor: "#050505"
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children
 }: Readonly<{ children: React.ReactNode }>) {
+  // Nonce genere par le middleware — sera applique par Next.js
+  // automatiquement a tous les scripts inline qu'il injecte pour
+  // l'hydration et le streaming RSC.
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
+
   return (
     <html lang="fr">
+      <head>
+        {nonce ? <meta property="csp-nonce" content={nonce} /> : null}
+      </head>
       <body className="font-corps">{children}</body>
     </html>
   );
