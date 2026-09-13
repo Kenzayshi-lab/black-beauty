@@ -127,6 +127,20 @@
 
   // --- Application du theme -------------------------------
 
+  // Convertit #RGB / #RRGGBB / #RRGGBBAA -> triple "R, G, B" (canaux RGB, alpha ignore).
+  // Retourne null si la chaine n'est pas un hex color valide.
+  function hexToRgbTriple(hex) {
+    if (typeof hex !== 'string') return null;
+    var m = /^#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i.exec(hex);
+    if (!m) return null;
+    var h = m[1];
+    if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
+    var r = parseInt(h.substring(0, 2), 16);
+    var g = parseInt(h.substring(2, 4), 16);
+    var b = parseInt(h.substring(4, 6), 16);
+    return r + ', ' + g + ', ' + b;
+  }
+
   function applyTheme(theme) {
     if (!theme || typeof theme !== 'object') return;
     var root = document.documentElement.style;
@@ -138,6 +152,12 @@
       // Refuse les valeurs contenant des caracteres qui pourraient casser une declaration CSS
       if (/[<>{};]/.test(value)) continue;
       root.setProperty(key, value);
+      // Pour toute couleur hex, derive automatiquement la variable -rgb
+      // (permet rgba(var(--x-rgb), alpha) dans le CSS).
+      var rgb = hexToRgbTriple(value);
+      if (rgb !== null) {
+        root.setProperty(key + '-rgb', rgb);
+      }
     }
   }
 

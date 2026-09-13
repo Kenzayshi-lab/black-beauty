@@ -17,6 +17,19 @@
   --argent-givre:      #D1D5DB;
   --argent-doux:       #9ba0a8;
 
+  /* Triples RGB — permettent rgba(var(--x-rgb), alpha).
+     Auto-derivees par hydrate.js si theme.json est modifie.
+     Fallback (sans JS) : valeurs par defaut ci-dessous. */
+  --noir-profond-rgb:  5, 5, 5;
+  --noir-velours-rgb:  13, 7, 9;
+  --noir-marbre-rgb:   21, 11, 16;
+  --rouge-rubis-rgb:   161, 11, 27;
+  --rouge-sang-rgb:    107, 5, 16;
+  --rose-metal-rgb:    226, 169, 179;
+  --rose-poudre-rgb:   240, 201, 209;
+  --argent-givre-rgb:  209, 213, 219;
+  --argent-doux-rgb:   155, 160, 168;
+
   /* —— Tokens —— */
   --titre: 'Cinzel', serif;
   --titre-deco: 'Cinzel Decorative', serif;
