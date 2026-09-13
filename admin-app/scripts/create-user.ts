@@ -78,11 +78,13 @@ Exemple:
   process.exit(values.help ? 0 : 1);
 }
 
-// Imports dynamiques APRES le chargement de l'env (les modules validate au chargement)
-const { createUser, resetPassword, getUserByEmail } = await import("../lib/users");
-const { redis } = await import("../lib/redis");
-
 async function main() {
+  // Imports dynamiques APRES le chargement de l'env (les modules validate
+  // au chargement). Ici plutot qu'au top-level pour eviter le top-level
+  // await refuse par tsx en mode CJS.
+  const { createUser, resetPassword, getUserByEmail } = await import("../lib/users");
+  const { redis } = await import("../lib/redis");
+
   const email = values.email as string;
   const password = values.password as string;
   const role = (values.role === "editor" ? "editor" : "admin") as "admin" | "editor";
