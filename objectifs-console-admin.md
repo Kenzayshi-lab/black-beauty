@@ -26,13 +26,14 @@ Un objectif est considéré comme terminé **uniquement si** :
 
 - [x] Réunion avec Aalie faite (hors ligne, avant cette session).
 - [x] **Architecture** : Decap CMS (git-based, gratuit, garde le stack statique Vercel actuel).
-- [x] **Auth** : email + mot de passe (voie 1 — compte GitHub caché pour la cliente ; login web classique en façade).
+- [x] **Auth** : email + mot de passe **100 % custom** (voie 2 — Auth.js + Vercel KV, aucun compte GitHub côté cliente).
 - [x] **URL admin** : sous-domaine `admin.blackandbeautystudio.ca`.
 - [ ] Liste exhaustive et écrite des champs éditables (`docs/liste-exhaustive.md`) — **en cours, à finaliser avec la cliente**.
 - [ ] DNS : ajout d'un `CNAME admin` pointant vers Vercel chez le registrar du domaine.
 - [ ] Configuration Vercel : ajout du domaine `admin.blackandbeautystudio.ca` au projet (ou projet séparé dédié à l'admin).
-- [ ] Création du compte GitHub dédié à Aalie (email `blackandbeauty.studio@gmail.com`, ajouté en collaborateur au repo `Kenzayshi-lab/black-beauty` avec droits d'écriture minimaux).
-- [ ] 2FA activée sur ce compte GitHub, procédure de récupération notée dans un gestionnaire de mots de passe (Bitwarden ou équivalent).
+- [ ] Création d'un **GitHub PAT fine-grained** (nom : `bbstudio-admin-writer`), scope limité au seul repo `Kenzayshi-lab/black-beauty`, permission `contents: write` uniquement, expiration 90 jours avec rotation planifiée.
+- [ ] Provisionnement de **Vercel KV** (tier gratuit) — clé `USERS`, `SESSIONS`, `RATE_LIMITS`, `AUDIT_LOG`.
+- [ ] Variables d'environnement Vercel à créer : `GITHUB_PAT`, `AUTH_SECRET` (32 octets aléatoires), `SESSION_TTL`, `KV_URL`, `KV_REST_API_TOKEN`.
 - [ ] Compte-rendu écrit envoyé par courriel à Aalie et archivé dans le repo (`docs/cadrage.md`).
 - [ ] Approbation écrite de la cliente avant de démarrer la Phase 1.
 
@@ -73,37 +74,73 @@ Un objectif est considéré comme terminé **uniquement si** :
 
 ---
 
-## 🔐 Phase 3 — Authentification sécurisée
+## 🔐 Phase 3 — Authentification custom (Auth.js + Vercel KV)
 
-- [ ] Choisir et implémenter **une** solution :
-  - Piste GitHub OAuth : créer une GitHub App dédiée, scope minimal (`contents:write` sur ce repo uniquement).
-  - Piste Auth.js : provider email + magic link, session JWT courte (15 min), refresh 24 h.
-- [ ] Mot de passe **JAMAIS** stocké en clair (hash Argon2id si custom).
-- [ ] Rate limiting sur `/admin/login` (max 5 essais / 15 min / IP).
-- [ ] Rotation des secrets documentée (procédure écrite).
-- [ ] Session cookie `HttpOnly`, `Secure`, `SameSite=Strict`.
-- [ ] Bouton **déconnexion** visible en permanence dans l'admin.
-- [ ] Test intrusion basique : accès direct à `/admin/*` sans session → **redirection login** systématique.
-- [ ] Journalisation (log) des connexions et modifications, conservée 90 j (Loi 25).
+**Voie 2 retenue** : login 100 % maison, aucun compte GitHub côté cliente.
+
+**Stack** :
+- Framework : Next.js 15 (App Router) sur `admin.blackandbeautystudio.ca` — projet Vercel séparé.
+- Auth : Auth.js (ex-NextAuth) v5, provider `Credentials`.
+- Storage utilisateurs / sessions : Vercel KV (Upstash Redis sous le capot).
+- Hash mots de passe : Argon2id (paramètres OWASP 2024 : `t=3, m=64 MiB, p=4`).
+
+**Livrables** :
+- [ ] Bootstrap Next.js dans `/admin-app/` (nouveau dossier, projet Vercel séparé du site public).
+- [ ] Route `/api/auth/[...nextauth]` avec provider `Credentials` — email + mot de passe.
+- [ ] Table KV `USERS` : `{ id, email, passwordHash, role, mfaSecret?, createdAt, lastLogin }`.
+- [ ] Script CLI (`scripts/create-user.mjs`) pour créer/réinitialiser un utilisateur — jamais de UI publique de signup.
+- [ ] Middleware Next.js qui protège toutes les routes sauf `/login` et les assets publics.
+- [ ] Session JWT signée avec `AUTH_SECRET`, TTL 15 min, refresh silencieux via cookie `Secure` 24 h.
+- [ ] Cookies session : `HttpOnly`, `Secure`, `SameSite=Strict`, `Path=/`, `__Host-` prefix.
+- [ ] Rate limit sur `/api/auth/callback/credentials` : 5 tentatives / 15 min / IP (Vercel KV avec TTL).
+- [ ] Rate limit sur `/api/auth/callback/credentials` : 10 tentatives / 24 h / email (verrouillage temporaire).
+- [ ] **2FA (TOTP)** obligatoire — activation forcée à la 1re connexion (secret stocké chiffré côté KV).
+- [ ] Écran de récupération : uniquement par toi (Louis) — pas de « mot de passe oublié » automatique, pour éviter le pishing.
+- [ ] Bouton **Déconnexion** visible en permanence dans le layout admin.
+- [ ] Test : accès direct à `/admin`, `/api/gateway/*` sans session → 401 + redirection login.
+- [ ] Audit log dans KV : `{ userId, action, target, ip, userAgent, timestamp }` — toute écriture GitHub tracée.
+- [ ] Rétention audit 90 jours (Loi 25) — job cron Vercel qui purge les entrées plus vieilles.
+- [ ] Rotation du `GITHUB_PAT` tous les 90 j — procédure écrite dans `docs/rotation-secrets.md`.
+- [ ] Aucun secret dans le repo — tout dans les env vars Vercel (chiffrées).
 
 ---
 
-## 🧭 Phase 4 — Installation Decap CMS (si Option A)
+## 🚪 Phase 3bis — Proxy GitHub (gateway custom)
 
-- [ ] Créer `public/admin/index.html` avec la CDN officielle de Decap CMS.
-- [ ] Créer `public/admin/config.yml` avec **toutes** les collections :
-  - [ ] Thème (color pickers, sélecteurs de police Google Fonts limités à la charte).
+Decap CMS attend un backend git-gateway. On l'implémente nous-mêmes.
+
+- [ ] Route `/api/gateway/*` qui reproduit l'API git-gateway attendue par Decap CMS.
+- [ ] Chaque requête vérifie la session Auth.js **avant** de faire quoi que ce soit.
+- [ ] Le proxy signe les requêtes avec le `GITHUB_PAT` (jamais renvoyé au client).
+- [ ] Whitelist stricte des paths modifiables : `public/content/*.json`, `public/assets/images/**` — refus des writes sur `.github/`, `.claude/`, `vercel.json`, code source.
+- [ ] Whitelist stricte des branches accessibles : `main` uniquement (ou une branche de brouillon dédiée si on ajoute plus tard un workflow de publication).
+- [ ] Limite de taille par écriture : 5 MB (protection contre uploads massifs).
+- [ ] Vérification MIME + magic number pour tout upload d'image (refus des `.php`, `.exe`, `.js` déguisés).
+- [ ] Commits automatiques signés avec un auteur `Aalie via Admin <blackandbeauty.studio@gmail.com>` — journal Git propre.
+- [ ] Tests d'intrusion basiques : appel direct à `/api/gateway/*` sans cookie → 401.
+- [ ] Tests d'intrusion basiques : appel avec cookie valide mais path hors whitelist → 403 + audit log.
+
+---
+
+## 🧭 Phase 4 — Installation Decap CMS branché sur le proxy
+
+- [ ] `/admin/index.html` : bootstrap Decap CMS depuis CDN cdnjs (SRI pinning).
+- [ ] `/admin/config.yml` : `backend.name: git-gateway`, `backend.gateway_url: /api/gateway`.
+- [ ] Ne pas activer `local_backend` en prod.
+- [ ] Collections définies :
+  - [ ] Thème (color pickers, sélecteurs de police limités à la charte gothique).
   - [ ] Accueil.
   - [ ] Onglerie (liste de services répétable).
   - [ ] Épilation (liste répétable).
-  - [ ] Galerie (widget image + lien IG).
+  - [ ] Galerie (widget image custom avec crop 1080×1080 côté navigateur).
   - [ ] FAQ (liste Q/R répétable).
   - [ ] À propos.
   - [ ] Coordonnées & réseaux.
-- [ ] Champs typés correctement (`color`, `image`, `list`, `markdown`, `number`, `boolean`).
-- [ ] Validation par champ (regex prix, longueurs min/max, obligatoires).
-- [ ] Backend git-gateway ou GitHub OAuth branché et testé.
-- [ ] Publier une modif de test → apparaît sur le site après redeploy.
+  - [ ] Réservation & politiques.
+  - [ ] Politiques légales (édition rare, verrouillée par confirmation).
+- [ ] Champs typés (`color`, `image`, `list`, `markdown`, `number`, `boolean`, `select`).
+- [ ] Validation par champ (regex prix, longueurs min/max, obligatoires, alt-text image).
+- [ ] Test bout-en-bout : Aalie se log → change un prix → commit visible sur GitHub → Vercel redeploy → site à jour.
 
 ---
 
