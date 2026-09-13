@@ -1,0 +1,35 @@
+{
+  "hero": {
+    "eyebrow": "✠ Montréal · Studio privé ✠",
+    "title": "Black & Beauty Studio",
+    "tagline": "L'art de la beauté, version royale",
+    "subtitle": "Onglerie acrylique · Épilation à la cire · Beauty rituals",
+    "cta_secondary_text": "Découvrir les services"
+  },
+  "services_section": {
+    "eyebrow": "Nos univers",
+    "title": "Services"
+  },
+  "prices_section": {
+    "eyebrow": "✠ Tarifs ✠",
+    "title": "Liste de prix"
+  },
+  "about_teaser": {
+    "eyebrow": "L'histoire",
+    "title": "Une beauté qui ose le noir"
+  },
+  "instagram_section": {
+    "title": "Notre Instagram",
+    "subtitle": "SUIVEZ NOS DERNIÈRES CRÉATIONS"
+  },
+  "policies_section": {
+    "eyebrow": "Avant votre venue",
+    "title": "Politiques de réservation"
+  },
+  "cta_final": {
+    "eyebrow": "✠ Prête à oser ? ✠",
+    "title": "Réservez votre rituel",
+    "script": "votre couronne vous attend",
+    "button_text": "Réserver maintenant"
+  }
+}
