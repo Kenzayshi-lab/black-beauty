@@ -63,6 +63,21 @@ Le bootstrap est deja durci :
 - **Aucune CDN externe** (fonts et scripts self-hostes des l'ajout).
 - **Placeholder** : le formulaire de login est en `disabled`, aucune action possible.
 
+### ⚠️ TODO securite - chunk 21
+
+La CSP actuelle contient `'unsafe-inline'` sur `script-src` — necessaire pour
+que Next.js puisse executer ses scripts d'hydration au bootstrap. **C'est un
+compromis temporaire acceptable** car :
+
+- React echappe automatiquement le contenu des composants
+- Aucune donnee utilisateur n'est rendue au bootstrap (page statique)
+- Sera corrige AVANT le formulaire de login fonctionnel (chunk 21)
+
+**Solution definitive (chunk 21)** : middleware.ts qui genere un nonce
+cryptographique par requete, puis `script-src 'self' 'nonce-XXX' 'strict-dynamic'`.
+Pattern officiel Next.js documente sur
+[nextjs.org/docs/.../content-security-policy](https://nextjs.org/docs/app/building-your-application/configuring/content-security-policy).
+
 ---
 
 ## 📅 Prochains chunks
