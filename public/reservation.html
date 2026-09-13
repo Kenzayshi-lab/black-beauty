@@ -15,7 +15,7 @@
   .page-hero {
     padding: 180px 24px 80px; text-align: center;
     position: relative; overflow: hidden;
-    background: radial-gradient(ellipse at center, rgba(161,11,27,0.2) 0%, transparent 60%), var(--noir-profond);
+    background: radial-gradient(ellipse at center, rgba(var(--rouge-rubis-rgb), 0.2) 0%, transparent 60%), var(--noir-profond);
   }
   .page-hero h1 { font-family: var(--titre-deco); font-size: clamp(48px, 8vw, 96px); margin: 16px 0; }
   .page-hero .script-sub { font-family: var(--script); font-size: clamp(28px, 4vw, 42px); color: var(--rouge-rubis); }
@@ -30,14 +30,14 @@
 
   .amelia-zone {
     background: var(--noir-velours);
-    border: 1px solid rgba(226,169,179,0.2);
+    border: 1px solid rgba(var(--rose-metal-rgb), 0.2);
     padding: 40px;
     min-height: 600px;
     position: relative;
   }
   .amelia-placeholder {
     text-align: center; padding: 80px 20px;
-    border: 2px dashed rgba(226,169,179,0.3);
+    border: 2px dashed rgba(var(--rose-metal-rgb), 0.3);
     color: var(--argent-doux);
   }
   .amelia-placeholder svg { width: 56px; height: 56px; color: var(--rouge-rubis); margin-bottom: 20px; }
@@ -49,15 +49,15 @@
   .amelia-placeholder p { font-size: 14px; line-height: 1.8; max-width: 440px; margin: 0 auto 12px; }
   .amelia-placeholder code {
     font-family: monospace; font-size: 12px;
-    background: rgba(161,11,27,0.15);
-    padding: 4px 10px; border: 1px solid rgba(161,11,27,0.3);
+    background: rgba(var(--rouge-rubis-rgb), 0.15);
+    padding: 4px 10px; border: 1px solid rgba(var(--rouge-rubis-rgb), 0.3);
     color: var(--rose-poudre);
   }
 
   .policies-stack { display: flex; flex-direction: column; gap: 16px; }
   .policy-block {
     background: var(--noir-velours);
-    border: 1px solid rgba(226,169,179,0.2);
+    border: 1px solid rgba(var(--rose-metal-rgb), 0.2);
     padding: 28px;
     position: relative;
     border-left: 3px solid var(--rouge-rubis);
@@ -83,7 +83,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cinzel+Decorative:wght@400;700;900&family=Montserrat:wght@200;300;400;500;600;700&family=Italianno&display=swap" rel="stylesheet">
 </head>
-<body class="bg-marbre">
+<body class="bg-marbre" data-page="reservation">
 
 <nav class="nav">
   <a href="/" class="nav-logo"><img src="/assets/images/logo.png" alt=""><span>Black &amp; Beauty</span></a>
@@ -99,17 +99,17 @@
 </nav>
 
 <section class="page-hero" id="ambiance-host">
-  <div class="eyebrow">✠ Studio privé · Montréal ✠</div>
-  <h1 class="title-metal">Réservation</h1>
-  <div class="script-sub">votre couronne vous attend</div>
+  <div class="eyebrow" data-cms="reservation.hero.eyebrow">✠ Studio privé · Montréal ✠</div>
+  <h1 class="title-metal" data-cms="reservation.hero.title">Réservation</h1>
+  <div class="script-sub" data-cms="reservation.hero.script_sub">votre couronne vous attend</div>
 </section>
 
 <section class="section">
   <div class="reserv-layout">
     <!-- Amelia -->
     <div>
-      <div class="eyebrow" style="margin-bottom: 16px;">✠ Pour réserver ✠</div>
-      <h2 style="font-size: 36px; margin-bottom: 24px;" class="title-metal">Réservation via Instagram</h2>
+      <div class="eyebrow" style="margin-bottom: 16px;" data-cms="reservation.reserv_section.eyebrow">✠ Pour réserver ✠</div>
+      <h2 style="font-size: 36px; margin-bottom: 24px;" class="title-metal" data-cms="reservation.reserv_section.title">Réservation via Instagram</h2>
       <div class="amelia-zone" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:32px;padding:60px 40px;">
         <svg viewBox="0 0 64 64" fill="none" stroke="var(--rouge-rubis)" stroke-width="1.5" style="width:64px;height:64px;">
           <rect x="8" y="8" width="48" height="48" rx="14"/>
@@ -117,15 +117,16 @@
           <circle cx="46" cy="18" r="3" fill="var(--rouge-rubis)" stroke="none"/>
         </svg>
         <div>
-          <div class="eyebrow" style="margin-bottom:12px;">✠ Comment réserver ✠</div>
-          <h3 style="font-family:var(--titre);font-size:22px;letter-spacing:0.2em;text-transform:uppercase;color:var(--rose-metal);margin-bottom:20px;">
+          <div class="eyebrow" style="margin-bottom:12px;" data-cms="reservation.how_to.eyebrow">✠ Comment réserver ✠</div>
+          <h3 style="font-family:var(--titre);font-size:22px;letter-spacing:0.2em;text-transform:uppercase;color:var(--rose-metal);margin-bottom:20px;" data-cms="reservation.how_to.title">
             Envoyez-moi un message sur Instagram
           </h3>
           <p style="font-size:14px;line-height:1.9;color:var(--argent-givre);max-width:380px;margin:0 auto 32px;">
             Pour prendre rendez-vous, écrivez-moi directement en <strong style="color:var(--rose-metal);">message privé</strong> sur Instagram. Précisez le service désiré et vos disponibilités — je vous confirme un créneau rapidement.
           </p>
           <a href="https://ig.me/m/black_and_beauty_studio" target="_blank" rel="noopener"
-             style="display:inline-flex;align-items:center;gap:12px;padding:18px 40px;background:linear-gradient(135deg,var(--rouge-rubis),rgba(161,11,27,0.7));color:#fff;font-family:var(--titre);font-size:13px;letter-spacing:0.3em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(226,169,179,0.3);transition:all 0.3s;"
+             data-cms-attr="href:site.instagram_dm"
+             style="display:inline-flex;align-items:center;gap:12px;padding:18px 40px;background:linear-gradient(135deg,var(--rouge-rubis),rgba(var(--rouge-rubis-rgb), 0.7));color:#fff;font-family:var(--titre);font-size:13px;letter-spacing:0.3em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(var(--rose-metal-rgb), 0.3);transition:all 0.3s;"
              onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
             ✠ &nbsp; M'écrire sur Instagram
           </a>
@@ -138,23 +139,23 @@
 
     <!-- Politiques -->
     <div>
-      <div class="eyebrow" style="margin-bottom: 16px;">✠ À lire avant ✠</div>
-      <h2 style="font-size: 36px; margin-bottom: 24px;" class="title-metal">Politiques</h2>
+      <div class="eyebrow" style="margin-bottom: 16px;" data-cms="reservation.policies_section.eyebrow">✠ À lire avant ✠</div>
+      <h2 style="font-size: 36px; margin-bottom: 24px;" class="title-metal" data-cms="reservation.policies_section.title">Politiques</h2>
       <div class="policies-stack">
         <div class="policy-block">
-          <h4><span class="num">1</span> Dépôt</h4>
+          <h4><span class="num">1</span> <span data-cms="reservation.policies.depot">Dépôt</span></h4>
           <p>Un <strong>dépôt obligatoire de 20$</strong> est requis lors de la réservation. Ce montant est <strong>déduit du prix final</strong> de votre rendez-vous.</p>
         </div>
         <div class="policy-block">
-          <h4><span class="num">2</span> Retard</h4>
+          <h4><span class="num">2</span> <span data-cms="reservation.policies.retard">Retard</span></h4>
           <p><strong>Annulation automatique</strong> du rendez-vous après <strong>15 minutes de retard</strong>. Le dépôt n'est pas remboursé.</p>
         </div>
         <div class="policy-block">
-          <h4><span class="num">3</span> Paiement</h4>
+          <h4><span class="num">3</span> <span data-cms="reservation.policies.paiement">Paiement</span></h4>
           <p>Le solde se règle sur place en <strong>argent comptant</strong> ou par <strong>virement Interac</strong> uniquement.</p>
         </div>
         <div class="policy-block">
-          <h4><span class="num">4</span> Annulation</h4>
+          <h4><span class="num">4</span> <span data-cms="reservation.policies.annulation">Annulation</span></h4>
           <p>Toute annulation doit être communiquée <strong>au moins 24h à l'avance</strong> pour conserver votre dépôt.</p>
         </div>
       </div>
@@ -167,12 +168,13 @@
     <div><img src="/assets/images/logo.png" style="height: 56px; margin-bottom: 20px;"><p style="color: var(--argent-doux); font-size: 13px; line-height: 1.8;">Studio privé · Montréal</p></div>
     <div><h4>Services</h4><a href="/onglerie">Onglerie</a><a href="/epilation">Épilation</a><a href="/galerie">Galerie</a></div>
     <div><h4>Studio</h4><a href="/apropos">À propos</a><a href="/faq">FAQ</a><a href="/reservation">Réservation</a></div>
-    <div><h4>Contact</h4><a href="https://www.instagram.com/black_and_beauty_studio/">Instagram</a><a href="https://www.tiktok.com/@blackandbeautystudio">TikTok</a></div>
+    <div><h4>Contact</h4><a href="https://www.instagram.com/black_and_beauty_studio/" target="_blank" rel="noopener" data-cms-attr="href:site.instagram_url">Instagram</a><a href="https://www.tiktok.com/@blackandbeautystudio" target="_blank" rel="noopener" data-cms-attr="href:site.tiktok_url">TikTok</a></div>
   </div>
   <div class="footer-bottom">© 2026 Black &amp; Beauty Studio · ✠ Merci pour votre confiance ✠</div>
 </footer>
 
 <script src="/assets/decor.js"></script>
+<script src="/assets/hydrate.js" defer></script>
 <script>
   seedAmbiance(document.getElementById('ambiance-host'), { sparkles: 10, smokes: 3 });
   initFadeUps();

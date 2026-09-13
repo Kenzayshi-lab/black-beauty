@@ -1,0 +1,23 @@
+{
+  "_meta": {
+    "description": "Palette gothique originale du studio Black & Beauty. NE PAS EDITER — c'est le snapshot de reference. La console admin utilise ce fichier pour le bouton 'Reinitialiser aux couleurs d'origine'.",
+    "version": "1.0",
+    "created": "2026-09-13"
+  },
+  "--noir-profond":  "#050505",
+  "--noir-velours":  "#0d0709",
+  "--noir-marbre":   "#150b10",
+  "--rouge-rubis":   "#A10B1B",
+  "--rouge-sang":    "#6b0510",
+  "--rose-metal":    "#E2A9B3",
+  "--rose-poudre":   "#f0c9d1",
+  "--argent-givre":  "#D1D5DB",
+  "--argent-doux":   "#9ba0a8",
+  "--titre":         "'Cinzel', serif",
+  "--titre-deco":    "'Cinzel Decorative', serif",
+  "--script":        "'Italianno', cursive",
+  "--corps":         "'Montserrat', sans-serif",
+  "--r-sm":          "4px",
+  "--r-md":          "10px",
+  "--r-lg":          "18px"
+}

@@ -1,0 +1,49 @@
+{
+  "hero": {
+    "eyebrow": "✠ L'univers Black & Beauty ✠",
+    "title": "Notre histoire",
+    "script_sub": "l'élégance qui ose le noir"
+  },
+  "story_section": {
+    "eyebrow": "Le studio",
+    "title": "Une beauté audacieuse",
+    "paragraph_1": "Black & Beauty Studio est né d'une conviction : la beauté peut être à la fois royale, gothique et moderne. Notre studio privé montréalais accueille les femmes qui osent affirmer leur identité par leurs ongles et leur peau.",
+    "paragraph_2": "Chaque cliente est traitée comme une reine. Ambiance feutrée, hygiène irréprochable, écoute attentive. Nous prenons le temps qu'il faut pour révéler la femme audacieuse en vous."
+  },
+  "values_section": {
+    "eyebrow": "✠ Nos engagements ✠",
+    "title": "Valeurs du studio"
+  },
+  "values": {
+    "excellence": {
+      "title": "Excellence",
+      "description": "Produits premium, techniques maîtrisées, finitions impeccables. Aucun compromis sur la qualité."
+    },
+    "hygiene": {
+      "title": "Hygiène",
+      "description": "Stérilisation complète après chaque cliente. Cire à usage unique, outils stérilisés en autoclave."
+    },
+    "bienveillance": {
+      "title": "Bienveillance",
+      "description": "Un espace sûr, sans jugement. Vos préférences et votre confort guident chaque rituel."
+    }
+  },
+  "contact_section": {
+    "eyebrow": "✠ Nous trouver ✠",
+    "title": "Contact & Studio"
+  },
+  "contact_card": {
+    "title": "Coordonnées",
+    "label_address":     "Adresse",
+    "label_email":       "Email",
+    "label_appointment": "Rendez-vous",
+    "appointment_text":  "La contacter sur Instagram",
+    "label_instagram":   "Instagram",
+    "label_tiktok":      "TikTok"
+  },
+  "appointment_card": {
+    "title": "Prendre rendez-vous",
+    "description": "Écrivez-moi en message privé sur Instagram pour réserver votre créneau. Je vous confirme rapidement une disponibilité.",
+    "button_text": "✠ Réserver sur Instagram"
+  }
+}

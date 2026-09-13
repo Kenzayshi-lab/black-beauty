@@ -1,0 +1,61 @@
+{
+  "hero": {
+    "eyebrow": "✠ Cire professionnelle ✠",
+    "title": "Épilation cire",
+    "script_sub": "une peau de reine"
+  },
+  "prices_section": {
+    "eyebrow": "✠ Liste de prix ✠",
+    "title": "Waxing"
+  },
+  "visage": {
+    "title": "Visage",
+    "sourcils":         "15$",
+    "levre_superieure": "10$",
+    "menton":           "10$",
+    "joues":            "15$",
+    "visage_complet":   "40$"
+  },
+  "corps": {
+    "title": "Corps",
+    "aisselles":     "20$",
+    "bras_complets": "30$",
+    "demi_bras":     "20$",
+    "mains_doigts":  "10$",
+    "torse":         "30$",
+    "ventre":        "15$",
+    "bas_dos":       "20$",
+    "dos_complet":   "40$"
+  },
+  "maillot": {
+    "title": "Maillot",
+    "classique":                "25$",
+    "echancre":                 "35$",
+    "integral":                 "45$",
+    "bresilien":                "50$",
+    "integral_interfessier":    "60$",
+    "interfessier":             "20$"
+  },
+  "jambes": {
+    "title": "Jambes",
+    "demi_jambes":       "25$",
+    "jambes_completes":  "45$",
+    "cuisses":           "25$",
+    "genoux":            "10$",
+    "pieds_orteils":     "10$"
+  },
+  "a_savoir": {
+    "title": "À savoir",
+    "line_1": "Les prix peuvent varier selon la quantité de poils",
+    "line_2": "et la zone à épiler.",
+    "merci":  "Merci pour votre confiance ♡"
+  },
+  "info_before": {
+    "eyebrow": "✠ Avant votre séance ✠",
+    "title":   "Longueur des poils requise"
+  },
+  "info_reserve": {
+    "eyebrow": "✠ Au moment de réserver ✠",
+    "title":   "Envoyez vos inspirations"
+  }
+}

@@ -12,7 +12,7 @@
 <meta name="theme-color" content="#050505">
 <link rel="stylesheet" href="/assets/styles.css">
 <style>
-  .page-hero { padding: 180px 24px 80px; text-align: center; position: relative; overflow: hidden; background: radial-gradient(ellipse at center, rgba(161,11,27,0.2) 0%, transparent 60%), var(--noir-profond); }
+  .page-hero { padding: 180px 24px 80px; text-align: center; position: relative; overflow: hidden; background: radial-gradient(ellipse at center, rgba(var(--rouge-rubis-rgb), 0.2) 0%, transparent 60%), var(--noir-profond); }
   .page-hero h1 { font-family: var(--titre-deco); font-size: clamp(48px, 8vw, 96px); margin: 16px 0; }
   .page-hero .script-sub { font-family: var(--script); font-size: clamp(28px, 4vw, 42px); color: var(--rouge-rubis); }
 
@@ -21,11 +21,11 @@
   @media (max-width: 560px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; } }
   .gallery-item {
     position: relative; display: block; aspect-ratio: 1; overflow: hidden;
-    border: 1px solid rgba(226,169,179,0.12); background: var(--noir-marbre);
+    border: 1px solid rgba(var(--rose-metal-rgb), 0.12); background: var(--noir-marbre);
   }
   .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s cubic-bezier(0.2,0.8,0.2,1); }
   .gallery-item:hover img { transform: scale(1.06); }
-  .gallery-item::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(161,11,27,0.32)); opacity: 0; transition: opacity 0.4s; pointer-events: none; }
+  .gallery-item::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(var(--rouge-rubis-rgb), 0.32)); opacity: 0; transition: opacity 0.4s; pointer-events: none; }
   .gallery-item:hover::after { opacity: 1; }
   .gallery-item .ig { position: absolute; right: 10px; bottom: 10px; width: 22px; height: 22px; color: var(--rose-poudre); opacity: 0; transform: translateY(6px); transition: all 0.4s; z-index: 2; }
   .gallery-item:hover .ig { opacity: 1; transform: translateY(0); }
@@ -35,7 +35,7 @@
   .ba-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; max-width: 1100px; margin: 0 auto; }
   @media (max-width: 700px) { .ba-grid { grid-template-columns: 1fr; } }
   .ba-card {
-    border: 1px solid rgba(226,169,179,0.2);
+    border: 1px solid rgba(var(--rose-metal-rgb), 0.2);
     background: var(--noir-marbre);
     overflow: hidden;
     position: relative;
@@ -47,19 +47,19 @@
   }
   .ba-card .ba-half {
     position: relative;
-    background: linear-gradient(135deg, rgba(161,11,27,0.15), var(--noir-marbre));
+    background: linear-gradient(135deg, rgba(var(--rouge-rubis-rgb), 0.15), var(--noir-marbre));
     display: flex; align-items: center; justify-content: center;
     color: var(--rose-metal);
-    border-right: 1px solid rgba(226,169,179,0.2);
+    border-right: 1px solid rgba(var(--rose-metal-rgb), 0.2);
   }
-  .ba-card .ba-half:last-child { border-right: 0; background: linear-gradient(135deg, rgba(226,169,179,0.15), var(--noir-marbre)); }
+  .ba-card .ba-half:last-child { border-right: 0; background: linear-gradient(135deg, rgba(var(--rose-metal-rgb), 0.15), var(--noir-marbre)); }
   .ba-card .ba-half .tag {
     position: absolute; top: 12px; left: 12px;
     padding: 6px 14px;
-    background: rgba(5,5,5,0.85);
+    background: rgba(var(--noir-profond-rgb), 0.85);
     font-family: var(--titre);
     font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
-    border: 1px solid rgba(226,169,179,0.3);
+    border: 1px solid rgba(var(--rose-metal-rgb), 0.3);
   }
   .ba-card .ba-half.before .tag { color: var(--argent-doux); }
   .ba-card .ba-half.after .tag { color: var(--rose-metal); border-color: var(--rouge-rubis); }
@@ -71,7 +71,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cinzel+Decorative:wght@400;700;900&family=Montserrat:wght@200;300;400;500;600;700&family=Italianno&display=swap" rel="stylesheet">
 </head>
-<body class="bg-marbre">
+<body class="bg-marbre" data-page="galerie">
 
 <nav class="nav">
   <a href="/" class="nav-logo"><img src="/assets/images/logo.png" alt=""><span>Black &amp; Beauty</span></a>
@@ -87,19 +87,19 @@
 </nav>
 
 <section class="page-hero" id="ambiance-host">
-  <div class="eyebrow">✠ Portfolio ✠</div>
-  <h1 class="title-metal">Galerie</h1>
-  <div class="script-sub">l'art au bout des doigts</div>
+  <div class="eyebrow" data-cms="galerie.hero.eyebrow">✠ Portfolio ✠</div>
+  <h1 class="title-metal" data-cms="galerie.hero.title">Galerie</h1>
+  <div class="script-sub" data-cms="galerie.hero.script_sub">l'art au bout des doigts</div>
 </section>
 
 <section class="section">
   <div class="container">
-    <p style="text-align: center; margin: -32px auto 48px; max-width: 620px; font-size: 13px; letter-spacing: 0.15em; color: var(--argent-doux); line-height: 1.9;">
+    <p style="text-align: center; margin: -32px auto 48px; max-width: 620px; font-size: 13px; letter-spacing: 0.15em; color: var(--argent-doux); line-height: 1.9;" data-cms="galerie.intro">
       Un aperçu de nos réalisations acryliques — French, stiletto, nail art et finitions royales. Cliquez pour découvrir plus sur Instagram.
     </p>
 
-    <div class="gallery-grid fade-up">
-      <a class="gallery-item" href="https://www.instagram.com/black_and_beauty_studio/" target="_blank" rel="noopener"><img src="/assets/images/insta/g01.jpg" alt="Onglerie acrylique noir et or" loading="lazy"><svg class="ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+    <div class="gallery-grid fade-up" data-cms-list="galerie.photos">
+      <a class="gallery-item" href="https://www.instagram.com/black_and_beauty_studio/" target="_blank" rel="noopener" data-cms-item-attr="href:link"><img src="/assets/images/insta/g01.jpg" alt="Onglerie acrylique noir et or" loading="lazy" data-cms-item-attr="src:src,alt:alt"><svg class="ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
       <a class="gallery-item" href="https://www.instagram.com/black_and_beauty_studio/" target="_blank" rel="noopener"><img src="/assets/images/insta/g02.jpg" alt="Pose acrylique nude carrée longue" loading="lazy"><svg class="ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
       <a class="gallery-item" href="https://www.instagram.com/black_and_beauty_studio/" target="_blank" rel="noopener"><img src="/assets/images/insta/g03.jpg" alt="French stiletto rose et blanc" loading="lazy"><svg class="ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
       <a class="gallery-item" href="https://www.instagram.com/black_and_beauty_studio/" target="_blank" rel="noopener"><img src="/assets/images/insta/g04.jpg" alt="Ongles stiletto bleu nuit" loading="lazy"><svg class="ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
@@ -115,19 +115,19 @@
     </div>
 
     <div style="text-align: center; margin-top: 48px;" class="fade-up">
-      <a href="https://www.instagram.com/black_and_beauty_studio/" target="_blank" rel="noopener" class="btn btn-ghost">Voir tout sur Instagram</a>
+      <a href="https://www.instagram.com/black_and_beauty_studio/" target="_blank" rel="noopener" class="btn btn-ghost" data-cms-attr="href:site.instagram_url" data-cms="galerie.instagram_button_text">Voir tout sur Instagram</a>
     </div>
   </div>
 </section>
 
 <section class="ba-section">
   <div class="container-narrow" style="text-align: center;">
-    <div class="eyebrow fade-up">✠ À vous de jouer ✠</div>
-    <h2 class="title-metal fade-up" style="font-size: clamp(32px, 5vw, 56px); margin: 16px 0 24px;">Votre couronne vous attend</h2>
-    <p class="fade-up" style="color: var(--argent-doux); font-size: 14px; line-height: 1.9; max-width: 560px; margin: 0 auto 32px;">
+    <div class="eyebrow fade-up" data-cms="galerie.cta_final.eyebrow">✠ À vous de jouer ✠</div>
+    <h2 class="title-metal fade-up" style="font-size: clamp(32px, 5vw, 56px); margin: 16px 0 24px;" data-cms="galerie.cta_final.title">Votre couronne vous attend</h2>
+    <p class="fade-up" style="color: var(--argent-doux); font-size: 14px; line-height: 1.9; max-width: 560px; margin: 0 auto 32px;" data-cms="galerie.cta_final.description">
       Chaque pose est unique. Réservez la vôtre et repartez avec des mains dignes d'une reine.
     </p>
-    <a href="/reservation" class="btn btn-primary fade-up">Réserver maintenant</a>
+    <a href="/reservation" class="btn btn-primary fade-up" data-cms="galerie.cta_final.button_text">Réserver maintenant</a>
   </div>
 </section>
 
@@ -136,12 +136,13 @@
     <div><img src="/assets/images/logo.png" style="height: 56px; margin-bottom: 20px;"><p style="color: var(--argent-doux); font-size: 13px; line-height: 1.8;">Studio privé · Montréal</p></div>
     <div><h4>Services</h4><a href="/onglerie">Onglerie</a><a href="/epilation">Épilation</a><a href="/galerie">Galerie</a></div>
     <div><h4>Studio</h4><a href="/apropos">À propos</a><a href="/faq">FAQ</a><a href="/reservation">Réservation</a></div>
-    <div><h4>Contact</h4><a href="https://www.instagram.com/black_and_beauty_studio/">Instagram</a><a href="https://www.tiktok.com/@blackandbeautystudio">TikTok</a></div>
+    <div><h4>Contact</h4><a href="https://www.instagram.com/black_and_beauty_studio/" target="_blank" rel="noopener" data-cms-attr="href:site.instagram_url">Instagram</a><a href="https://www.tiktok.com/@blackandbeautystudio" target="_blank" rel="noopener" data-cms-attr="href:site.tiktok_url">TikTok</a></div>
   </div>
   <div class="footer-bottom">© 2026 Black &amp; Beauty Studio · ✠ Merci pour votre confiance ✠</div>
 </footer>
 
 <script src="/assets/decor.js"></script>
+<script src="/assets/hydrate.js" defer></script>
 <script>
   seedAmbiance(document.getElementById('ambiance-host'), { sparkles: 8, smokes: 3 });
   initFadeUps();

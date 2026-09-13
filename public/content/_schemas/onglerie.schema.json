@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Page Onglerie",
+  "description": "Textes et prix editables de la page onglerie.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "hero": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "eyebrow":    { "type": "string", "maxLength": 120 },
+        "title":      { "type": "string", "maxLength": 80 },
+        "script_sub": { "type": "string", "maxLength": 120 }
+      }
+    },
+    "prices_section": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "eyebrow":     { "type": "string", "maxLength": 120 },
+        "title":       { "type": "string", "maxLength": 80 },
+        "footer_note": { "type": "string", "maxLength": 200 },
+        "thank_you":   { "type": "string", "maxLength": 120 }
+      }
+    },
+    "longueurs": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "small":    { "type": "string", "maxLength": 20 },
+        "medium":   { "type": "string", "maxLength": 20 },
+        "large":    { "type": "string", "maxLength": 20 },
+        "xlarge":   { "type": "string", "maxLength": 20 },
+        "xxlarge":  { "type": "string", "maxLength": 20 },
+        "xxxlarge": { "type": "string", "maxLength": 20 }
+      }
+    },
+    "extras": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "title":          { "type": "string", "maxLength": 40 },
+        "nail_art":       { "type": "string", "maxLength": 30 },
+        "decorations":    { "type": "string", "maxLength": 30 },
+        "matte_top_coat": { "type": "string", "maxLength": 30 },
+        "french":         { "type": "string", "maxLength": 30 }
+      }
+    },
+    "reparations": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "title":           { "type": "string", "maxLength": 60 },
+        "reparation":      { "type": "string", "maxLength": 30 },
+        "depose":          { "type": "string", "maxLength": 30 },
+        "depose_ailleurs": { "type": "string", "maxLength": 30 }
+      }
+    },
+    "portfolio_section": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "eyebrow": { "type": "string", "maxLength": 60 },
+        "title":   { "type": "string", "maxLength": 120 }
+      }
+    }
+  }
+}

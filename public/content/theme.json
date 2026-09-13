@@ -1,0 +1,18 @@
+{
+  "--noir-profond":  "#050505",
+  "--noir-velours":  "#0d0709",
+  "--noir-marbre":   "#150b10",
+  "--rouge-rubis":   "#A10B1B",
+  "--rouge-sang":    "#6b0510",
+  "--rose-metal":    "#E2A9B3",
+  "--rose-poudre":   "#f0c9d1",
+  "--argent-givre":  "#D1D5DB",
+  "--argent-doux":   "#9ba0a8",
+  "--titre":         "'Cinzel', serif",
+  "--titre-deco":    "'Cinzel Decorative', serif",
+  "--script":        "'Italianno', cursive",
+  "--corps":         "'Montserrat', sans-serif",
+  "--r-sm":          "4px",
+  "--r-md":          "10px",
+  "--r-lg":          "18px"
+}

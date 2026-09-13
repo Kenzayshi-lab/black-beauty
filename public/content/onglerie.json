@@ -1,0 +1,38 @@
+{
+  "hero": {
+    "eyebrow": "✠ Acrylique premium ✠",
+    "title": "Onglerie",
+    "script_sub": "l'art au bout des doigts"
+  },
+  "prices_section": {
+    "eyebrow": "✠ Liste de prix ✠",
+    "title": "Acrylique",
+    "footer_note": "✠ Le prix dépend de la difficulté de l'art demandé ✠",
+    "thank_you": "Merci pour votre confiance"
+  },
+  "longueurs": {
+    "small":     "30",
+    "medium":    "40",
+    "large":     "50",
+    "xlarge":    "60",
+    "xxlarge":   "70",
+    "xxxlarge":  "80"
+  },
+  "extras": {
+    "title": "Extras",
+    "nail_art":       "5$ – 25$",
+    "decorations":    "1$ – 5$",
+    "matte_top_coat": "5$",
+    "french":         "10$"
+  },
+  "reparations": {
+    "title": "Réparations & Dépose",
+    "reparation":      "2,50$",
+    "depose":          "10$",
+    "depose_ailleurs": "20$"
+  },
+  "portfolio_section": {
+    "eyebrow": "Portfolio",
+    "title": "Quelques créations"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Page Reservation",
+  "description": "Titres editables (les paragraphes politiques restent en HTML dur).",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "hero": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "eyebrow":    { "type": "string", "maxLength": 120 },
+        "title":      { "type": "string", "maxLength": 80 },
+        "script_sub": { "type": "string", "maxLength": 120 }
+      }
+    },
+    "reserv_section": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "eyebrow": { "type": "string", "maxLength": 120 },
+        "title":   { "type": "string", "maxLength": 120 }
+      }
+    },
+    "how_to": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "eyebrow": { "type": "string", "maxLength": 120 },
+        "title":   { "type": "string", "maxLength": 200 }
+      }
+    },
+    "policies_section": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "eyebrow": { "type": "string", "maxLength": 120 },
+        "title":   { "type": "string", "maxLength": 80 }
+      }
+    },
+    "policies": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "depot":      { "type": "string", "maxLength": 40 },
+        "retard":     { "type": "string", "maxLength": 40 },
+        "paiement":   { "type": "string", "maxLength": 40 },
+        "annulation": { "type": "string", "maxLength": 40 }
+      }
+    }
+  }
+}

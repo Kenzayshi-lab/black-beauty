@@ -1,0 +1,104 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Page Epilation",
+  "description": "Titres, categories et prix editables de la page epilation.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "hero": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "eyebrow":    { "type": "string", "maxLength": 120 },
+        "title":      { "type": "string", "maxLength": 80 },
+        "script_sub": { "type": "string", "maxLength": 120 }
+      }
+    },
+    "prices_section": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "eyebrow": { "type": "string", "maxLength": 120 },
+        "title":   { "type": "string", "maxLength": 80 }
+      }
+    },
+    "visage": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "title":            { "type": "string", "maxLength": 40 },
+        "sourcils":         { "type": "string", "maxLength": 20 },
+        "levre_superieure": { "type": "string", "maxLength": 20 },
+        "menton":           { "type": "string", "maxLength": 20 },
+        "joues":            { "type": "string", "maxLength": 20 },
+        "visage_complet":   { "type": "string", "maxLength": 20 }
+      }
+    },
+    "corps": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "title":         { "type": "string", "maxLength": 40 },
+        "aisselles":     { "type": "string", "maxLength": 20 },
+        "bras_complets": { "type": "string", "maxLength": 20 },
+        "demi_bras":     { "type": "string", "maxLength": 20 },
+        "mains_doigts":  { "type": "string", "maxLength": 20 },
+        "torse":         { "type": "string", "maxLength": 20 },
+        "ventre":        { "type": "string", "maxLength": 20 },
+        "bas_dos":       { "type": "string", "maxLength": 20 },
+        "dos_complet":   { "type": "string", "maxLength": 20 }
+      }
+    },
+    "maillot": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "title":                { "type": "string", "maxLength": 40 },
+        "classique":            { "type": "string", "maxLength": 20 },
+        "echancre":             { "type": "string", "maxLength": 20 },
+        "integral":             { "type": "string", "maxLength": 20 },
+        "bresilien":            { "type": "string", "maxLength": 20 },
+        "integral_interfessier":{ "type": "string", "maxLength": 20 },
+        "interfessier":         { "type": "string", "maxLength": 20 }
+      }
+    },
+    "jambes": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "title":            { "type": "string", "maxLength": 40 },
+        "demi_jambes":      { "type": "string", "maxLength": 20 },
+        "jambes_completes": { "type": "string", "maxLength": 20 },
+        "cuisses":          { "type": "string", "maxLength": 20 },
+        "genoux":           { "type": "string", "maxLength": 20 },
+        "pieds_orteils":    { "type": "string", "maxLength": 20 }
+      }
+    },
+    "a_savoir": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "title":  { "type": "string", "maxLength": 40 },
+        "line_1": { "type": "string", "maxLength": 200 },
+        "line_2": { "type": "string", "maxLength": 200 },
+        "merci":  { "type": "string", "maxLength": 120 }
+      }
+    },
+    "info_before": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "eyebrow": { "type": "string", "maxLength": 120 },
+        "title":   { "type": "string", "maxLength": 120 }
+      }
+    },
+    "info_reserve": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "eyebrow": { "type": "string", "maxLength": 120 },
+        "title":   { "type": "string", "maxLength": 120 }
+      }
+    }
+  }
+}

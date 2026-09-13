@@ -17,7 +17,7 @@
     text-align: center;
     position: relative; overflow: hidden;
     background:
-      radial-gradient(ellipse at center, rgba(161,11,27,0.2) 0%, transparent 60%),
+      radial-gradient(ellipse at center, rgba(var(--rouge-rubis-rgb), 0.2) 0%, transparent 60%),
       var(--noir-profond);
   }
   .page-hero h1 {
@@ -36,15 +36,15 @@
     max-width: 1100px; margin: 0 auto;
     padding: 80px 60px;
     background:
-      radial-gradient(ellipse at top left, rgba(161,11,27,0.18) 0%, transparent 50%),
-      radial-gradient(ellipse at bottom right, rgba(107,5,16,0.15) 0%, transparent 55%),
+      radial-gradient(ellipse at top left, rgba(var(--rouge-rubis-rgb), 0.18) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(var(--rouge-sang-rgb), 0.15) 0%, transparent 55%),
       var(--noir-velours);
-    border: 1px solid rgba(226,169,179,0.2);
+    border: 1px solid rgba(var(--rose-metal-rgb), 0.2);
     position: relative;
   }
   .price-affiche::before {
     content: ''; position: absolute; inset: 16px;
-    border: 1px solid rgba(226,169,179,0.1); pointer-events: none;
+    border: 1px solid rgba(var(--rose-metal-rgb), 0.1); pointer-events: none;
   }
   .affiche-header {
     text-align: center; margin-bottom: 56px;
@@ -74,13 +74,13 @@
   .longueur-card {
     text-align: center;
     padding: 28px 16px;
-    border: 1px solid rgba(226,169,179,0.2);
-    background: rgba(13,7,9,0.6);
+    border: 1px solid rgba(var(--rose-metal-rgb), 0.2);
+    background: rgba(var(--noir-velours-rgb), 0.6);
     transition: all 0.4s;
   }
   .longueur-card:hover {
     border-color: var(--rose-metal);
-    box-shadow: 0 0 20px rgba(161,11,27,0.3);
+    box-shadow: 0 0 20px rgba(var(--rouge-rubis-rgb), 0.3);
     transform: translateY(-4px);
   }
   .longueur-card .name {
@@ -107,18 +107,18 @@
   .gallery-item {
     position: relative; display: block; aspect-ratio: 1; overflow: hidden;
     background: var(--noir-marbre);
-    border: 1px solid rgba(226,169,179,0.12);
+    border: 1px solid rgba(var(--rose-metal-rgb), 0.12);
   }
   .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s cubic-bezier(0.2,0.8,0.2,1); }
   .gallery-item:hover img { transform: scale(1.06); }
-  .gallery-item::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(161,11,27,0.32)); opacity: 0; transition: opacity 0.4s; pointer-events: none; }
+  .gallery-item::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(var(--rouge-rubis-rgb), 0.32)); opacity: 0; transition: opacity 0.4s; pointer-events: none; }
   .gallery-item:hover::after { opacity: 1; }
 </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cinzel+Decorative:wght@400;700;900&family=Montserrat:wght@200;300;400;500;600;700&family=Italianno&display=swap" rel="stylesheet">
 </head>
-<body class="bg-marbre">
+<body class="bg-marbre" data-page="onglerie">
 
 <nav class="nav">
   <a href="/" class="nav-logo"><img src="/assets/images/logo.png" alt=""><span>Black &amp; Beauty</span></a>
@@ -134,26 +134,26 @@
 </nav>
 
 <section class="page-hero" id="ambiance-host">
-  <div class="eyebrow">✠ Acrylique premium ✠</div>
-  <h1 class="title-metal">Onglerie</h1>
-  <div class="script-sub">l'art au bout des doigts</div>
+  <div class="eyebrow" data-cms="onglerie.hero.eyebrow">✠ Acrylique premium ✠</div>
+  <h1 class="title-metal" data-cms="onglerie.hero.title">Onglerie</h1>
+  <div class="script-sub" data-cms="onglerie.hero.script_sub">l'art au bout des doigts</div>
 </section>
 
 <section class="section">
   <div class="price-affiche">
     <div class="affiche-header">
       <img src="/assets/images/logo.png" alt="">
-      <div class="eyebrow">✠ Liste de prix ✠</div>
-      <h2 class="title-metal">Acrylique</h2>
+      <div class="eyebrow" data-cms="onglerie.prices_section.eyebrow">✠ Liste de prix ✠</div>
+      <h2 class="title-metal" data-cms="onglerie.prices_section.title">Acrylique</h2>
     </div>
 
     <div class="longueur-grid">
-      <div class="longueur-card"><div class="name">Small</div><div class="prix">30<span>$</span></div></div>
-      <div class="longueur-card"><div class="name">Medium</div><div class="prix">40<span>$</span></div></div>
-      <div class="longueur-card"><div class="name">Large</div><div class="prix">50<span>$</span></div></div>
-      <div class="longueur-card"><div class="name">XLarge</div><div class="prix">60<span>$</span></div></div>
-      <div class="longueur-card"><div class="name">XXLarge</div><div class="prix">70<span>$</span></div></div>
-      <div class="longueur-card"><div class="name">XXXLarge</div><div class="prix">80<span>$</span></div></div>
+      <div class="longueur-card"><div class="name">Small</div><div class="prix"><span data-cms="onglerie.longueurs.small">30</span><span>$</span></div></div>
+      <div class="longueur-card"><div class="name">Medium</div><div class="prix"><span data-cms="onglerie.longueurs.medium">40</span><span>$</span></div></div>
+      <div class="longueur-card"><div class="name">Large</div><div class="prix"><span data-cms="onglerie.longueurs.large">50</span><span>$</span></div></div>
+      <div class="longueur-card"><div class="name">XLarge</div><div class="prix"><span data-cms="onglerie.longueurs.xlarge">60</span><span>$</span></div></div>
+      <div class="longueur-card"><div class="name">XXLarge</div><div class="prix"><span data-cms="onglerie.longueurs.xxlarge">70</span><span>$</span></div></div>
+      <div class="longueur-card"><div class="name">XXXLarge</div><div class="prix"><span data-cms="onglerie.longueurs.xxxlarge">80</span><span>$</span></div></div>
     </div>
 
     <div class="divider-cross">
@@ -162,26 +162,26 @@
 
     <div class="price-list" style="margin-top: 32px;">
       <div class="price-list-col">
-        <h3>Extras</h3>
-        <div class="price-row cross"><span class="name">Nail Art</span><span class="dots"></span><span class="price">5$ – 25$</span></div>
-        <div class="price-row cross"><span class="name">Décorations (chaque)</span><span class="dots"></span><span class="price">1$ – 5$</span></div>
-        <div class="price-row cross"><span class="name">Matte Top Coat</span><span class="dots"></span><span class="price">5$</span></div>
-        <div class="price-row cross"><span class="name">French</span><span class="dots"></span><span class="price">10$</span></div>
+        <h3 data-cms="onglerie.extras.title">Extras</h3>
+        <div class="price-row cross"><span class="name">Nail Art</span><span class="dots"></span><span class="price" data-cms="onglerie.extras.nail_art">5$ – 25$</span></div>
+        <div class="price-row cross"><span class="name">Décorations (chaque)</span><span class="dots"></span><span class="price" data-cms="onglerie.extras.decorations">1$ – 5$</span></div>
+        <div class="price-row cross"><span class="name">Matte Top Coat</span><span class="dots"></span><span class="price" data-cms="onglerie.extras.matte_top_coat">5$</span></div>
+        <div class="price-row cross"><span class="name">French</span><span class="dots"></span><span class="price" data-cms="onglerie.extras.french">10$</span></div>
       </div>
       <div class="price-list-col">
-        <h3>Réparations &amp; Dépose</h3>
-        <div class="price-row cross"><span class="name">Réparation (chaque)</span><span class="dots"></span><span class="price">2,50$</span></div>
-        <div class="price-row cross"><span class="name">Dépose</span><span class="dots"></span><span class="price">10$</span></div>
-        <div class="price-row cross"><span class="name">Dépose ailleurs</span><span class="dots"></span><span class="price">20$</span></div>
+        <h3 data-cms="onglerie.reparations.title">Réparations &amp; Dépose</h3>
+        <div class="price-row cross"><span class="name">Réparation (chaque)</span><span class="dots"></span><span class="price" data-cms="onglerie.reparations.reparation">2,50$</span></div>
+        <div class="price-row cross"><span class="name">Dépose</span><span class="dots"></span><span class="price" data-cms="onglerie.reparations.depose">10$</span></div>
+        <div class="price-row cross"><span class="name">Dépose ailleurs</span><span class="dots"></span><span class="price" data-cms="onglerie.reparations.depose_ailleurs">20$</span></div>
       </div>
     </div>
 
-    <p style="text-align: center; margin-top: 48px; font-size: 12px; letter-spacing: 0.25em; color: var(--argent-doux); text-transform: uppercase;">
+    <p style="text-align: center; margin-top: 48px; font-size: 12px; letter-spacing: 0.25em; color: var(--argent-doux); text-transform: uppercase;" data-cms="onglerie.prices_section.footer_note">
       ✠ Le prix dépend de la difficulté de l'art demandé ✠
     </p>
 
     <div style="text-align: center; margin-top: 32px;">
-      <p class="script" style="font-size: 36px; color: var(--rose-metal);">Merci pour votre confiance</p>
+      <p class="script" style="font-size: 36px; color: var(--rose-metal);" data-cms="onglerie.prices_section.thank_you">Merci pour votre confiance</p>
     </div>
   </div>
 </section>
@@ -189,8 +189,8 @@
 <section class="section">
   <div class="container">
     <div class="section-header fade-up">
-      <div class="eyebrow">Portfolio</div>
-      <h2 class="title-metal">Quelques créations</h2>
+      <div class="eyebrow" data-cms="onglerie.portfolio_section.eyebrow">Portfolio</div>
+      <h2 class="title-metal" data-cms="onglerie.portfolio_section.title">Quelques créations</h2>
     </div>
     <div class="gallery-strip fade-up">
       <a class="gallery-item" href="https://www.instagram.com/black_and_beauty_studio/" target="_blank" rel="noopener"><img src="/assets/images/insta/g01.jpg" alt="Onglerie acrylique noir et or" loading="lazy"></a>
@@ -213,12 +213,13 @@
     <div><img src="/assets/images/logo.png" style="height: 56px; margin-bottom: 20px;"><p style="color: var(--argent-doux); font-size: 13px; line-height: 1.8;">Studio privé · Montréal</p></div>
     <div><h4>Services</h4><a href="/onglerie">Onglerie</a><a href="/epilation">Épilation</a><a href="/galerie">Galerie</a></div>
     <div><h4>Studio</h4><a href="/apropos">À propos</a><a href="/faq">FAQ</a><a href="/reservation">Réservation</a></div>
-    <div><h4>Contact</h4><a href="https://www.instagram.com/black_and_beauty_studio/">Instagram</a><a href="https://www.tiktok.com/@blackandbeautystudio">TikTok</a></div>
+    <div><h4>Contact</h4><a href="https://www.instagram.com/black_and_beauty_studio/" target="_blank" rel="noopener" data-cms-attr="href:site.instagram_url">Instagram</a><a href="https://www.tiktok.com/@blackandbeautystudio" target="_blank" rel="noopener" data-cms-attr="href:site.tiktok_url">TikTok</a></div>
   </div>
   <div class="footer-bottom">© 2026 Black &amp; Beauty Studio · ✠ Merci pour votre confiance ✠</div>
 </footer>
 
 <script src="/assets/decor.js"></script>
+<script src="/assets/hydrate.js" defer></script>
 <script>
   seedAmbiance(document.getElementById('ambiance-host'), { sparkles: 12, smokes: 4 });
   initFadeUps();

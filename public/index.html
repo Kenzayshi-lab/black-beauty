@@ -22,9 +22,9 @@
   .hero-bg {
     position: absolute; inset: 0;
     background:
-      radial-gradient(ellipse at 30% 50%, rgba(161,11,27,0.25) 0%, transparent 50%),
+      radial-gradient(ellipse at 30% 50%, rgba(var(--rouge-rubis-rgb), 0.25) 0%, transparent 50%),
       radial-gradient(ellipse at 70% 60%, rgba(75,30,90,0.3) 0%, transparent 55%),
-      radial-gradient(ellipse at center, #1a0d12 0%, #050505 80%);
+      var(--gradient-noir);
   }
   .hero-content {
     position: relative; z-index: 5;
@@ -33,7 +33,7 @@
   .hero-logo {
     width: 360px; height: 360px;
     margin: 0 auto 32px;
-    filter: drop-shadow(0 0 60px rgba(161,11,27,0.6));
+    filter: drop-shadow(0 0 60px rgba(var(--rouge-rubis-rgb), 0.6));
     animation: heroLogoFloat 6s ease-in-out infinite, heroLogoGlow 4s ease-in-out infinite;
   }
   @keyframes heroLogoFloat {
@@ -41,8 +41,8 @@
     50% { transform: translateY(-12px); }
   }
   @keyframes heroLogoGlow {
-    0%, 100% { filter: drop-shadow(0 0 60px rgba(161,11,27,0.6)); }
-    50% { filter: drop-shadow(0 0 100px rgba(161,11,27,0.9)) drop-shadow(0 0 40px rgba(226,169,179,0.4)); }
+    0%, 100% { filter: drop-shadow(0 0 60px rgba(var(--rouge-rubis-rgb), 0.6)); }
+    50% { filter: drop-shadow(0 0 100px rgba(var(--rouge-rubis-rgb), 0.9)) drop-shadow(0 0 40px rgba(var(--rose-metal-rgb), 0.4)); }
   }
   @media (max-width: 640px) {
     .hero-logo { width: 240px; height: 240px; }
@@ -63,7 +63,7 @@
     font-size: clamp(28px, 4vw, 44px);
     color: var(--rouge-rubis);
     margin-bottom: 28px;
-    text-shadow: 0 0 16px rgba(161,11,27,0.5);
+    text-shadow: 0 0 16px rgba(var(--rouge-rubis-rgb), 0.5);
   }
   .hero .subtitle {
     font-size: 13px; letter-spacing: 0.4em;
@@ -133,8 +133,8 @@
   /* —— Aperçu prix avec affiche style —— */
   .price-preview {
     background:
-      radial-gradient(ellipse at top left, rgba(161,11,27,0.15) 0%, transparent 50%),
-      radial-gradient(ellipse at bottom right, rgba(107,5,16,0.12) 0%, transparent 50%),
+      radial-gradient(ellipse at top left, rgba(var(--rouge-rubis-rgb), 0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(var(--rouge-sang-rgb), 0.12) 0%, transparent 50%),
       var(--noir-velours);
     position: relative;
   }
@@ -149,15 +149,15 @@
   .about-img {
     aspect-ratio: 4/5;
     background:
-      linear-gradient(135deg, rgba(161,11,27,0.3), rgba(75,30,90,0.4)),
+      linear-gradient(135deg, rgba(var(--rouge-rubis-rgb), 0.3), rgba(75,30,90,0.4)),
       url('assets/images/affiche-prix-ongles.jpg') center/cover;
     position: relative;
-    border: 1px solid rgba(226,169,179,0.2);
+    border: 1px solid rgba(var(--rose-metal-rgb), 0.2);
   }
   .about-img::before {
     content: '';
     position: absolute; inset: 12px;
-    border: 1px solid rgba(226,169,179,0.15);
+    border: 1px solid rgba(var(--rose-metal-rgb), 0.15);
   }
   .about-text h2 { font-size: clamp(36px, 5vw, 56px); margin: 16px 0 24px; }
   .about-text p {
@@ -178,19 +178,19 @@
     position: relative; overflow: hidden;
     background: var(--noir-marbre);
     cursor: pointer;
-    border: 1px solid rgba(226,169,179,0.1);
+    border: 1px solid rgba(var(--rose-metal-rgb), 0.1);
   }
   .insta-tile .placeholder {
     position: absolute; inset: 0;
     display: flex; align-items: center; justify-content: center;
-    background: linear-gradient(135deg, rgba(161,11,27,0.2), rgba(13,7,9,0.9));
+    background: linear-gradient(135deg, rgba(var(--rouge-rubis-rgb), 0.2), rgba(var(--noir-velours-rgb), 0.9));
     color: var(--rose-metal); opacity: 0.4;
   }
   .insta-tile:hover .placeholder { opacity: 1; transform: scale(1.05); }
   .insta-tile .placeholder svg { width: 32px; height: 32px; }
   .insta-tile img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s cubic-bezier(0.2,0.8,0.2,1); }
   .insta-tile:hover img { transform: scale(1.06); }
-  .insta-tile::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 60%, rgba(161,11,27,0.25)); opacity: 0; transition: opacity 0.4s; pointer-events: none; }
+  .insta-tile::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 60%, rgba(var(--rouge-rubis-rgb), 0.25)); opacity: 0; transition: opacity 0.4s; pointer-events: none; }
   .insta-tile:hover::after { opacity: 1; }
 
   /* —— CTA final —— */
@@ -199,7 +199,7 @@
     padding: 140px 24px;
     position: relative;
     background:
-      radial-gradient(ellipse at center, rgba(161,11,27,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse at center, rgba(var(--rouge-rubis-rgb), 0.25) 0%, transparent 60%),
       var(--noir-profond);
   }
   .cta-band h2 {
@@ -210,7 +210,7 @@
     font-family: var(--script);
     font-size: clamp(40px, 5vw, 64px);
     color: var(--rose-metal); margin-bottom: 32px;
-    text-shadow: 0 0 20px rgba(226,169,179,0.4);
+    text-shadow: 0 0 20px rgba(var(--rose-metal-rgb), 0.4);
   }
 
   /* —— Politiques teaser —— */
@@ -224,8 +224,8 @@
   .policy-item {
     text-align: center;
     padding: 32px 24px;
-    border: 1px solid rgba(226,169,179,0.15);
-    background: rgba(13,7,9,0.5);
+    border: 1px solid rgba(var(--rose-metal-rgb), 0.15);
+    background: rgba(var(--noir-velours-rgb), 0.5);
   }
   .policy-item .icon { color: var(--rouge-rubis); margin-bottom: 16px; }
   .policy-item .icon svg { width: 36px; height: 36px; }
@@ -240,7 +240,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cinzel+Decorative:wght@400;700;900&family=Montserrat:wght@200;300;400;500;600;700&family=Italianno&display=swap" rel="stylesheet">
 </head>
-<body class="bg-marbre">
+<body class="bg-marbre" data-page="home">
 
 <!-- ===== NAV ===== -->
 <nav class="nav">
@@ -264,13 +264,13 @@
   <div class="hero-bg"></div>
   <div class="hero-content">
     <img src="/assets/images/logo.png" alt="Black & Beauty Studio" class="hero-logo">
-    <div class="eyebrow" style="margin-bottom: 14px;">✠ Montréal · Studio privé ✠</div>
-    <h1 class="title-metal">Black &amp; Beauty Studio</h1>
-    <div class="tagline script">L'art de la beauté, version royale</div>
-    <p class="subtitle">Onglerie acrylique · Épilation à la cire · Beauty rituals</p>
+    <div class="eyebrow" style="margin-bottom: 14px;" data-cms="home.hero.eyebrow">✠ Montréal · Studio privé ✠</div>
+    <h1 class="title-metal" data-cms="home.hero.title">Black &amp; Beauty Studio</h1>
+    <div class="tagline script" data-cms="home.hero.tagline">L'art de la beauté, version royale</div>
+    <p class="subtitle" data-cms="home.hero.subtitle">Onglerie acrylique · Épilation à la cire · Beauty rituals</p>
     <div class="hero-ctas">
-      <a href="https://ig.me/m/black_and_beauty_studio" target="_blank" rel="noopener" class="btn btn-primary">✠ Réserver sur Instagram</a>
-      <a href="#services" class="btn btn-ghost">Découvrir les services</a>
+      <a href="https://ig.me/m/black_and_beauty_studio" target="_blank" rel="noopener" class="btn btn-primary" data-cms-attr="href:site.instagram_dm">✠ Réserver sur Instagram</a>
+      <a href="#services" class="btn btn-ghost" data-cms="home.hero.cta_secondary_text">Découvrir les services</a>
     </div>
   </div>
   <div class="scroll-cue">↓ &nbsp; Descendre &nbsp; ↓</div>
@@ -290,8 +290,8 @@
 <section class="section" id="services">
   <div class="container">
     <div class="section-header fade-up">
-      <div class="eyebrow">Nos univers</div>
-      <h2 class="title-metal">Services</h2>
+      <div class="eyebrow" data-cms="home.services_section.eyebrow">Nos univers</div>
+      <h2 class="title-metal" data-cms="home.services_section.title">Services</h2>
       <div class="divider-cross">
         <svg viewBox="0 0 24 36" width="22" height="22"><path d="M 12 0 L 14 8 L 22 10 L 22 14 L 14 16 L 14 32 L 12 36 L 10 32 L 10 16 L 2 14 L 2 10 L 10 8 Z" fill="#A10B1B"/></svg>
       </div>
@@ -329,7 +329,7 @@
         <h3>Beauty rituals</h3>
         <div class="price-from">Sur consultation</div>
         <p>Décorations sur mesure, réparations, déposes et finitions. Chaque rituel est pensé pour révéler votre élégance.</p>
-        <a href="https://ig.me/m/black_and_beauty_studio" target="_blank" rel="noopener" class="more">Réserver →</a>
+        <a href="https://ig.me/m/black_and_beauty_studio" target="_blank" rel="noopener" class="more" data-cms-attr="href:site.instagram_dm">Réserver →</a>
       </div>
     </div>
   </div>
@@ -339,8 +339,8 @@
 <section class="section price-preview">
   <div class="container-narrow">
     <div class="section-header fade-up">
-      <div class="eyebrow">✠ Tarifs ✠</div>
-      <h2 class="title-metal">Liste de prix</h2>
+      <div class="eyebrow" data-cms="home.prices_section.eyebrow">✠ Tarifs ✠</div>
+      <h2 class="title-metal" data-cms="home.prices_section.title">Liste de prix</h2>
       <p style="color: var(--argent-doux); font-size: 14px; letter-spacing: 0.15em; margin-top: 12px;">
         — UN APERÇU DE NOS RITUELS —
       </p>
@@ -392,8 +392,8 @@
     <div class="about-teaser">
       <div class="about-img fade-up"></div>
       <div class="about-text fade-up">
-        <div class="eyebrow">L'histoire</div>
-        <h2 class="title-metal">Une beauté qui ose le noir</h2>
+        <div class="eyebrow" data-cms="home.about_teaser.eyebrow">L'histoire</div>
+        <h2 class="title-metal" data-cms="home.about_teaser.title">Une beauté qui ose le noir</h2>
         <p>Black &amp; Beauty Studio est né d'une passion : celle de marier l'élégance gothique au raffinement royal. Dans notre studio privé montréalais, chaque cliente est traitée comme une reine.</p>
         <p>Nos rituels d'onglerie acrylique et d'épilation à la cire sont pensés pour révéler la femme audacieuse en vous. Ambiance feutrée, hygiène impeccable, écoute attentive.</p>
         <a href="/apropos" class="btn btn-ghost">Notre univers →</a>
@@ -406,9 +406,9 @@
 <section class="section" style="background: var(--noir-velours);">
   <div class="container">
     <div class="section-header fade-up">
-      <div class="eyebrow">@black_and_beauty_studio</div>
-      <h2 class="title-metal">Notre Instagram</h2>
-      <p style="color: var(--argent-doux); font-size: 13px; letter-spacing: 0.2em; margin-top: 12px;">
+      <div class="eyebrow" data-cms="site.instagram_handle">@black_and_beauty_studio</div>
+      <h2 class="title-metal" data-cms="home.instagram_section.title">Notre Instagram</h2>
+      <p style="color: var(--argent-doux); font-size: 13px; letter-spacing: 0.2em; margin-top: 12px;" data-cms="home.instagram_section.subtitle">
         SUIVEZ NOS DERNIÈRES CRÉATIONS
       </p>
     </div>
@@ -421,7 +421,7 @@
       <a class="insta-tile" href="https://www.instagram.com/black_and_beauty_studio/" target="_blank" rel="noopener"><img src="/assets/images/insta/g06.jpg" alt="French nude élégante — Black & Beauty Studio" loading="lazy"></a>
     </div>
     <div style="text-align: center; margin-top: 40px;" class="fade-up">
-      <a href="https://www.instagram.com/black_and_beauty_studio/" target="_blank" class="btn btn-ghost">Suivre sur Instagram</a>
+      <a href="https://www.instagram.com/black_and_beauty_studio/" target="_blank" rel="noopener" class="btn btn-ghost" data-cms-attr="href:site.instagram_url">Suivre sur Instagram</a>
     </div>
   </div>
 </section>
@@ -430,8 +430,8 @@
 <section class="section">
   <div class="container-narrow">
     <div class="section-header fade-up">
-      <div class="eyebrow">Avant votre venue</div>
-      <h2 class="title-metal">Politiques de réservation</h2>
+      <div class="eyebrow" data-cms="home.policies_section.eyebrow">Avant votre venue</div>
+      <h2 class="title-metal" data-cms="home.policies_section.title">Politiques de réservation</h2>
     </div>
     <div class="policies-row fade-up">
       <div class="policy-item">
@@ -470,10 +470,10 @@
 <!-- ===== CTA FINAL ===== -->
 <section class="cta-band">
   <div class="container-narrow">
-    <div class="eyebrow fade-up">✠ Prête à oser ? ✠</div>
-    <h2 class="title-metal fade-up">Réservez votre rituel</h2>
-    <div class="script-deco fade-up">votre couronne vous attend</div>
-    <a href="/reservation" class="btn btn-primary fade-up">Réserver maintenant</a>
+    <div class="eyebrow fade-up" data-cms="home.cta_final.eyebrow">✠ Prête à oser ? ✠</div>
+    <h2 class="title-metal fade-up" data-cms="home.cta_final.title">Réservez votre rituel</h2>
+    <div class="script-deco fade-up" data-cms="home.cta_final.script">votre couronne vous attend</div>
+    <a href="/reservation" class="btn btn-primary fade-up" data-cms="home.cta_final.button_text">Réserver maintenant</a>
   </div>
 </section>
 
@@ -502,9 +502,9 @@
     </div>
     <div>
       <h4>Contact</h4>
-      <a href="https://www.instagram.com/black_and_beauty_studio/" target="_blank">Instagram</a>
-      <a href="https://www.tiktok.com/@blackandbeautystudio" target="_blank">TikTok</a>
-      <a href="mailto:blackandbeauty.studio@gmail.com">Email</a>
+      <a href="https://www.instagram.com/black_and_beauty_studio/" target="_blank" rel="noopener" data-cms-attr="href:site.instagram_url">Instagram</a>
+      <a href="https://www.tiktok.com/@blackandbeautystudio" target="_blank" rel="noopener" data-cms-attr="href:site.tiktok_url">TikTok</a>
+      <a href="mailto:blackandbeauty.studio@gmail.com" data-cms-attr="href:site.email_href">Email</a>
     </div>
   </div>
   <div class="footer-bottom">
@@ -513,6 +513,7 @@
 </footer>
 
 <script src="/assets/decor.js"></script>
+<script src="/assets/hydrate.js" defer></script>
 <script>
   seedAmbiance(document.getElementById('ambiance-host'), { sparkles: 18, smokes: 6 });
   initFadeUps();

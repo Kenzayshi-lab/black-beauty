@@ -1,0 +1,35 @@
+{
+  "hero": {
+    "eyebrow": "✠ Toutes vos questions ✠",
+    "title": "FAQ",
+    "script_sub": "demandes fréquentes"
+  },
+  "reservation": {
+    "title": "Réservation",
+    "q_prendre_rdv": "Comment prendre rendez-vous ?",
+    "q_depot":       "Pourquoi un dépôt de 20$ ?",
+    "q_retard":      "Que se passe-t-il si je suis en retard ?",
+    "q_paiement":    "Quels modes de paiement sont acceptés ?"
+  },
+  "onglerie": {
+    "title": "Onglerie",
+    "q_duree_pose":   "Combien de temps dure une pose acrylique ?",
+    "q_duree_seance": "Combien de temps dure une séance ?",
+    "q_inspiration":  "Puis-je apporter une inspiration ?"
+  },
+  "epilation": {
+    "title": "Épilation",
+    "q_douleur":   "L'épilation à la cire est-elle douloureuse ?",
+    "q_longueur":  "Quelle longueur de poils pour l'épilation ?",
+    "q_frequence": "À quelle fréquence faut-il revenir ?"
+  },
+  "studio": {
+    "title": "Studio",
+    "q_adresse":       "Où se trouve le studio ?",
+    "q_accompagnants": "Acceptez-vous les enfants / accompagnants ?"
+  },
+  "cta": {
+    "text":   "Une autre question ?",
+    "button": "Me contacter"
+  }
+}

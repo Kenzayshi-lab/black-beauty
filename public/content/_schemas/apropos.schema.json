@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Page A propos",
+  "description": "Textes editables de la page a propos.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "hero": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "eyebrow":    { "type": "string", "maxLength": 120 },
+        "title":      { "type": "string", "maxLength": 80 },
+        "script_sub": { "type": "string", "maxLength": 120 }
+      }
+    },
+    "story_section": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "eyebrow":     { "type": "string", "maxLength": 80 },
+        "title":       { "type": "string", "maxLength": 120 },
+        "paragraph_1": { "type": "string", "maxLength": 800 },
+        "paragraph_2": { "type": "string", "maxLength": 800 }
+      }
+    },
+    "values_section": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "eyebrow": { "type": "string", "maxLength": 80 },
+        "title":   { "type": "string", "maxLength": 120 }
+      }
+    },
+    "values": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "excellence":    { "$ref": "#/definitions/valueCard" },
+        "hygiene":       { "$ref": "#/definitions/valueCard" },
+        "bienveillance": { "$ref": "#/definitions/valueCard" }
+      }
+    },
+    "contact_section": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "eyebrow": { "type": "string", "maxLength": 80 },
+        "title":   { "type": "string", "maxLength": 120 }
+      }
+    },
+    "contact_card": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "title":             { "type": "string", "maxLength": 60 },
+        "label_address":     { "type": "string", "maxLength": 40 },
+        "label_email":       { "type": "string", "maxLength": 40 },
+        "label_appointment": { "type": "string", "maxLength": 40 },
+        "appointment_text":  { "type": "string", "maxLength": 120 },
+        "label_instagram":   { "type": "string", "maxLength": 40 },
+        "label_tiktok":      { "type": "string", "maxLength": 40 }
+      }
+    },
+    "appointment_card": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "title":       { "type": "string", "maxLength": 60 },
+        "description": { "type": "string", "maxLength": 400 },
+        "button_text": { "type": "string", "maxLength": 60 }
+      }
+    }
+  },
+  "definitions": {
+    "valueCard": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "title":       { "type": "string", "maxLength": 40 },
+        "description": { "type": "string", "maxLength": 400 }
+      }
+    }
+  }
+}

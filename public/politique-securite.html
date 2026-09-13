@@ -14,7 +14,7 @@
 <meta name="theme-color" content="#050505">
 <link rel="stylesheet" href="/assets/styles.css">
 <style>
-  .page-hero { padding: 180px 24px 70px; text-align: center; position: relative; overflow: hidden; background: radial-gradient(ellipse at center, rgba(161,11,27,0.2) 0%, transparent 60%), var(--noir-profond); }
+  .page-hero { padding: 180px 24px 70px; text-align: center; position: relative; overflow: hidden; background: radial-gradient(ellipse at center, rgba(var(--rouge-rubis-rgb), 0.2) 0%, transparent 60%), var(--noir-profond); }
   .page-hero h1 { font-family: var(--titre-deco); font-size: clamp(36px, 6vw, 72px); margin: 16px 0; }
   .page-hero .script-sub { font-family: var(--script); font-size: clamp(26px, 4vw, 40px); color: var(--rouge-rubis); }
 
@@ -27,7 +27,7 @@
     letter-spacing: 0.14em; color: var(--rose-metal);
     display: flex; align-items: baseline; gap: 14px;
     padding-bottom: 14px; margin-bottom: 20px;
-    border-bottom: 1px solid rgba(226,169,179,0.15);
+    border-bottom: 1px solid rgba(var(--rose-metal-rgb), 0.15);
   }
   .legal h2.block-title .n { color: var(--rouge-rubis); font-size: 15px; }
   .legal p { font-size: 14.5px; line-height: 1.9; color: var(--argent-givre); margin-bottom: 16px; }
@@ -35,25 +35,25 @@
   .legal li { font-size: 14.5px; line-height: 1.85; color: var(--argent-givre); margin-bottom: 8px; }
   .legal strong { color: var(--rose-metal); font-weight: 500; }
   .legal a.inline { color: var(--rose-metal); text-decoration: underline; text-underline-offset: 3px; }
-  .legal code { font-family: monospace; font-size: 12.5px; background: rgba(161,11,27,0.15); border: 1px solid rgba(161,11,27,0.3); color: var(--rose-poudre); padding: 2px 7px; }
+  .legal code { font-family: monospace; font-size: 12.5px; background: rgba(var(--rouge-rubis-rgb), 0.15); border: 1px solid rgba(var(--rouge-rubis-rgb), 0.3); color: var(--rose-poudre); padding: 2px 7px; }
 
   .measure-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 8px 0 8px; }
   @media (max-width: 640px) { .measure-grid { grid-template-columns: 1fr; } }
   .measure {
-    background: var(--noir-velours); border: 1px solid rgba(226,169,179,0.18);
+    background: var(--noir-velours); border: 1px solid rgba(var(--rose-metal-rgb), 0.18);
     border-top: 2px solid var(--rouge-rubis); padding: 22px 24px;
   }
   .measure h3 { font-family: var(--titre); font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rose-metal); margin-bottom: 10px; }
   .measure p { font-size: 13.5px; line-height: 1.75; margin: 0; color: var(--argent-doux); }
 
-  .callout { background: var(--noir-velours); border: 1px solid rgba(226,169,179,0.2); padding: 24px 28px; margin: 8px 0 16px; border-left: 3px solid var(--rouge-rubis); }
-  .todo { color: var(--rose-poudre); background: rgba(161,11,27,0.14); border: 1px solid rgba(161,11,27,0.3); padding: 1px 8px; font-size: 12.5px; }
+  .callout { background: var(--noir-velours); border: 1px solid rgba(var(--rose-metal-rgb), 0.2); padding: 24px 28px; margin: 8px 0 16px; border-left: 3px solid var(--rouge-rubis); }
+  .todo { color: var(--rose-poudre); background: rgba(var(--rouge-rubis-rgb), 0.14); border: 1px solid rgba(var(--rouge-rubis-rgb), 0.3); padding: 1px 8px; font-size: 12.5px; }
 </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Cinzel+Decorative:wght@400;700;900&family=Montserrat:wght@200;300;400;500;600;700&family=Italianno&display=swap" rel="stylesheet">
 </head>
-<body class="bg-marbre">
+<body class="bg-marbre" data-page="politique-securite">
 
 <nav class="nav">
   <a href="/" class="nav-logo"><img src="/assets/images/logo.png" alt=""><span>Black &amp; Beauty</span></a>
@@ -69,15 +69,15 @@
 </nav>
 
 <section class="page-hero" id="ambiance-host">
-  <div class="eyebrow">✠ Protection &amp; cybersécurité ✠</div>
-  <h1 class="title-metal">Politique de sécurité</h1>
-  <div class="script-sub">un studio, un rempart</div>
+  <div class="eyebrow" data-cms="politique-securite.hero.eyebrow">✠ Protection &amp; cybersécurité ✠</div>
+  <h1 class="title-metal" data-cms="politique-securite.hero.title">Politique de sécurité</h1>
+  <div class="script-sub" data-cms="politique-securite.hero.script_sub">un studio, un rempart</div>
 </section>
 
 <section class="section">
   <div class="legal">
     <div class="legal-meta">
-      Dernière mise à jour : <strong style="color:var(--rose-metal)">8 septembre 2026</strong><br>
+      Dernière mise à jour : <strong style="color:var(--rose-metal)" data-cms="politique-securite.meta.last_update">8 septembre 2026</strong><br>
       Cette politique complète notre <a class="inline" href="/politique-confidentialite">Politique de confidentialité</a>.
     </div>
 
@@ -155,7 +155,7 @@
       <div class="callout">
         <p style="margin:0">
           <strong>Black &amp; Beauty Studio</strong> — Montréal (Québec)<br>
-          Sécurité &amp; confidentialité : <a class="inline" href="mailto:blackandbeauty.studio@gmail.com">blackandbeauty.studio@gmail.com</a>
+          Sécurité &amp; confidentialité : <a class="inline" href="mailto:blackandbeauty.studio@gmail.com" data-cms-attr="href:site.email_href" data-cms="site.email">blackandbeauty.studio@gmail.com</a>
         </p>
       </div>
     </section>
@@ -171,12 +171,13 @@
     <div><img src="/assets/images/logo.png" alt="" style="height: 56px; margin-bottom: 20px;"><p style="color: var(--argent-doux); font-size: 13px; line-height: 1.8;">Studio privé · Montréal</p></div>
     <div><h4>Services</h4><a href="/onglerie">Onglerie</a><a href="/epilation">Épilation</a><a href="/galerie">Galerie</a></div>
     <div><h4>Studio</h4><a href="/apropos">À propos</a><a href="/faq">FAQ</a><a href="/reservation">Réservation</a></div>
-    <div><h4>Contact</h4><a href="https://www.instagram.com/black_and_beauty_studio/">Instagram</a><a href="https://www.tiktok.com/@blackandbeautystudio">TikTok</a></div>
+    <div><h4>Contact</h4><a href="https://www.instagram.com/black_and_beauty_studio/" target="_blank" rel="noopener" data-cms-attr="href:site.instagram_url">Instagram</a><a href="https://www.tiktok.com/@blackandbeautystudio" target="_blank" rel="noopener" data-cms-attr="href:site.tiktok_url">TikTok</a></div>
   </div>
   <div class="footer-bottom">© 2026 Black &amp; Beauty Studio · ✠ Merci pour votre confiance ✠</div>
 </footer>
 
 <script src="/assets/decor.js"></script>
+<script src="/assets/hydrate.js" defer></script>
 <script>
   seedAmbiance(document.getElementById('ambiance-host'), { sparkles: 8, smokes: 3 });
   initFadeUps();
