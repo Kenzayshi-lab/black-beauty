@@ -1,0 +1,25 @@
+{
+  "hero": {
+    "eyebrow": "✠ Studio privé · Montréal ✠",
+    "title": "Réservation",
+    "script_sub": "votre couronne vous attend"
+  },
+  "reserv_section": {
+    "eyebrow": "✠ Pour réserver ✠",
+    "title": "Réservation via Instagram"
+  },
+  "how_to": {
+    "eyebrow": "✠ Comment réserver ✠",
+    "title": "Envoyez-moi un message sur Instagram"
+  },
+  "policies_section": {
+    "eyebrow": "✠ À lire avant ✠",
+    "title": "Politiques"
+  },
+  "policies": {
+    "depot":     "Dépôt",
+    "retard":    "Retard",
+    "paiement":  "Paiement",
+    "annulation": "Annulation"
+  }
+}
