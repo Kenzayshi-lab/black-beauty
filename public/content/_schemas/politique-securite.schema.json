@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Politique de securite",
+  "description": "Hero + date de mise a jour (le corps reste en HTML dur).",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "hero": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "eyebrow":    { "type": "string", "maxLength": 120 },
+        "title":      { "type": "string", "maxLength": 120 },
+        "script_sub": { "type": "string", "maxLength": 120 }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "last_update": { "type": "string", "maxLength": 40 }
+      }
+    }
+  }
+}
