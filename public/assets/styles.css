@@ -42,9 +42,22 @@
 
   --shadow-rubis: 0 0 24px rgba(var(--rouge-rubis-rgb), 0.5), 0 0 48px rgba(var(--rouge-rubis-rgb), 0.25);
   --shadow-rose: 0 0 18px rgba(var(--rose-metal-rgb), 0.3);
-  --gradient-metal: linear-gradient(180deg, #f4d4dd 0%, #E2A9B3 35%, #8a4d57 70%, #E2A9B3 100%);
-  --gradient-rubis: linear-gradient(135deg, #d61b30 0%, #A10B1B 50%, #4a0510 100%);
-  --gradient-noir: radial-gradient(ellipse at center, #1a0d12 0%, #050505 80%);
+
+  /* Gradients derives de la palette via color-mix (support >99% en 2026).
+     Si Aalie change --rouge-rubis ou --rose-metal dans theme.json,
+     les extremites claires/foncees des gradients suivent automatiquement. */
+  --gradient-metal: linear-gradient(180deg,
+    color-mix(in srgb, var(--rose-metal) 55%, white) 0%,
+    var(--rose-metal) 35%,
+    color-mix(in srgb, var(--rose-metal) 45%, black) 70%,
+    var(--rose-metal) 100%);
+  --gradient-rubis: linear-gradient(135deg,
+    color-mix(in srgb, var(--rouge-rubis) 60%, white 40%) 0%,
+    var(--rouge-rubis) 50%,
+    color-mix(in srgb, var(--rouge-rubis) 46%, black) 100%);
+  --gradient-noir: radial-gradient(ellipse at center,
+    color-mix(in srgb, var(--noir-profond) 70%, var(--rouge-rubis) 15%) 0%,
+    var(--noir-profond) 80%);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
