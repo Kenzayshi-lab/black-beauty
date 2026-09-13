@@ -79,8 +79,8 @@ Exemple:
 }
 
 // Imports dynamiques APRES le chargement de l'env (les modules validate au chargement)
-const { createUser, resetPassword, getUserByEmail } = await import("../lib/users.ts");
-const { redis } = await import("../lib/redis.ts");
+const { createUser, resetPassword, getUserByEmail } = await import("../lib/users");
+const { redis } = await import("../lib/redis");
 
 async function main() {
   const email = values.email as string;
