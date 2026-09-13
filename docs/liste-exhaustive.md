@@ -212,33 +212,44 @@ Setmore le supporte via Square/Stripe — migration facile.
 
 ---
 
-## 🚨 Questions ouvertes pour Aalie
+## ✅ Décisions verrouillées (13 septembre 2026)
 
-Ces points sont à décider avec elle avant de finaliser :
-
-1. **Téléphone public** — l'ajouter ou rester DM Instagram seulement ?
-2. **Adresse du studio** — publique ou sur demande uniquement ?
-3. **Section avant/après** — activer maintenant, plus tard, ou jamais ?
-4. **Photos épilation (aisselles)** reçues mais non publiées — les intégrer avec un filtre discret, ou les garder de côté ?
-5. **Système de tags/catégories sur la galerie** — utile ou trop compliqué ?
-6. **Blog / actualités** — pertinent pour le studio (nouveautés, promos) ?
-7. **Témoignages / avis clients** — vouloir un module dédié ?
-8. **Newsletter** — capter les emails pour promos ? (déclenche des obligations Loi 25)
-9. **Bouton WhatsApp** — en complément d'Instagram ?
-10. **Multilingue** — anglais un jour, ou 100 % français ?
-11. ✅ ~~Service de réservation~~ — **Setmore** retenu.
-12. ✅ ~~Politique de dépôt~~ — **aucun dépôt en ligne, aucun paiement sur le site**.
-13. **Délai d'annulation gratuite** — 24 h ? 48 h ? 72 h ?
-14. **Politique no-show** — après combien d'absences on bloque une cliente ?
-15. **Google Calendar personnel d'Aalie** — synchronisé avec Setmore (recommandé pour éviter les doubles bookings) — OK ?
-16. **Rappel SMS automatique 24 h avant** — activer (recommandé, ~30 % de no-shows en moins) ?
-17. **Retard maximum toléré** — 10 min ? 15 min ? Au-delà, RDV annulé ?
+| # | Sujet | Décision |
+|---|---|---|
+| 1 | Téléphone public | ❌ **Non** — email `blackandbeauty.studio@gmail.com` reste le seul contact non-IG |
+| 2 | Adresse du studio | 🔒 **Sur demande** (jamais publique) |
+| 3 | Section avant/après | 🕓 **Plus tard**, quand paires de photos validées disponibles |
+| 4 | Photos aisselles reçues | 🕓 **De côté**, à re-évaluer avec Aalie |
+| 5 | Tags/catégories galerie | ✅ **Oui** — onglerie / épilation / événement |
+| 6 | Blog / actualités | ❌ **Non** — Instagram fait le job |
+| 7 | Témoignages / avis | ✅ **Oui** — module simple, 3-5 avis rotatifs sur l'accueil |
+| 8 | Newsletter | 🕓 **À vérifier plus tard** (obligations Loi 25 à peser) |
+| 9 | Bouton WhatsApp | ❌ **Non** — un seul canal messagerie (IG DM) |
+| 10 | Multilingue | 🇨🇦 **100 % français** — clientèle Québec uniquement |
+| 11 | Service de réservation | ✅ **Setmore** (tier gratuit) |
+| 12 | Paiement en ligne / dépôts | ❌ **Aucun** — paiement au studio, en personne |
+| 13 | Délai d'annulation gratuite | ⏱️ **24 h** avant le RDV |
+| 14 | Politique no-show | 🚫 **Après 3 absences** — blocage réservation en ligne (retour à IG DM avec justificatif) |
+| 15 | Google Calendar sync | ✅ **Oui** — sync bidirectionnelle Setmore ↔ agenda perso d'Aalie |
+| 16 | Rappels SMS auto 24 h avant | ✅ **Oui** — activé dans Setmore |
+| 17 | Retard maximum toléré | ⏱️ **20-30 min** — 20 min = tolérance douce (à la discrétion d'Aalie), 30 min = annulation automatique du RDV |
 
 ---
 
 ## ✍️ Ce qui reste à préciser côté toi (Louis)
 
-- [ ] Ajouter/retirer des champs ci-dessus.
-- [ ] Trancher les 10 questions ouvertes avec Aalie.
+- [x] Trancher les 17 questions ouvertes — **fait le 13 sept. 2026**.
+- [ ] Valider avec Aalie le blocage/déblocage des points marqués « 🕓 » (Q3, Q4, Q8).
 - [ ] Valider les couleurs actuelles ou en proposer d'autres.
 - [ ] Fournir 1 ou 2 exemples de tarifs à insérer (juste pour tester le CMS).
+- [ ] Confirmer la liste des services onglerie/épilation exacte (nom, durée, prix).
+
+## 📋 Textes à préparer / obtenir d'Aalie
+
+- [ ] Bio / présentation d'Aalie (page À propos).
+- [ ] Histoire du studio (nom, création, mission).
+- [ ] 3-5 valeurs du studio.
+- [ ] Politique d'annulation rédigée (miroir de ce qui sera dans Setmore).
+- [ ] Politique de retard rédigée.
+- [ ] Politique no-show rédigée.
+- [ ] 3-5 témoignages/avis clients (avec autorisation écrite ou anonymisés).

@@ -310,8 +310,9 @@ Decap CMS attend un backend git-gateway. On l'implémente nous-mêmes.
   - [ ] Rappel automatique SMS/email 24 h avant (réduit les no-shows).
   - [ ] Email d'annulation si la cliente annule.
 - [ ] Politique d'annulation écrite dans Setmore (visible avant réservation) :
-  - [ ] Délai d'annulation gratuite (à définir avec Aalie, ex. 24 h).
-  - [ ] Conséquence en cas d'absence répétée (blocage compte cliente).
+  - [x] Délai d'annulation gratuite : **24 h**.
+  - [x] Politique no-show : **blocage après 3 absences**, retour à IG DM avec justificatif.
+  - [x] Retard toléré : **20 min douceur, 30 min annulation automatique**.
 - [ ] Google Calendar personnel d'Aalie **synchronisé** avec Setmore — évite les doubles bookings.
 
 ### 9bis.2 Intégration dans le site
