@@ -289,53 +289,60 @@ Decap CMS attend un backend git-gateway. On l'implémente nous-mêmes.
 
 ---
 
-## 📅 Phase 9bis — Système de réservation en ligne
+## 📅 Phase 9bis — Système de réservation en ligne (Setmore)
 
-**Décision** : intégration d'un service tiers, **pas** de dev interne.
+**Décisions verrouillées** (13 sept. 2026) :
+- ✅ Service choisi : **Setmore** (tier gratuit, jusqu'à 4 utilisateurs).
+- ✅ **Aucun paiement** via le site — la réservation confirme un créneau, le paiement se fait au studio.
+- ✅ Pas de dépôts en ligne — évite toute complexité PCI-DSS et Stripe.
 
-Justifications :
-- Gestion des dépôts, no-shows, PCI-DSS : hors périmètre d'un site vitrine.
-- Chaque service tiers listé ci-dessous a déjà résolu le problème.
-- On garde la responsabilité paiement chez un prestataire spécialisé.
+### 9bis.1 Configuration Setmore
 
-### 9bis.1 Choix du service (à trancher avec Aalie)
+- [ ] Compte Setmore créé au nom d'Aalie (email `blackandbeauty.studio@gmail.com`).
+- [ ] Profil business rempli : nom, logo, adresse (ou « sur demande »), horaires, langue française.
+- [ ] Services créés dans Setmore, alignés avec `onglerie.json` et `epilation.json` :
+  - [ ] Nom, description, durée, prix (affiché comme indicatif).
+  - [ ] Photo du service (optionnelle).
+- [ ] Disponibilités hebdomadaires configurées (jours + heures de travail).
+- [ ] Buffer entre RDV configuré (temps de nettoyage/préparation).
+- [ ] Notifications activées :
+  - [ ] Email de confirmation à la cliente + à Aalie.
+  - [ ] Rappel automatique SMS/email 24 h avant (réduit les no-shows).
+  - [ ] Email d'annulation si la cliente annule.
+- [ ] Politique d'annulation écrite dans Setmore (visible avant réservation) :
+  - [ ] Délai d'annulation gratuite (à définir avec Aalie, ex. 24 h).
+  - [ ] Conséquence en cas d'absence répétée (blocage compte cliente).
+- [ ] Google Calendar personnel d'Aalie **synchronisé** avec Setmore — évite les doubles bookings.
 
-Comparatif dans `docs/liste-exhaustive.md`. Options recommandées :
-- **Cal.com** — self-host ou 15 $/mois, marque blanche complète.
-- **GlossGenius** — 24 $/mois, tout-en-un beauté (dépôts + SMS + POS).
-- **Setmore** — gratuit jusqu'à 4 utilisateurs.
+### 9bis.2 Intégration dans le site
 
-- [ ] Décision écrite d'Aalie sur le service choisi.
-- [ ] Compte créé, abonnement souscrit si nécessaire.
-- [ ] Services / durées / prix / photos alignés avec le contenu du site.
-- [ ] Politique de dépôt et d'annulation configurée (montant, délai).
-- [ ] Notifications email + SMS activées pour Aalie **et** la cliente.
-- [ ] Calendriers connectés (Google Calendar d'Aalie) — synchronisation testée.
-
-### 9bis.2 Intégration technique dans le site
-
-- [ ] Page dédiée `/reservation.html` retravaillée avec :
-  - [ ] Introduction (déjà là).
-  - [ ] Widget d'embed du service choisi (iframe scellée avec `sandbox` + `allow`).
-  - [ ] Fallback : bouton IG DM si le widget ne charge pas.
-- [ ] Bouton « Réserver » ajouté dans le hero accueil, la nav, chaque fiche service.
-- [ ] `Content-Security-Policy` mise à jour pour autoriser uniquement le domaine du service (frame-src).
-- [ ] Analytics : suivi anonyme des clics « Réserver » (pas de tracking personnel).
-- [ ] Test sur mobile (le widget doit être responsive et pas déborder à 360 px).
-- [ ] Test parcours complet : réservation → email confirmation → apparaît dans Google Calendar d'Aalie.
+- [ ] Page `/reservation.html` retravaillée :
+  - [ ] Introduction courte (déjà là, à ajuster).
+  - [ ] **Widget Setmore** embarqué en iframe scellée (`sandbox` + `allow-scripts allow-forms allow-same-origin`).
+  - [ ] Fallback : bouton IG DM si le widget ne charge pas (JS désactivé, réseau bloquant, etc.).
+- [ ] Bouton « Réserver » (rubis, thème gothique) ajouté :
+  - [ ] Dans le hero de l'accueil.
+  - [ ] Dans la nav principale (position visible).
+  - [ ] Sur chaque fiche service (onglerie et épilation).
+- [ ] `Content-Security-Policy` mise à jour : `frame-src https://booking.setmore.com https://*.setmore.com` uniquement.
+- [ ] Analytics : compteur anonyme de clics sur « Réserver » (pas de tracking personnel, cf. Loi 25).
+- [ ] Test responsive : widget lisible et fonctionnel à 360 px.
+- [ ] Test parcours complet : réservation depuis le site → email de confirmation reçu → RDV visible dans Google Calendar d'Aalie.
 
 ### 9bis.3 Conformité & confidentialité
 
-- [ ] Vérifier que le service est **PIPEDA / Loi 25 compliant** (contrat de sous-traitance signé si nécessaire).
-- [ ] Politique de confidentialité mise à jour pour mentionner ce nouveau sous-traitant.
-- [ ] Consentement explicite recueilli avant transmission des données au service tiers.
-- [ ] Documenter dans le registre Loi 25 : nature des données, base légale, durée de conservation.
+- [ ] Vérifier la politique de confidentialité de Setmore (hébergement des données, transfert international).
+- [ ] `politique-confidentialite.html` mise à jour pour mentionner Setmore comme sous-traitant.
+- [ ] Case à cocher explicite avant réservation : « J'accepte que mes coordonnées soient traitées par Setmore pour gérer mon rendez-vous » (si non déjà présente).
+- [ ] Registre Loi 25 (`docs/registre-loi25.md`) : ajouter l'entrée « Réservation via Setmore » — nature, base légale (contrat), durée de conservation.
+- [ ] Aucune donnée sensible (santé, paiement) ne transite par Setmore — juste nom, email, téléphone, service souhaité.
 
 ### 9bis.4 Gestion côté admin
 
-- [ ] Section dans la console admin : « Réservations » — lien direct vers le tableau de bord du service tiers.
-- [ ] Champ éditable : lien de réservation (au cas où on change de service plus tard).
-- [ ] Aalie peut désactiver temporairement le widget (mode « vacances ») depuis l'admin.
+- [ ] Section dans la console admin : bouton « Voir mes réservations » → lien direct vers le tableau de bord Setmore.
+- [ ] Champ éditable : lien du widget Setmore (au cas où on change plus tard).
+- [ ] Aalie peut désactiver temporairement l'affichage du widget (mode « vacances ») depuis l'admin — bascule le contenu de la page vers un message « Je reviens le [date] » + bouton IG DM.
+- [ ] Documentation cliente : comment gérer les créneaux, comment répondre à une annulation, comment bloquer une cliente no-show récidiviste.
 
 ---
 

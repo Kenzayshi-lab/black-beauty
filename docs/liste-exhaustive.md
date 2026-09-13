@@ -158,33 +158,31 @@ Liste répétable de Q/R :
 
 ## 9. 📅 Réservation (`reservation.json`)
 
-**Nouveau (13 sept.)** : la cliente veut que les clientes puissent réserver **directement** sur le site.
-Décision : on **intègre un service tiers** (Cal.com, GlossGenius, Setmore, Booksy, Square Appointments)
-plutôt que de développer un système custom (paiement + dépôts = hors périmètre).
+**Décision (13 sept. 2026)** : ✅ **Setmore** retenu.
+✅ Aucun paiement via le site — la réservation confirme juste le créneau.
+Paiement au studio, en personne, aucune transaction en ligne.
 
 | Champ | Type | Notes |
 |---|---|---|
 | Titre de la page | T | ✏️ |
-| Introduction | RTF | ✏️ |
-| Service de réservation choisi | SEL | ✏️ Cal.com / GlossGenius / Setmore / Booksy / Square |
-| URL/embed du service | URL | ✏️ Injectable dans un iframe scellé |
-| Widget visible ? | BOOL | ✏️ Bouton « vacances » pour désactiver temporairement |
+| Introduction courte | RTF | ✏️ |
+| URL du widget Setmore | URL | ✏️ Fourni après création du compte Setmore |
+| Widget visible ? | BOOL | ✏️ Bouton « mode vacances » côté admin |
+| Message si vacances | RTF | ✏️ Ex : « Je reviens le [date], DM pour urgence » |
 | Fallback si widget bloqué | URL | Lien IG DM par défaut |
-| Politique d'annulation | RTF | ✏️ Miroir de ce qui est dans le service tiers |
-| Politique de dépôt | RTF | ✏️ Miroir |
-| Politique de retard | RTF | ✏️ Miroir |
-| Coordonnées d'urgence | T | ✏️ Optionnel |
+| Politique d'annulation | RTF | ✏️ Miroir de ce qui est dans Setmore |
+| Politique de retard | RTF | ✏️ Ex : plus de 15 min = RDV annulé |
+| Politique no-show | RTF | ✏️ Ex : après 2 absences → blocage RDV en ligne |
 
-### Comparatif rapide des services (pour aider Aalie à choisir)
+### Note sur les no-shows (sans dépôt)
 
-| Service | Coût | Beauté-friendly | Dépôts | SMS | Marque blanche | Loi 25/PIPEDA |
-|---|---|---|---|---|---|---|
-| **Cal.com** self-host | 0 $ | Moyen | via Stripe | non | ✅ complète | ✅ (à vérifier hébergement CA) |
-| **Cal.com** cloud | 15 $/mois | Moyen | via Stripe | payant | ✅ | ✅ EU / à vérifier CA |
-| **GlossGenius** | 24 $/mois | ⭐ excellent | intégré | ✅ | partielle | ✅ US, à vérifier CA |
-| **Booksy** | ~30 $/mois | ⭐ excellent | intégré | ✅ | non (branding visible) | ✅ |
-| **Setmore** | gratuit (4 users) | Bon | Square/Stripe | payant | non | ✅ |
-| **Square Appointments** | gratuit + frais | Bon | intégré natif | ✅ | non | ✅ |
+Setmore permet quand même de réduire les absences :
+- **Rappels SMS/email automatiques** 24 h avant.
+- **Blocage manuel** d'une cliente récidiviste depuis le tableau de bord.
+- **Politique écrite** visible avant confirmation du RDV.
+
+Si Aalie change d'avis plus tard et veut activer les dépôts,
+Setmore le supporte via Square/Stripe — migration facile.
 
 ---
 
@@ -228,12 +226,13 @@ Ces points sont à décider avec elle avant de finaliser :
 8. **Newsletter** — capter les emails pour promos ? (déclenche des obligations Loi 25)
 9. **Bouton WhatsApp** — en complément d'Instagram ?
 10. **Multilingue** — anglais un jour, ou 100 % français ?
-11. **Service de réservation en ligne** — Cal.com / GlossGenius / Setmore / Booksy / Square ?
-    Priorités à préciser : budget max/mois, présence d'une app cliente, gestion des dépôts, langue française.
-12. **Politique de dépôt** — montant fixe (ex. 20 $) ou pourcentage (ex. 30 %) du service ?
+11. ✅ ~~Service de réservation~~ — **Setmore** retenu.
+12. ✅ ~~Politique de dépôt~~ — **aucun dépôt en ligne, aucun paiement sur le site**.
 13. **Délai d'annulation gratuite** — 24 h ? 48 h ? 72 h ?
-14. **Frais no-show** — 100 % du dépôt perdu ? Frais additionnel ?
-15. **Google Calendar personnel d'Aalie** — connecté à l'outil de réservation pour éviter les doubles bookings ?
+14. **Politique no-show** — après combien d'absences on bloque une cliente ?
+15. **Google Calendar personnel d'Aalie** — synchronisé avec Setmore (recommandé pour éviter les doubles bookings) — OK ?
+16. **Rappel SMS automatique 24 h avant** — activer (recommandé, ~30 % de no-shows en moins) ?
+17. **Retard maximum toléré** — 10 min ? 15 min ? Au-delà, RDV annulé ?
 
 ---
 
