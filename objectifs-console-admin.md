@@ -22,11 +22,17 @@ Un objectif est considéré comme terminé **uniquement si** :
 
 ## 🏗️ Phase 0 — Cadrage & décisions
 
-- [ ] Réunion (visio ou téléphone) avec Aalie — durée 30 min.
-- [ ] Liste exhaustive et écrite de tous les champs qu'elle veut pouvoir modifier.
-- [ ] Choix formel de l'architecture (Option A Decap CMS vs Option B custom).
-- [ ] Choix du mode d'auth (GitHub OAuth vs email/mot de passe).
-- [ ] Choix de l'URL admin (`/admin` vs sous-domaine).
+**Statut** : décisions verrouillées le 13 septembre 2026.
+
+- [x] Réunion avec Aalie faite (hors ligne, avant cette session).
+- [x] **Architecture** : Decap CMS (git-based, gratuit, garde le stack statique Vercel actuel).
+- [x] **Auth** : email + mot de passe (voie 1 — compte GitHub caché pour la cliente ; login web classique en façade).
+- [x] **URL admin** : sous-domaine `admin.blackandbeautystudio.ca`.
+- [ ] Liste exhaustive et écrite des champs éditables (`docs/liste-exhaustive.md`) — **en cours, à finaliser avec la cliente**.
+- [ ] DNS : ajout d'un `CNAME admin` pointant vers Vercel chez le registrar du domaine.
+- [ ] Configuration Vercel : ajout du domaine `admin.blackandbeautystudio.ca` au projet (ou projet séparé dédié à l'admin).
+- [ ] Création du compte GitHub dédié à Aalie (email `blackandbeauty.studio@gmail.com`, ajouté en collaborateur au repo `Kenzayshi-lab/black-beauty` avec droits d'écriture minimaux).
+- [ ] 2FA activée sur ce compte GitHub, procédure de récupération notée dans un gestionnaire de mots de passe (Bitwarden ou équivalent).
 - [ ] Compte-rendu écrit envoyé par courriel à Aalie et archivé dans le repo (`docs/cadrage.md`).
 - [ ] Approbation écrite de la cliente avant de démarrer la Phase 1.
 
