@@ -6,10 +6,14 @@
  * Ne peut PAS tourner en Edge runtime — uniquement Node.js.
  */
 
-import { hash, verify, Algorithm } from "@node-rs/argon2";
+import { hash, verify } from "@node-rs/argon2";
+
+// @node-rs/argon2 expose Algorithm comme const enum, incompatible avec
+// isolatedModules (Next.js). On passe la valeur brute: Argon2id = 2.
+const ALGORITHM_ARGON2ID = 2;
 
 const ARGON2_PARAMS = {
-  algorithm: Algorithm.Argon2id,
+  algorithm: ALGORITHM_ARGON2ID,
   memoryCost: 65536, // 64 MiB — recommandation OWASP 2024
   timeCost: 3,       // 3 iterations
   parallelism: 4,    // 4 threads
