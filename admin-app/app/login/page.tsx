@@ -2,6 +2,9 @@ import { redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { LoginForm } from "./login-form";
 
+// Runtime Node explicite — auth() charge auth.ts qui pull Argon2 + ioredis
+export const runtime = "nodejs";
+
 /**
  * Page login. Si deja authentifie, redirige vers le dashboard.
  */

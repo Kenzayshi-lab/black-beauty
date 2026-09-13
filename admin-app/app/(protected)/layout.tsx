@@ -1,6 +1,9 @@
 import { redirect } from "next/navigation";
 import { auth, signOut } from "@/auth";
 
+// Runtime Node explicite — auth.ts pull Argon2 + ioredis (incompatibles Edge)
+export const runtime = "nodejs";
+
 /**
  * Layout des routes protegees. Verifie la session cote server;
  * redirige vers /login si absente. Bouton de deconnexion permanent.
