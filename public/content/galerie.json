@@ -1,0 +1,30 @@
+{
+  "hero": {
+    "eyebrow": "✠ Portfolio ✠",
+    "title": "Galerie",
+    "script_sub": "l'art au bout des doigts"
+  },
+  "intro": "Un aperçu de nos réalisations acryliques — French, stiletto, nail art et finitions royales. Cliquez pour découvrir plus sur Instagram.",
+  "cta_final": {
+    "eyebrow": "✠ À vous de jouer ✠",
+    "title": "Votre couronne vous attend",
+    "description": "Chaque pose est unique. Réservez la vôtre et repartez avec des mains dignes d'une reine.",
+    "button_text": "Réserver maintenant"
+  },
+  "instagram_button_text": "Voir tout sur Instagram",
+  "photos": [
+    { "src": "/assets/images/insta/g01.jpg", "alt": "Onglerie acrylique noir et or", "link": "https://www.instagram.com/black_and_beauty_studio/" },
+    { "src": "/assets/images/insta/g02.jpg", "alt": "Pose acrylique nude carrée longue", "link": "https://www.instagram.com/black_and_beauty_studio/" },
+    { "src": "/assets/images/insta/g03.jpg", "alt": "French stiletto rose et blanc", "link": "https://www.instagram.com/black_and_beauty_studio/" },
+    { "src": "/assets/images/insta/g04.jpg", "alt": "Ongles stiletto bleu nuit", "link": "https://www.instagram.com/black_and_beauty_studio/" },
+    { "src": "/assets/images/insta/g05.jpg", "alt": "Nail art cœurs blanc et rouge", "link": "https://www.instagram.com/black_and_beauty_studio/" },
+    { "src": "/assets/images/insta/g06.jpg", "alt": "French nude élégante", "link": "https://www.instagram.com/black_and_beauty_studio/" },
+    { "src": "/assets/images/insta/g07.jpg", "alt": "Ongles rouge royal longs", "link": "https://www.instagram.com/black_and_beauty_studio/" },
+    { "src": "/assets/images/insta/g08.jpg", "alt": "Ongles rouge et orange", "link": "https://www.instagram.com/black_and_beauty_studio/" },
+    { "src": "/assets/images/insta/g09.jpg", "alt": "French blanche classique", "link": "https://www.instagram.com/black_and_beauty_studio/" },
+    { "src": "/assets/images/insta/g10.jpg", "alt": "French rose poudré", "link": "https://www.instagram.com/black_and_beauty_studio/" },
+    { "src": "/assets/images/insta/g11.jpg", "alt": "Nail art rouge et blanc", "link": "https://www.instagram.com/black_and_beauty_studio/" },
+    { "src": "/assets/images/insta/g12.jpg", "alt": "Pose en cours — création acrylique", "link": "https://www.instagram.com/black_and_beauty_studio/" },
+    { "src": "/assets/images/insta/g13.jpg", "alt": "Ongles noirs longs", "link": "https://www.instagram.com/black_and_beauty_studio/" }
+  ]
+}
