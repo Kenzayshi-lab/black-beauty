@@ -1,6 +1,6 @@
 # 📜 Politiques de réservation — Black & Beauty Studio
 
-> Textes rédigés pour être affichés dans Setmore **avant** confirmation de RDV,
+> Textes rédigés pour être affichés dans Square Appointments **avant** confirmation de RDV,
 > et repris dans la page `/reservation.html` du site.
 > À valider par Aalie avant publication.
 >

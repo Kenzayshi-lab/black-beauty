@@ -289,59 +289,59 @@ Decap CMS attend un backend git-gateway. On l'implémente nous-mêmes.
 
 ---
 
-## 📅 Phase 9bis — Système de réservation en ligne (Setmore)
+## 📅 Phase 9bis — Système de réservation en ligne (Square Appointments)
 
 **Décisions verrouillées** (13 sept. 2026) :
-- ✅ Service choisi : **Setmore** (tier gratuit, jusqu'à 4 utilisateurs).
+- ✅ Service choisi : **Square Appointments** (tier gratuit, jusqu'à 4 utilisateurs).
 - ✅ **Aucun paiement** via le site — la réservation confirme un créneau, le paiement se fait au studio.
 - ✅ Pas de dépôts en ligne — évite toute complexité PCI-DSS et Stripe.
 
-### 9bis.1 Configuration Setmore
+### 9bis.1 Configuration Square Appointments
 
-- [ ] Compte Setmore créé au nom d'Aalie (email `blackandbeauty.studio@gmail.com`).
+- [ ] Compte Square Appointments créé au nom d'Aalie (email `blackandbeauty.studio@gmail.com`).
 - [ ] Profil business rempli : nom, logo, adresse (ou « sur demande »), horaires, langue française.
-- [ ] Services créés dans Setmore, alignés avec `onglerie.json` et `epilation.json` :
+- [ ] Services créés dans Square Appointments, alignés avec `onglerie.json` et `epilation.json` :
   - [ ] Nom, description, durée, prix (affiché comme indicatif).
   - [ ] Photo du service (optionnelle).
 - [ ] Disponibilités hebdomadaires configurées (jours + heures de travail).
 - [ ] Buffer entre RDV configuré (temps de nettoyage/préparation).
 - [ ] Notifications activées :
   - [ ] Email de confirmation à la cliente + à Aalie.
-  - [ ] Rappel automatique SMS/email 24 h avant (réduit les no-shows).
+  - [ ] Rappel automatique **courriel** 24 h avant (tier gratuit Square). SMS = Square Appointments Plus ~29 $/mois, à décider plus tard.
   - [ ] Email d'annulation si la cliente annule.
-- [ ] Politique d'annulation écrite dans Setmore (visible avant réservation) :
+- [ ] Politique d'annulation écrite dans Square Appointments (visible avant réservation) :
   - [x] Délai d'annulation gratuite : **24 h**.
   - [x] Politique no-show : **blocage après 3 absences**, retour à IG DM avec justificatif.
   - [x] Retard toléré : **20 min douceur, 30 min annulation automatique**.
-- [ ] Google Calendar personnel d'Aalie **synchronisé** avec Setmore — évite les doubles bookings.
+- [ ] Google Calendar personnel d'Aalie **synchronisé** avec Square Appointments — évite les doubles bookings.
 
 ### 9bis.2 Intégration dans le site
 
 - [ ] Page `/reservation.html` retravaillée :
   - [ ] Introduction courte (déjà là, à ajuster).
-  - [ ] **Widget Setmore** embarqué en iframe scellée (`sandbox` + `allow-scripts allow-forms allow-same-origin`).
+  - [ ] **Widget Square Appointments** embarqué en iframe scellée (`sandbox` + `allow-scripts allow-forms allow-same-origin`).
   - [ ] Fallback : bouton IG DM si le widget ne charge pas (JS désactivé, réseau bloquant, etc.).
 - [ ] Bouton « Réserver » (rubis, thème gothique) ajouté :
   - [ ] Dans le hero de l'accueil.
   - [ ] Dans la nav principale (position visible).
   - [ ] Sur chaque fiche service (onglerie et épilation).
-- [ ] `Content-Security-Policy` mise à jour : `frame-src https://booking.setmore.com https://*.setmore.com` uniquement.
+- [ ] `Content-Security-Policy` mise à jour : `frame-src https://squareup.com https://*.squareup.com https://*.square.site` uniquement.
 - [ ] Analytics : compteur anonyme de clics sur « Réserver » (pas de tracking personnel, cf. Loi 25).
 - [ ] Test responsive : widget lisible et fonctionnel à 360 px.
 - [ ] Test parcours complet : réservation depuis le site → email de confirmation reçu → RDV visible dans Google Calendar d'Aalie.
 
 ### 9bis.3 Conformité & confidentialité
 
-- [ ] Vérifier la politique de confidentialité de Setmore (hébergement des données, transfert international).
-- [ ] `politique-confidentialite.html` mise à jour pour mentionner Setmore comme sous-traitant.
-- [ ] Case à cocher explicite avant réservation : « J'accepte que mes coordonnées soient traitées par Setmore pour gérer mon rendez-vous » (si non déjà présente).
-- [ ] Registre Loi 25 (`docs/registre-loi25.md`) : ajouter l'entrée « Réservation via Setmore » — nature, base légale (contrat), durée de conservation.
-- [ ] Aucune donnée sensible (santé, paiement) ne transite par Setmore — juste nom, email, téléphone, service souhaité.
+- [ ] Vérifier la politique de confidentialité de Square Appointments (hébergement des données, transfert international).
+- [ ] `politique-confidentialite.html` mise à jour pour mentionner Square Appointments comme sous-traitant.
+- [ ] Case à cocher explicite avant réservation : « J'accepte que mes coordonnées soient traitées par Square Appointments pour gérer mon rendez-vous » (si non déjà présente).
+- [ ] Registre Loi 25 (`docs/registre-loi25.md`) : ajouter l'entrée « Réservation via Square Appointments » — nature, base légale (contrat), durée de conservation.
+- [ ] Aucune donnée sensible (santé, paiement) ne transite par Square Appointments — juste nom, email, téléphone, service souhaité.
 
 ### 9bis.4 Gestion côté admin
 
-- [ ] Section dans la console admin : bouton « Voir mes réservations » → lien direct vers le tableau de bord Setmore.
-- [ ] Champ éditable : lien du widget Setmore (au cas où on change plus tard).
+- [ ] Section dans la console admin : bouton « Voir mes réservations » → lien direct vers le tableau de bord Square Appointments.
+- [ ] Champ éditable : lien du widget Square Appointments (au cas où on change plus tard).
 - [ ] Aalie peut désactiver temporairement l'affichage du widget (mode « vacances ») depuis l'admin — bascule le contenu de la page vers un message « Je reviens le [date] » + bouton IG DM.
 - [ ] Documentation cliente : comment gérer les créneaux, comment répondre à une annulation, comment bloquer une cliente no-show récidiviste.
 

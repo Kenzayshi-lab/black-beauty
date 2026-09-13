@@ -158,7 +158,7 @@ Liste répétable de Q/R :
 
 ## 9. 📅 Réservation (`reservation.json`)
 
-**Décision (13 sept. 2026)** : ✅ **Setmore** retenu.
+**Décision (13 sept. 2026)** : ✅ **Square Appointments** retenu.
 ✅ Aucun paiement via le site — la réservation confirme juste le créneau.
 Paiement au studio, en personne, aucune transaction en ligne.
 
@@ -166,23 +166,24 @@ Paiement au studio, en personne, aucune transaction en ligne.
 |---|---|---|
 | Titre de la page | T | ✏️ |
 | Introduction courte | RTF | ✏️ |
-| URL du widget Setmore | URL | ✏️ Fourni après création du compte Setmore |
+| URL du widget Square Appointments | URL | ✏️ Fourni après création du compte Square Appointments |
 | Widget visible ? | BOOL | ✏️ Bouton « mode vacances » côté admin |
 | Message si vacances | RTF | ✏️ Ex : « Je reviens le [date], DM pour urgence » |
 | Fallback si widget bloqué | URL | Lien IG DM par défaut |
-| Politique d'annulation | RTF | ✏️ Miroir de ce qui est dans Setmore |
+| Politique d'annulation | RTF | ✏️ Miroir de ce qui est dans Square Appointments |
 | Politique de retard | RTF | ✏️ Ex : plus de 15 min = RDV annulé |
 | Politique no-show | RTF | ✏️ Ex : après 2 absences → blocage RDV en ligne |
 
 ### Note sur les no-shows (sans dépôt)
 
-Setmore permet quand même de réduire les absences :
-- **Rappels SMS/email automatiques** 24 h avant.
+Square Appointments permet quand même de réduire les absences :
+- **Rappels courriel automatiques** 24 h avant (tier gratuit).
+- **Rappels SMS** disponibles uniquement avec Square Appointments **Plus** (~29 $/mois) — à envisager plus tard si les no-shows deviennent un problème.
 - **Blocage manuel** d'une cliente récidiviste depuis le tableau de bord.
 - **Politique écrite** visible avant confirmation du RDV.
 
 Si Aalie change d'avis plus tard et veut activer les dépôts,
-Setmore le supporte via Square/Stripe — migration facile.
+Square Appointments les gère nativement via l'écosystème Square — migration facile.
 
 ---
 
@@ -226,12 +227,12 @@ Setmore le supporte via Square/Stripe — migration facile.
 | 8 | Newsletter | 🕓 **À vérifier plus tard** (obligations Loi 25 à peser) |
 | 9 | Bouton WhatsApp | ❌ **Non** — un seul canal messagerie (IG DM) |
 | 10 | Multilingue | 🇨🇦 **100 % français** — clientèle Québec uniquement |
-| 11 | Service de réservation | ✅ **Setmore** (tier gratuit) |
+| 11 | Service de réservation | ✅ **Square Appointments** (tier gratuit) |
 | 12 | Paiement en ligne / dépôts | ❌ **Aucun** — paiement au studio, en personne |
 | 13 | Délai d'annulation gratuite | ⏱️ **24 h** avant le RDV |
 | 14 | Politique no-show | 🚫 **Après 3 absences** — blocage réservation en ligne (retour à IG DM avec justificatif) |
-| 15 | Google Calendar sync | ✅ **Oui** — sync bidirectionnelle Setmore ↔ agenda perso d'Aalie |
-| 16 | Rappels SMS auto 24 h avant | ✅ **Oui** — activé dans Setmore |
+| 15 | Google Calendar sync | ✅ **Oui** — sync bidirectionnelle Square Appointments ↔ agenda perso d'Aalie |
+| 16 | Rappels auto 24 h avant | ✅ **Oui — par courriel** (tier gratuit Square). SMS = upgrade Square Plus ~29 $/mois, à décider plus tard. |
 | 17 | Retard maximum toléré | ⏱️ **20-30 min** — 20 min = tolérance douce (à la discrétion d'Aalie), 30 min = annulation automatique du RDV |
 
 ---
@@ -249,7 +250,7 @@ Setmore le supporte via Square/Stripe — migration facile.
 - [ ] Bio / présentation d'Aalie (page À propos).
 - [ ] Histoire du studio (nom, création, mission).
 - [ ] 3-5 valeurs du studio.
-- [ ] Politique d'annulation rédigée (miroir de ce qui sera dans Setmore).
+- [ ] Politique d'annulation rédigée (miroir de ce qui sera dans Square Appointments).
 - [ ] Politique de retard rédigée.
 - [ ] Politique no-show rédigée.
 - [ ] 3-5 témoignages/avis clients (avec autorisation écrite ou anonymisés).
