@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================================
+   BLACK & BEAUTY ADMIN — Base styles
+   ---------------------------------------------------------
+   Palette gothique importee de la charte du site public.
+   Toutes les polices sont chargees en self-host (Phase 3 chunk
+   ulterieur) pour respecter la CSP stricte de l'admin (aucun CDN).
+   Pour le bootstrap, on utilise system-ui en fallback.
+   ========================================================= */
+
+:root {
+  --admin-bg:     #050505;
+  --admin-panel:  #0d0709;
+  --admin-border: rgba(226, 169, 179, 0.12);
+  --admin-text:   #D1D5DB;
+  --admin-muted:  #9ba0a8;
+  --admin-accent: #A10B1B;
+  --admin-focus:  #E2A9B3;
+}
+
+html, body {
+  background: var(--admin-bg);
+  color: var(--admin-text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Focus ring visible partout — accessibilite */
+:focus-visible {
+  outline: 2px solid var(--admin-focus);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Boutons de base — les composants React peuvent surcharger */
+button, [role="button"] {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+button:disabled, [role="button"][aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
