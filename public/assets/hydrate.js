@@ -28,6 +28,34 @@
   // Whitelist des attributs que le CMS peut modifier
   var SAFE_ATTRS = { href: 1, src: 1, alt: 1, title: 1 };
 
+  // ---------------------------------------------------------
+  // Sanitizer HTML : tags/attributs autorises pour data-cms-html
+  // Seule cette liste peut apparaitre dans le HTML rendu.
+  // ---------------------------------------------------------
+  var HTML_ALLOWED_TAGS = {
+    p: 1, br: 1, span: 1, div: 1,
+    strong: 1, em: 1, b: 1, i: 1, u: 1,
+    a: 1,
+    ul: 1, ol: 1, li: 1,
+    h2: 1, h3: 1, h4: 1, h5: 1, h6: 1
+  };
+  var HTML_ALLOWED_ATTRS = {
+    a:   ['href', 'target', 'rel', 'class'],
+    p:   ['class'],
+    div: ['class'],
+    span:['class'],
+    ul:  ['class'],
+    ol:  ['class'],
+    li:  ['class'],
+    h2:  ['class'],
+    h3:  ['class'],
+    h4:  ['class'],
+    h5:  ['class'],
+    h6:  ['class']
+  };
+  // Longueur max d'une valeur d'attribut class (evite abus)
+  var MAX_CLASS_LEN = 200;
+
   // Whitelist des variables CSS que le theme peut piloter
   var THEME_VARS = [
     '--noir-profond', '--noir-velours', '--noir-marbre',
@@ -152,6 +180,160 @@
     }
   }
 
+  // --- Rendu de listes ------------------------------------
+  // Un element avec [data-cms-list="a.b"] repete son PREMIER
+  // enfant elementaire pour chaque item du tableau a.b.
+  // Le premier enfant sert de template. Dans ce template :
+  //   [data-cms-item="field"]        -> textContent = item[field]
+  //   [data-cms-item-attr="a:field"] -> setAttribute(a, item[field])
+  // Progressive enhancement : sans JS, le template original reste
+  // visible; avec JS, il est remplace par les items rendus.
+
+  function hydrateListItem(root, item) {
+    if (!root || !item || typeof item !== 'object') return;
+    var candidates = root.querySelectorAll('[data-cms-item], [data-cms-item-attr]');
+    var i, j, node, field, spec, pairs, pair, attr, val;
+
+    // Le root lui-meme peut porter les attributs
+    var all = [];
+    if (root.hasAttribute && (root.hasAttribute('data-cms-item') || root.hasAttribute('data-cms-item-attr'))) {
+      all.push(root);
+    }
+    for (i = 0; i < candidates.length; i++) all.push(candidates[i]);
+
+    for (i = 0; i < all.length; i++) {
+      node = all[i];
+
+      // Texte
+      field = node.getAttribute('data-cms-item');
+      if (field && PATH_REGEX.test(field)) {
+        val = item[field];
+        if (typeof val === 'string' || typeof val === 'number') {
+          node.textContent = String(val);
+        }
+      }
+
+      // Attributs
+      spec = node.getAttribute('data-cms-item-attr');
+      if (spec && spec.length <= 500) {
+        pairs = spec.split(',');
+        for (j = 0; j < pairs.length; j++) {
+          pair = pairs[j].split(':');
+          if (pair.length !== 2) continue;
+          attr = pair[0].trim();
+          field = pair[1].trim();
+          if (!SAFE_ATTRS[attr]) continue;
+          if (!PATH_REGEX.test(field)) continue;
+          val = item[field];
+          if (typeof val !== 'string') continue;
+          if ((attr === 'href' || attr === 'src') && !isSafeUrl(val)) continue;
+          node.setAttribute(attr, val);
+        }
+      }
+    }
+  }
+
+  function fillLists(scope) {
+    var containers = document.querySelectorAll('[data-cms-list]');
+    for (var i = 0; i < containers.length; i++) {
+      var container = containers[i];
+      var path = container.getAttribute('data-cms-list');
+      if (!path || !PATH_REGEX.test(path)) continue;
+      var list = getPath(scope, path);
+      if (!Array.isArray(list)) continue;
+      // Cap raisonnable pour eviter DoS via JSON malicieux
+      if (list.length > 500) continue;
+
+      // Premier enfant elementaire = template
+      var template = null;
+      for (var j = 0; j < container.children.length; j++) {
+        if (container.children[j].nodeType === 1) { template = container.children[j]; break; }
+      }
+      if (!template) continue;
+
+      // Vide le container et re-rend
+      while (container.firstChild) container.removeChild(container.firstChild);
+      for (var k = 0; k < list.length; k++) {
+        var clone = template.cloneNode(true);
+        hydrateListItem(clone, list[k]);
+        container.appendChild(clone);
+      }
+    }
+  }
+
+  // --- Rendu HTML sanitize --------------------------------
+  // Un element avec [data-cms-html="a.b"] recoit le HTML de a.b
+  // apres passage par un sanitizer strict (whitelist tags + attrs).
+  // Le rendu utilise createElement/appendChild uniquement — jamais
+  // innerHTML sur le contenu externe.
+
+  function sanitizeInto(rawStr, targetEl) {
+    if (typeof rawStr !== 'string' || rawStr.length > 100000) return;
+    if (!targetEl) return;
+    // Vide la cible
+    while (targetEl.firstChild) targetEl.removeChild(targetEl.firstChild);
+    // Parse le HTML dans un document isole (aucun script n'est execute par DOMParser)
+    var doc;
+    try {
+      doc = new DOMParser().parseFromString(rawStr, 'text/html');
+    } catch (e) { return; }
+    if (!doc || !doc.body) return;
+    copyAllowed(doc.body, targetEl);
+  }
+
+  function copyAllowed(source, dest) {
+    var children = source.childNodes;
+    for (var i = 0; i < children.length; i++) {
+      var node = children[i];
+      if (node.nodeType === 3) {
+        // Text node
+        dest.appendChild(document.createTextNode(node.data));
+      } else if (node.nodeType === 1) {
+        // Element
+        var tag = node.tagName.toLowerCase();
+        if (!HTML_ALLOWED_TAGS[tag]) {
+          // Tag interdit : on garde le contenu textuel des enfants (flatten)
+          copyAllowed(node, dest);
+          continue;
+        }
+        var newEl = document.createElement(tag);
+        var allowed = HTML_ALLOWED_ATTRS[tag] || [];
+        var attrs = node.attributes;
+        for (var j = 0; j < attrs.length; j++) {
+          var a = attrs[j];
+          var name = a.name.toLowerCase();
+          // Refuse handlers d'evenements meme si un jour listes par erreur
+          if (name.indexOf('on') === 0) continue;
+          if (allowed.indexOf(name) === -1) continue;
+          var val = a.value;
+          if (name === 'class' && val.length > MAX_CLASS_LEN) continue;
+          if ((name === 'href' || name === 'src') && !isSafeUrl(val)) continue;
+          newEl.setAttribute(name, val);
+        }
+        // Force rel="noopener noreferrer" sur les liens target="_blank"
+        if (tag === 'a' && newEl.getAttribute('target') === '_blank') {
+          newEl.setAttribute('rel', 'noopener noreferrer');
+        }
+        dest.appendChild(newEl);
+        copyAllowed(node, newEl);
+      }
+      // Commentaires et autres nodeTypes -> ignores
+    }
+  }
+
+  function fillHtmls(scope) {
+    var nodes = document.querySelectorAll('[data-cms-html]');
+    for (var i = 0; i < nodes.length; i++) {
+      var node = nodes[i];
+      var path = node.getAttribute('data-cms-html');
+      if (!path || !PATH_REGEX.test(path)) continue;
+      var value = getPath(scope, path);
+      if (typeof value === 'string') {
+        sanitizeInto(value, node);
+      }
+    }
+  }
+
   // --- Initialisation -------------------------------------
 
   function init() {
@@ -170,8 +352,15 @@
       var scope = { site: site || {}, theme: theme || {} };
       if (page && pageContent) scope[page] = pageContent;
 
+      // Ordre important :
+      // 1. Listes en premier (elles reconstruisent le DOM) — sinon
+      //    fillTexts/fillAttrs matcheraient les templates originaux.
+      // 2. Puis textes et attrs simples.
+      // 3. Puis HTML sanitize (fait un replace du contenu enfant).
+      fillLists(scope);
       fillTexts(scope);
       fillAttrs(scope);
+      fillHtmls(scope);
     });
   }
 
