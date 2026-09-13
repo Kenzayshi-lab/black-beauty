@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Theme tokens",
+  "description": "Variables CSS globales du theme (couleurs, polices, rayons).",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "--noir-profond":  { "type": "string", "pattern": "^#[0-9a-fA-F]{3,8}$" },
+    "--noir-velours":  { "type": "string", "pattern": "^#[0-9a-fA-F]{3,8}$" },
+    "--noir-marbre":   { "type": "string", "pattern": "^#[0-9a-fA-F]{3,8}$" },
+    "--rouge-rubis":   { "type": "string", "pattern": "^#[0-9a-fA-F]{3,8}$" },
+    "--rouge-sang":    { "type": "string", "pattern": "^#[0-9a-fA-F]{3,8}$" },
+    "--rose-metal":    { "type": "string", "pattern": "^#[0-9a-fA-F]{3,8}$" },
+    "--rose-poudre":   { "type": "string", "pattern": "^#[0-9a-fA-F]{3,8}$" },
+    "--argent-givre":  { "type": "string", "pattern": "^#[0-9a-fA-F]{3,8}$" },
+    "--argent-doux":   { "type": "string", "pattern": "^#[0-9a-fA-F]{3,8}$" },
+    "--titre":         { "type": "string", "maxLength": 100 },
+    "--titre-deco":    { "type": "string", "maxLength": 100 },
+    "--script":        { "type": "string", "maxLength": 100 },
+    "--corps":         { "type": "string", "maxLength": 100 },
+    "--r-sm":          { "type": "string", "pattern": "^\\d+(\\.\\d+)?(px|rem|em)$" },
+    "--r-md":          { "type": "string", "pattern": "^\\d+(\\.\\d+)?(px|rem|em)$" },
+    "--r-lg":          { "type": "string", "pattern": "^\\d+(\\.\\d+)?(px|rem|em)$" }
+  }
+}

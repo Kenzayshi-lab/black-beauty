@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Site identity",
+  "description": "Coordonnees et identite globale du studio.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "email"],
+  "properties": {
+    "name":              { "type": "string", "minLength": 1, "maxLength": 120 },
+    "tagline":           { "type": "string", "maxLength": 200 },
+    "city":              { "type": "string", "maxLength": 80 },
+    "email":             { "type": "string", "format": "email", "maxLength": 200 },
+    "email_href":        { "type": "string", "pattern": "^mailto:", "maxLength": 500 },
+    "instagram_handle":  { "type": "string", "pattern": "^@[a-zA-Z0-9_.]{1,30}$" },
+    "instagram_url":     { "type": "string", "pattern": "^https://www\\.instagram\\.com/" },
+    "instagram_dm":      { "type": "string", "pattern": "^https://ig\\.me/m/" },
+    "tiktok_handle":     { "type": "string", "pattern": "^@[a-zA-Z0-9_.]{1,30}$" },
+    "tiktok_url":        { "type": "string", "pattern": "^https://www\\.tiktok\\.com/" },
+    "responsable_loi25": { "type": "string", "maxLength": 120 }
+  }
+}
