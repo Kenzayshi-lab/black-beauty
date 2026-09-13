@@ -158,15 +158,33 @@ Liste répétable de Q/R :
 
 ## 9. 📅 Réservation (`reservation.json`)
 
+**Nouveau (13 sept.)** : la cliente veut que les clientes puissent réserver **directement** sur le site.
+Décision : on **intègre un service tiers** (Cal.com, GlossGenius, Setmore, Booksy, Square Appointments)
+plutôt que de développer un système custom (paiement + dépôts = hors périmètre).
+
 | Champ | Type | Notes |
 |---|---|---|
-| Titre | T | ✏️ |
+| Titre de la page | T | ✏️ |
 | Introduction | RTF | ✏️ |
-| Texte du bouton IG | T | ✏️ |
-| Lien du bouton | URL | ✏️ |
-| Politique d'annulation | RTF | ✏️ |
-| Politique de dépôt | RTF | ✏️ |
-| Politique de retard | RTF | ✏️ |
+| Service de réservation choisi | SEL | ✏️ Cal.com / GlossGenius / Setmore / Booksy / Square |
+| URL/embed du service | URL | ✏️ Injectable dans un iframe scellé |
+| Widget visible ? | BOOL | ✏️ Bouton « vacances » pour désactiver temporairement |
+| Fallback si widget bloqué | URL | Lien IG DM par défaut |
+| Politique d'annulation | RTF | ✏️ Miroir de ce qui est dans le service tiers |
+| Politique de dépôt | RTF | ✏️ Miroir |
+| Politique de retard | RTF | ✏️ Miroir |
+| Coordonnées d'urgence | T | ✏️ Optionnel |
+
+### Comparatif rapide des services (pour aider Aalie à choisir)
+
+| Service | Coût | Beauté-friendly | Dépôts | SMS | Marque blanche | Loi 25/PIPEDA |
+|---|---|---|---|---|---|---|
+| **Cal.com** self-host | 0 $ | Moyen | via Stripe | non | ✅ complète | ✅ (à vérifier hébergement CA) |
+| **Cal.com** cloud | 15 $/mois | Moyen | via Stripe | payant | ✅ | ✅ EU / à vérifier CA |
+| **GlossGenius** | 24 $/mois | ⭐ excellent | intégré | ✅ | partielle | ✅ US, à vérifier CA |
+| **Booksy** | ~30 $/mois | ⭐ excellent | intégré | ✅ | non (branding visible) | ✅ |
+| **Setmore** | gratuit (4 users) | Bon | Square/Stripe | payant | non | ✅ |
+| **Square Appointments** | gratuit + frais | Bon | intégré natif | ✅ | non | ✅ |
 
 ---
 
@@ -210,6 +228,12 @@ Ces points sont à décider avec elle avant de finaliser :
 8. **Newsletter** — capter les emails pour promos ? (déclenche des obligations Loi 25)
 9. **Bouton WhatsApp** — en complément d'Instagram ?
 10. **Multilingue** — anglais un jour, ou 100 % français ?
+11. **Service de réservation en ligne** — Cal.com / GlossGenius / Setmore / Booksy / Square ?
+    Priorités à préciser : budget max/mois, présence d'une app cliente, gestion des dépôts, langue française.
+12. **Politique de dépôt** — montant fixe (ex. 20 $) ou pourcentage (ex. 30 %) du service ?
+13. **Délai d'annulation gratuite** — 24 h ? 48 h ? 72 h ?
+14. **Frais no-show** — 100 % du dépôt perdu ? Frais additionnel ?
+15. **Google Calendar personnel d'Aalie** — connecté à l'outil de réservation pour éviter les doubles bookings ?
 
 ---
 

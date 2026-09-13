@@ -197,18 +197,145 @@ Decap CMS attend un backend git-gateway. On l'implémente nous-mêmes.
 
 ---
 
-## 🛡️ Phase 9 — Sécurité renforcée
+## 🛡️ Phase 9 — Sécurité complète (défense en profondeur)
 
-- [ ] En-têtes HTTP mis à jour dans `vercel.json` pour couvrir `/admin` :
-  - [ ] `Content-Security-Policy` restrictive et testée (aucun `unsafe-inline` non justifié).
-  - [ ] `X-Robots-Tag: noindex, nofollow` sur `/admin/*`.
-  - [ ] `Referrer-Policy: no-referrer` sur `/admin/*`.
-- [ ] `robots.txt` : `Disallow: /admin/`.
-- [ ] Scan `npm audit` (ou équivalent) à zéro vulnérabilité critique/haute.
-- [ ] Test manuel : injection de balise `<script>` dans un champ texte → **échappée** correctement en front.
-- [ ] Test manuel : upload d'un fichier `.php` renommé `.jpg` → refusé (vérif du magic number, pas juste l'extension).
-- [ ] Politique de mots de passe minimale documentée (12+ car., mélange).
-- [ ] Backup git automatique = historique complet, rollback en une commande documenté.
+### 9.1 En-têtes HTTP (site public + admin)
+- [ ] `Content-Security-Policy` avec **nonces** dynamiques — aucun `unsafe-inline`, aucun `unsafe-eval`.
+- [ ] `Strict-Transport-Security` : `max-age=63072000; includeSubDomains; preload` — soumission à hstspreload.org après validation.
+- [ ] `X-Content-Type-Options: nosniff`.
+- [ ] `X-Frame-Options: DENY` (site public) ; sur admin, seul `admin.blackandbeautystudio.ca` peut s'auto-encadrer.
+- [ ] `Referrer-Policy: no-referrer` sur `/admin/*`, `strict-origin-when-cross-origin` ailleurs.
+- [ ] `Permissions-Policy` restrictive — désactive caméra, micro, géoloc, USB, etc.
+- [ ] `Cross-Origin-Opener-Policy: same-origin`.
+- [ ] `Cross-Origin-Embedder-Policy: require-corp` (admin uniquement).
+- [ ] `Cross-Origin-Resource-Policy: same-origin` (admin uniquement).
+- [ ] `X-Robots-Tag: noindex, nofollow, noarchive, nosnippet` sur `/admin/*`.
+- [ ] Header `Server` masqué (`Server: -`).
+
+### 9.2 Réseau & DNS
+- [ ] **DNSSEC** activé sur `blackandbeautystudio.ca` chez le registrar.
+- [ ] **CAA** records : autorise uniquement Let's Encrypt (`letsencrypt.org`) à émettre pour ce domaine.
+- [ ] Certificat TLS ECDSA P-256, HTTPS/2 + HTTPS/3 (déjà par défaut Vercel).
+- [ ] `robots.txt` : `Disallow: /admin/`, `Disallow: /api/`.
+- [ ] Sous-domaine `admin.` séparé physiquement du site public — pas de fuite de cookie entre les deux (attribut `Domain` explicite).
+
+### 9.3 Ressources externes
+- [ ] **SRI (Subresource Integrity)** obligatoire sur tous les `<script>` et `<link rel=stylesheet>` chargés d'un CDN externe (Decap CMS inclus).
+- [ ] Version épinglée + hash SHA-384 stocké.
+- [ ] Fonts Google en self-host (aucune requête cross-origin depuis le navigateur des visiteurs).
+
+### 9.4 Auth & sessions (renforcement)
+- [ ] Politique mot de passe : ≥ 12 car., pas dans HaveIBeenPwned (API `pwnedpasswords.com` avec k-anonymity).
+- [ ] **2FA TOTP** obligatoire (Google Authenticator, Authy, 1Password…).
+- [ ] Détection de nouveau device/IP → email d'alerte à Aalie **avant** de laisser passer.
+- [ ] **Kill switch** : bouton « Déconnecter tous mes appareils » dans les préférences.
+- [ ] Page « Journal de mes connexions » consultable par Aalie (dernières 30 sessions).
+- [ ] Compte verrouillé automatiquement après 10 tentatives échouées / 24 h — déblocage manuel par toi (Louis).
+- [ ] Timing-attack safe comparaison sur les hashes (`crypto.timingSafeEqual`).
+
+### 9.5 Application (défense proactive)
+- [ ] **CSRF tokens** double-submit sur toutes les mutations non-GET (Auth.js le fait, à valider).
+- [ ] **CORS strict** : uniquement `admin.blackandbeautystudio.ca` autorisé.
+- [ ] Toutes les entrées utilisateur sanitizées avec **DOMPurify** avant rendu.
+- [ ] Toutes les sorties HTML échappées côté serveur.
+- [ ] Test XSS : injection `<script>alert(1)</script>` dans chaque champ → jamais exécutée.
+- [ ] Test SSRF : URL utilisateur dans un champ → aucun fetch côté serveur d'un domaine non whitelisté.
+- [ ] Test path traversal : `../../etc/passwd` dans un chemin d'image → refusé.
+- [ ] Upload : vérif MIME **+** magic number **+** re-encoding via Sharp/Pillow (pas de passthrough du binaire original).
+- [ ] Taille max upload : 5 MB par fichier, 50 MB par session.
+
+### 9.6 Secrets & chiffrement
+- [ ] Aucun secret dans le repo — vérifié par `gitleaks` en pre-commit hook + GitHub Action.
+- [ ] `TOTP_SECRET` (2FA) chiffré au repos avec AES-256-GCM en KV, clé dérivée de `AUTH_SECRET`.
+- [ ] Adresses IP dans les logs → hashées SHA-256 avec sel (Loi 25 : donnée personnelle).
+- [ ] Rotation `GITHUB_PAT` tous les 90 j (calendrier + doc).
+- [ ] Rotation `AUTH_SECRET` documentée (invalide toutes les sessions).
+
+### 9.7 Supply chain
+- [ ] **Dependabot** activé sur le repo (npm + GitHub Actions).
+- [ ] `npm audit` bloquant en CI — 0 vuln critique/haute.
+- [ ] **Semgrep** ou **CodeQL** en CI (SAST).
+- [ ] Toutes les deps épinglées à un range serré (`^` uniquement, jamais `*`).
+- [ ] `package-lock.json` commité et vérifié en CI.
+
+### 9.8 Surveillance & incident
+- [ ] Logs de sécurité (login, écritures) dans Vercel KV, purge après 90 j.
+- [ ] Alertes email à Aalie **et** toi (Louis) pour : nouveau device, ≥ 3 échecs de login, upload refusé, path non whitelisté.
+- [ ] `security.txt` déjà en place — vérifier qu'il mentionne admin.
+- [ ] Page `/security` publique décrivant les mesures (rassurant pour les clientes).
+- [ ] Procédure de réponse à incident écrite (`docs/incident-response.md`) : qui appeler, comment invalider les sessions, comment restaurer.
+
+### 9.9 Conformité Loi 25
+- [ ] Registre des traitements écrit (`docs/registre-loi25.md`).
+- [ ] Consentement explicite pour tout traitement de données personnelles.
+- [ ] Droit d'accès, rectification, portabilité, effacement — procédure documentée pour Aalie.
+- [ ] Politique de confidentialité déjà en place — à revalider après ajouts (rendez-vous, audit log).
+- [ ] Notification de bris à la CAI (Commission d'accès à l'information) — procédure documentée.
+
+### 9.10 Tests & audit externes
+- [ ] **Mozilla Observatory** : note ≥ A (idéalement A+).
+- [ ] **SSL Labs** : note A+.
+- [ ] **securityheaders.com** : note A+.
+- [ ] Scan **OWASP ZAP baseline** sur `admin.blackandbeautystudio.ca` — 0 alerte high/critical.
+- [ ] Scan **Nuclei** sur les templates publics (fingerprints, exposures) — 0 finding.
+- [ ] Test manuel des **OWASP Top 10 2024** documenté avec captures.
+- [ ] Pentest externe léger (optionnel, ~500 $) avant lancement.
+
+### 9.11 Sauvegarde & continuité
+- [ ] Git = sauvegarde principale (historique complet, rollback trivial).
+- [ ] Export automatique hebdomadaire de la KV vers stockage cold (Vercel Blob chiffré ou GitHub secret gist).
+- [ ] Test de restauration documenté et **effectué au moins une fois** avant lancement.
+- [ ] RTO cible : < 4 h. RPO cible : < 24 h.
+
+---
+
+## 📅 Phase 9bis — Système de réservation en ligne
+
+**Décision** : intégration d'un service tiers, **pas** de dev interne.
+
+Justifications :
+- Gestion des dépôts, no-shows, PCI-DSS : hors périmètre d'un site vitrine.
+- Chaque service tiers listé ci-dessous a déjà résolu le problème.
+- On garde la responsabilité paiement chez un prestataire spécialisé.
+
+### 9bis.1 Choix du service (à trancher avec Aalie)
+
+Comparatif dans `docs/liste-exhaustive.md`. Options recommandées :
+- **Cal.com** — self-host ou 15 $/mois, marque blanche complète.
+- **GlossGenius** — 24 $/mois, tout-en-un beauté (dépôts + SMS + POS).
+- **Setmore** — gratuit jusqu'à 4 utilisateurs.
+
+- [ ] Décision écrite d'Aalie sur le service choisi.
+- [ ] Compte créé, abonnement souscrit si nécessaire.
+- [ ] Services / durées / prix / photos alignés avec le contenu du site.
+- [ ] Politique de dépôt et d'annulation configurée (montant, délai).
+- [ ] Notifications email + SMS activées pour Aalie **et** la cliente.
+- [ ] Calendriers connectés (Google Calendar d'Aalie) — synchronisation testée.
+
+### 9bis.2 Intégration technique dans le site
+
+- [ ] Page dédiée `/reservation.html` retravaillée avec :
+  - [ ] Introduction (déjà là).
+  - [ ] Widget d'embed du service choisi (iframe scellée avec `sandbox` + `allow`).
+  - [ ] Fallback : bouton IG DM si le widget ne charge pas.
+- [ ] Bouton « Réserver » ajouté dans le hero accueil, la nav, chaque fiche service.
+- [ ] `Content-Security-Policy` mise à jour pour autoriser uniquement le domaine du service (frame-src).
+- [ ] Analytics : suivi anonyme des clics « Réserver » (pas de tracking personnel).
+- [ ] Test sur mobile (le widget doit être responsive et pas déborder à 360 px).
+- [ ] Test parcours complet : réservation → email confirmation → apparaît dans Google Calendar d'Aalie.
+
+### 9bis.3 Conformité & confidentialité
+
+- [ ] Vérifier que le service est **PIPEDA / Loi 25 compliant** (contrat de sous-traitance signé si nécessaire).
+- [ ] Politique de confidentialité mise à jour pour mentionner ce nouveau sous-traitant.
+- [ ] Consentement explicite recueilli avant transmission des données au service tiers.
+- [ ] Documenter dans le registre Loi 25 : nature des données, base légale, durée de conservation.
+
+### 9bis.4 Gestion côté admin
+
+- [ ] Section dans la console admin : « Réservations » — lien direct vers le tableau de bord du service tiers.
+- [ ] Champ éditable : lien de réservation (au cas où on change de service plus tard).
+- [ ] Aalie peut désactiver temporairement le widget (mode « vacances ») depuis l'admin.
 
 ---
 
@@ -256,8 +383,7 @@ Decap CMS attend un backend git-gateway. On l'implémente nous-mêmes.
 
 - Pas d'A/B testing intégré (pas justifié pour un studio local).
 - Pas de multi-utilisateurs pour l'instant (Aalie seule).
-- Pas de gestion de rendez-vous en ligne (hors périmètre — Instagram DM reste le canal).
-- Pas de paiement en ligne (hors périmètre).
+- Pas de paiement en ligne **hébergé chez nous** (le service de réservation tiers gère les dépôts).
 - Pas d'i18n (site FR uniquement, aligné avec la clientèle Montréal).
 
 Ces points peuvent être ajoutés plus tard, dans une **v2** documentée à part.
