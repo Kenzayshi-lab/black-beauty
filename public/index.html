@@ -22,7 +22,7 @@
   .hero-bg {
     position: absolute; inset: 0;
     background:
-      radial-gradient(ellipse at 30% 50%, rgba(161,11,27,0.25) 0%, transparent 50%),
+      radial-gradient(ellipse at 30% 50%, rgba(var(--rouge-rubis-rgb), 0.25) 0%, transparent 50%),
       radial-gradient(ellipse at 70% 60%, rgba(75,30,90,0.3) 0%, transparent 55%),
       radial-gradient(ellipse at center, #1a0d12 0%, #050505 80%);
   }
@@ -33,7 +33,7 @@
   .hero-logo {
     width: 360px; height: 360px;
     margin: 0 auto 32px;
-    filter: drop-shadow(0 0 60px rgba(161,11,27,0.6));
+    filter: drop-shadow(0 0 60px rgba(var(--rouge-rubis-rgb), 0.6));
     animation: heroLogoFloat 6s ease-in-out infinite, heroLogoGlow 4s ease-in-out infinite;
   }
   @keyframes heroLogoFloat {
@@ -41,8 +41,8 @@
     50% { transform: translateY(-12px); }
   }
   @keyframes heroLogoGlow {
-    0%, 100% { filter: drop-shadow(0 0 60px rgba(161,11,27,0.6)); }
-    50% { filter: drop-shadow(0 0 100px rgba(161,11,27,0.9)) drop-shadow(0 0 40px rgba(226,169,179,0.4)); }
+    0%, 100% { filter: drop-shadow(0 0 60px rgba(var(--rouge-rubis-rgb), 0.6)); }
+    50% { filter: drop-shadow(0 0 100px rgba(var(--rouge-rubis-rgb), 0.9)) drop-shadow(0 0 40px rgba(var(--rose-metal-rgb), 0.4)); }
   }
   @media (max-width: 640px) {
     .hero-logo { width: 240px; height: 240px; }
@@ -63,7 +63,7 @@
     font-size: clamp(28px, 4vw, 44px);
     color: var(--rouge-rubis);
     margin-bottom: 28px;
-    text-shadow: 0 0 16px rgba(161,11,27,0.5);
+    text-shadow: 0 0 16px rgba(var(--rouge-rubis-rgb), 0.5);
   }
   .hero .subtitle {
     font-size: 13px; letter-spacing: 0.4em;
@@ -133,8 +133,8 @@
   /* —— Aperçu prix avec affiche style —— */
   .price-preview {
     background:
-      radial-gradient(ellipse at top left, rgba(161,11,27,0.15) 0%, transparent 50%),
-      radial-gradient(ellipse at bottom right, rgba(107,5,16,0.12) 0%, transparent 50%),
+      radial-gradient(ellipse at top left, rgba(var(--rouge-rubis-rgb), 0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(var(--rouge-sang-rgb), 0.12) 0%, transparent 50%),
       var(--noir-velours);
     position: relative;
   }
@@ -149,15 +149,15 @@
   .about-img {
     aspect-ratio: 4/5;
     background:
-      linear-gradient(135deg, rgba(161,11,27,0.3), rgba(75,30,90,0.4)),
+      linear-gradient(135deg, rgba(var(--rouge-rubis-rgb), 0.3), rgba(75,30,90,0.4)),
       url('assets/images/affiche-prix-ongles.jpg') center/cover;
     position: relative;
-    border: 1px solid rgba(226,169,179,0.2);
+    border: 1px solid rgba(var(--rose-metal-rgb), 0.2);
   }
   .about-img::before {
     content: '';
     position: absolute; inset: 12px;
-    border: 1px solid rgba(226,169,179,0.15);
+    border: 1px solid rgba(var(--rose-metal-rgb), 0.15);
   }
   .about-text h2 { font-size: clamp(36px, 5vw, 56px); margin: 16px 0 24px; }
   .about-text p {
@@ -178,19 +178,19 @@
     position: relative; overflow: hidden;
     background: var(--noir-marbre);
     cursor: pointer;
-    border: 1px solid rgba(226,169,179,0.1);
+    border: 1px solid rgba(var(--rose-metal-rgb), 0.1);
   }
   .insta-tile .placeholder {
     position: absolute; inset: 0;
     display: flex; align-items: center; justify-content: center;
-    background: linear-gradient(135deg, rgba(161,11,27,0.2), rgba(13,7,9,0.9));
+    background: linear-gradient(135deg, rgba(var(--rouge-rubis-rgb), 0.2), rgba(var(--noir-velours-rgb), 0.9));
     color: var(--rose-metal); opacity: 0.4;
   }
   .insta-tile:hover .placeholder { opacity: 1; transform: scale(1.05); }
   .insta-tile .placeholder svg { width: 32px; height: 32px; }
   .insta-tile img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s cubic-bezier(0.2,0.8,0.2,1); }
   .insta-tile:hover img { transform: scale(1.06); }
-  .insta-tile::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 60%, rgba(161,11,27,0.25)); opacity: 0; transition: opacity 0.4s; pointer-events: none; }
+  .insta-tile::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 60%, rgba(var(--rouge-rubis-rgb), 0.25)); opacity: 0; transition: opacity 0.4s; pointer-events: none; }
   .insta-tile:hover::after { opacity: 1; }
 
   /* —— CTA final —— */
@@ -199,7 +199,7 @@
     padding: 140px 24px;
     position: relative;
     background:
-      radial-gradient(ellipse at center, rgba(161,11,27,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse at center, rgba(var(--rouge-rubis-rgb), 0.25) 0%, transparent 60%),
       var(--noir-profond);
   }
   .cta-band h2 {
@@ -210,7 +210,7 @@
     font-family: var(--script);
     font-size: clamp(40px, 5vw, 64px);
     color: var(--rose-metal); margin-bottom: 32px;
-    text-shadow: 0 0 20px rgba(226,169,179,0.4);
+    text-shadow: 0 0 20px rgba(var(--rose-metal-rgb), 0.4);
   }
 
   /* —— Politiques teaser —— */
@@ -224,8 +224,8 @@
   .policy-item {
     text-align: center;
     padding: 32px 24px;
-    border: 1px solid rgba(226,169,179,0.15);
-    background: rgba(13,7,9,0.5);
+    border: 1px solid rgba(var(--rose-metal-rgb), 0.15);
+    background: rgba(var(--noir-velours-rgb), 0.5);
   }
   .policy-item .icon { color: var(--rouge-rubis); margin-bottom: 16px; }
   .policy-item .icon svg { width: 36px; height: 36px; }

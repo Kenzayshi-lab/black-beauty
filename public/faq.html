@@ -12,20 +12,20 @@
 <meta name="theme-color" content="#050505">
 <link rel="stylesheet" href="/assets/styles.css">
 <style>
-  .page-hero { padding: 180px 24px 80px; text-align: center; position: relative; overflow: hidden; background: radial-gradient(ellipse at center, rgba(161,11,27,0.2) 0%, transparent 60%), var(--noir-profond); }
+  .page-hero { padding: 180px 24px 80px; text-align: center; position: relative; overflow: hidden; background: radial-gradient(ellipse at center, rgba(var(--rouge-rubis-rgb), 0.2) 0%, transparent 60%), var(--noir-profond); }
   .page-hero h1 { font-family: var(--titre-deco); font-size: clamp(48px, 8vw, 96px); margin: 16px 0; }
   .page-hero .script-sub { font-family: var(--script); font-size: clamp(28px, 4vw, 42px); color: var(--rouge-rubis); }
 
   .faq-list { max-width: 880px; margin: 0 auto; }
   details {
-    border: 1px solid rgba(226,169,179,0.15);
+    border: 1px solid rgba(var(--rose-metal-rgb), 0.15);
     background: var(--noir-velours);
     margin-bottom: 12px;
     transition: border-color 0.3s;
   }
   details[open] {
-    border-color: rgba(226,169,179,0.4);
-    box-shadow: 0 0 24px rgba(161,11,27,0.15);
+    border-color: rgba(var(--rose-metal-rgb), 0.4);
+    box-shadow: 0 0 24px rgba(var(--rouge-rubis-rgb), 0.15);
   }
   summary {
     list-style: none;
@@ -47,12 +47,12 @@
     margin-left: 16px;
   }
   details[open] summary::after { transform: rotate(45deg); }
-  summary:hover { background: rgba(161,11,27,0.05); }
+  summary:hover { background: rgba(var(--rouge-rubis-rgb), 0.05); }
   .faq-content {
     padding: 0 28px 24px;
     color: var(--argent-givre);
     font-size: 14px; line-height: 1.9;
-    border-top: 1px solid rgba(226,169,179,0.08);
+    border-top: 1px solid rgba(var(--rose-metal-rgb), 0.08);
     padding-top: 20px;
     margin-top: 4px;
   }

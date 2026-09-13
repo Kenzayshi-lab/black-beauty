@@ -14,7 +14,7 @@
 <meta name="theme-color" content="#050505">
 <link rel="stylesheet" href="/assets/styles.css">
 <style>
-  .page-hero { padding: 180px 24px 70px; text-align: center; position: relative; overflow: hidden; background: radial-gradient(ellipse at center, rgba(161,11,27,0.2) 0%, transparent 60%), var(--noir-profond); }
+  .page-hero { padding: 180px 24px 70px; text-align: center; position: relative; overflow: hidden; background: radial-gradient(ellipse at center, rgba(var(--rouge-rubis-rgb), 0.2) 0%, transparent 60%), var(--noir-profond); }
   .page-hero h1 { font-family: var(--titre-deco); font-size: clamp(36px, 6vw, 72px); margin: 16px 0; }
   .page-hero .script-sub { font-family: var(--script); font-size: clamp(26px, 4vw, 40px); color: var(--rouge-rubis); }
 
@@ -25,7 +25,7 @@
   }
   .legal-toc {
     background: var(--noir-velours);
-    border: 1px solid rgba(226,169,179,0.18);
+    border: 1px solid rgba(var(--rose-metal-rgb), 0.18);
     border-left: 3px solid var(--rouge-rubis);
     padding: 28px 32px; margin-bottom: 56px;
   }
@@ -42,7 +42,7 @@
     letter-spacing: 0.14em; color: var(--rose-metal);
     display: flex; align-items: baseline; gap: 14px;
     padding-bottom: 14px; margin-bottom: 20px;
-    border-bottom: 1px solid rgba(226,169,179,0.15);
+    border-bottom: 1px solid rgba(var(--rose-metal-rgb), 0.15);
   }
   .legal h2.block-title .n { color: var(--rouge-rubis); font-size: 15px; }
   .legal h3 { font-family: var(--titre); font-size: 14px; letter-spacing: 0.12em; color: var(--argent-givre); margin: 24px 0 10px; }
@@ -51,9 +51,9 @@
   .legal li { font-size: 14.5px; line-height: 1.85; color: var(--argent-givre); margin-bottom: 8px; }
   .legal strong { color: var(--rose-metal); font-weight: 500; }
   .legal a.inline { color: var(--rose-metal); text-decoration: underline; text-underline-offset: 3px; }
-  .legal .todo { color: var(--rose-poudre); background: rgba(161,11,27,0.14); border: 1px solid rgba(161,11,27,0.3); padding: 1px 8px; font-size: 12.5px; letter-spacing: 0.05em; }
+  .legal .todo { color: var(--rose-poudre); background: rgba(var(--rouge-rubis-rgb), 0.14); border: 1px solid rgba(var(--rouge-rubis-rgb), 0.3); padding: 1px 8px; font-size: 12.5px; letter-spacing: 0.05em; }
   .legal .callout {
-    background: var(--noir-velours); border: 1px solid rgba(226,169,179,0.2);
+    background: var(--noir-velours); border: 1px solid rgba(var(--rose-metal-rgb), 0.2);
     padding: 24px 28px; margin: 8px 0 16px; border-left: 3px solid var(--rouge-rubis);
   }
 </style>

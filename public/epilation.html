@@ -16,7 +16,7 @@
     padding: 180px 24px 100px;
     text-align: center;
     position: relative; overflow: hidden;
-    background: radial-gradient(ellipse at center, rgba(161,11,27,0.2) 0%, transparent 60%), var(--noir-profond);
+    background: radial-gradient(ellipse at center, rgba(var(--rouge-rubis-rgb), 0.2) 0%, transparent 60%), var(--noir-profond);
   }
   .page-hero h1 { font-family: var(--titre-deco); font-size: clamp(48px, 8vw, 96px); margin: 16px 0; }
   .page-hero .script-sub { font-family: var(--script); font-size: clamp(28px, 4vw, 42px); color: var(--rouge-rubis); }
@@ -25,15 +25,15 @@
     max-width: 1200px; margin: 0 auto;
     padding: 80px 60px;
     background:
-      radial-gradient(ellipse at top left, rgba(161,11,27,0.18) 0%, transparent 50%),
-      radial-gradient(ellipse at bottom right, rgba(107,5,16,0.15) 0%, transparent 55%),
+      radial-gradient(ellipse at top left, rgba(var(--rouge-rubis-rgb), 0.18) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(var(--rouge-sang-rgb), 0.15) 0%, transparent 55%),
       var(--noir-velours);
-    border: 1px solid rgba(226,169,179,0.2);
+    border: 1px solid rgba(var(--rose-metal-rgb), 0.2);
     position: relative;
   }
   .epil-affiche::before {
     content: ''; position: absolute; inset: 16px;
-    border: 1px solid rgba(226,169,179,0.1); pointer-events: none;
+    border: 1px solid rgba(var(--rose-metal-rgb), 0.1); pointer-events: none;
   }
   .affiche-header { text-align: center; margin-bottom: 56px; }
   .affiche-header img { height: 100px; margin-bottom: 16px; }
@@ -63,17 +63,17 @@
     color: var(--rose-metal);
     text-align: center;
     margin-bottom: 28px;
-    border-bottom: 1px solid rgba(226,169,179,0.2);
+    border-bottom: 1px solid rgba(var(--rose-metal-rgb), 0.2);
     padding-bottom: 12px;
-    text-shadow: 0 0 16px rgba(226,169,179,0.3);
+    text-shadow: 0 0 16px rgba(var(--rose-metal-rgb), 0.3);
   }
 
   .a-savoir {
     margin-top: 60px;
     text-align: center;
-    border: 1px solid rgba(226,169,179,0.2);
+    border: 1px solid rgba(var(--rose-metal-rgb), 0.2);
     padding: 28px;
-    background: rgba(13,7,9,0.6);
+    background: rgba(var(--noir-velours-rgb), 0.6);
   }
   .a-savoir h4 {
     font-family: var(--titre);
@@ -182,7 +182,7 @@
   <!-- Info longueur de poils + inspi DM -->
   <div class="epil-info" style="max-width:860px;margin:60px auto 0;display:grid;grid-template-columns:1fr 1fr;gap:24px;">
 
-    <div style="background:var(--noir-velours);border:1px solid rgba(226,169,179,0.2);border-left:3px solid var(--rouge-rubis);padding:32px;">
+    <div style="background:var(--noir-velours);border:1px solid rgba(var(--rose-metal-rgb), 0.2);border-left:3px solid var(--rouge-rubis);padding:32px;">
       <div class="eyebrow" style="margin-bottom:14px;" data-cms="epilation.info_before.eyebrow">✠ Avant votre séance ✠</div>
       <h4 style="font-family:var(--titre);font-size:14px;letter-spacing:0.3em;text-transform:uppercase;color:var(--rose-metal);margin-bottom:16px;" data-cms="epilation.info_before.title">
         Longueur des poils requise
@@ -195,7 +195,7 @@
       </p>
     </div>
 
-    <div style="background:var(--noir-velours);border:1px solid rgba(226,169,179,0.2);border-left:3px solid var(--rouge-rubis);padding:32px;">
+    <div style="background:var(--noir-velours);border:1px solid rgba(var(--rose-metal-rgb), 0.2);border-left:3px solid var(--rouge-rubis);padding:32px;">
       <div class="eyebrow" style="margin-bottom:14px;" data-cms="epilation.info_reserve.eyebrow">✠ Au moment de réserver ✠</div>
       <h4 style="font-family:var(--titre);font-size:14px;letter-spacing:0.3em;text-transform:uppercase;color:var(--rose-metal);margin-bottom:16px;" data-cms="epilation.info_reserve.title">
         Envoyez vos inspirations
