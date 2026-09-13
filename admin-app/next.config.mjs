@@ -8,9 +8,19 @@ const nextConfig = {
   images: {
     remotePatterns: []
   },
-  // @node-rs/argon2 est un package natif — ne pas le bundler cote client,
-  // le laisser passer par le runtime Node de la route handler.
-  serverExternalPackages: ["@node-rs/argon2", "ioredis"]
+  // Packages Node natifs — laisses en require() runtime, jamais bundles
+  // (serverExternalPackages ne suffit pas toujours pour ioredis qui importe
+  // node:diagnostics_channel au top level).
+  serverExternalPackages: ["@node-rs/argon2", "ioredis"],
+  webpack: (config, { isServer, nextRuntime }) => {
+    if (isServer && nextRuntime === "nodejs") {
+      config.externals = [
+        ...(Array.isArray(config.externals) ? config.externals : []),
+        { ioredis: "commonjs ioredis", "@node-rs/argon2": "commonjs @node-rs/argon2" }
+      ];
+    }
+    return config;
+  }
 };
 
 export default nextConfig;

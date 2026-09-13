@@ -1,5 +1,7 @@
 import { auth } from "@/auth";
 
+export const runtime = "nodejs";
+
 /**
  * Dashboard - placeholder pour l'instant.
  * Les ecrans reels (Theme, Home, Onglerie, etc.) arriveront aux chunks 24-26.
