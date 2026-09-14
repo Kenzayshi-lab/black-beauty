@@ -17,7 +17,8 @@ import {
   OnglerieSchema,
   FaqSchema,
   EpilationSchema,
-  AproposSchema
+  AproposSchema,
+  GalerieSchema
 } from "./content-schemas";
 
 // Schema pour theme.json — chaque valeur est une couleur hex OU une valeur
@@ -55,7 +56,8 @@ export const ALLOWED_CONTENT = {
   "public/content/onglerie.json":  OnglerieSchema,
   "public/content/faq.json":       FaqSchema,
   "public/content/epilation.json": EpilationSchema,
-  "public/content/apropos.json":   AproposSchema
+  "public/content/apropos.json":   AproposSchema,
+  "public/content/galerie.json":   GalerieSchema
 } as const satisfies Record<string, z.ZodTypeAny>;
 
 export type AllowedPath = keyof typeof ALLOWED_CONTENT;
