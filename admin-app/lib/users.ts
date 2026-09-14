@@ -102,7 +102,16 @@ export async function getUserById(id: string): Promise<User | null> {
   if (!raw) return null;
   try {
     return UserSchema.parse(JSON.parse(raw));
-  } catch {
+  } catch (err) {
+    // Log l'incident cote serveur pour eviter les kill-switch mysterieux
+    // en cas de corruption Redis ou de migration Schema incompatible
+    // (fix audit M3). On retourne null pour ne pas exposer le detail.
+    // eslint-disable-next-line no-console
+    console.error(
+      "[users] JSON corrompu ou schema invalide pour user id=%s: %s",
+      id,
+      err instanceof Error ? err.message : String(err)
+    );
     return null;
   }
 }

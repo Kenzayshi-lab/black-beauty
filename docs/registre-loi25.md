@@ -85,7 +85,7 @@ En cas de bris de sécurité affectant l'un de ces traitements, la procédure
 |---|---|
 | **Finalité** | Sécurité (détection d'attaques), performance (résolution d'incidents), bon fonctionnement du site |
 | **Base légale** | Intérêt légitime (article 12 al. 2 Loi 25) — sécurité de l'infrastructure |
-| **Personnes concernées** | Toute personne visitant le site |
+| **Personnes concernées** | Tout **visiteur** du site (les clientes du studio sont un sous-ensemble ; personne n'est spécifiquement ciblé) |
 | **Données traitées** | Adresse IP, user-agent, URL demandée, code de réponse, timestamp |
 | **Destinataires** | Vercel (fournisseur de l'hébergement) + Aalie / Kengsley pour l'analyse en cas d'incident |
 | **Sous-traitant** | **Vercel Inc.** |
