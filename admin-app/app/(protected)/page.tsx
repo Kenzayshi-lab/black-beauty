@@ -18,13 +18,16 @@ export default async function DashboardPage() {
   const user = session?.user as { email?: string } | undefined;
 
   const sections: SectionCard[] = [
-    { title: "Theme",     desc: "Couleurs et polices",         href: "/theme" },
-    { title: "Accueil",   desc: "Textes de la page d'accueil", href: "/home" },
-    { title: "Onglerie",  desc: "Textes et prix",              href: "/onglerie" },
-    { title: "Epilation", desc: "Textes et prix",              href: "/epilation" },
-    { title: "À propos",  desc: "Histoire, valeurs, contact",  href: "/apropos" },
-    { title: "FAQ",       desc: "Questions frequentes",        href: "/faq" },
-    { title: "Galerie",   desc: "Photos et portfolio",         href: "/galerie" }
+    { title: "Theme",         desc: "Couleurs et polices",             href: "/theme" },
+    { title: "Accueil",       desc: "Textes de la page d'accueil",     href: "/home" },
+    { title: "Onglerie",      desc: "Textes et prix",                  href: "/onglerie" },
+    { title: "Epilation",     desc: "Textes et prix",                  href: "/epilation" },
+    { title: "À propos",      desc: "Histoire, valeurs, contact",      href: "/apropos" },
+    { title: "FAQ",           desc: "Questions frequentes",            href: "/faq" },
+    { title: "Galerie",       desc: "Photos et portfolio",             href: "/galerie" },
+    { title: "Réservation",   desc: "Textes de la page réservation",   href: "/reservation" },
+    { title: "Confidentialité", desc: "En-tête + date de mise à jour", href: "/politique-confidentialite" },
+    { title: "Sécurité",      desc: "En-tête + date de mise à jour",   href: "/politique-securite" }
   ];
 
   return (

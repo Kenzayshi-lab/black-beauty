@@ -18,7 +18,10 @@ import {
   FaqSchema,
   EpilationSchema,
   AproposSchema,
-  GalerieSchema
+  GalerieSchema,
+  ReservationSchema,
+  PolitiqueConfidentialiteSchema,
+  PolitiqueSecuriteSchema
 } from "./content-schemas";
 
 // Schema pour theme.json — chaque valeur est une couleur hex OU une valeur
@@ -51,13 +54,16 @@ export type Theme = z.infer<typeof ThemeSchema>;
 // Whitelist. Cle = path relatif dans le repo, valeur = schema de validation.
 // Les chemins listes ici sont les SEULS que le proxy accepte.
 export const ALLOWED_CONTENT = {
-  "public/content/theme.json":     ThemeSchema,
-  "public/content/home.json":      HomeSchema,
-  "public/content/onglerie.json":  OnglerieSchema,
-  "public/content/faq.json":       FaqSchema,
-  "public/content/epilation.json": EpilationSchema,
-  "public/content/apropos.json":   AproposSchema,
-  "public/content/galerie.json":   GalerieSchema
+  "public/content/theme.json":                     ThemeSchema,
+  "public/content/home.json":                      HomeSchema,
+  "public/content/onglerie.json":                  OnglerieSchema,
+  "public/content/faq.json":                       FaqSchema,
+  "public/content/epilation.json":                 EpilationSchema,
+  "public/content/apropos.json":                   AproposSchema,
+  "public/content/galerie.json":                   GalerieSchema,
+  "public/content/reservation.json":               ReservationSchema,
+  "public/content/politique-confidentialite.json": PolitiqueConfidentialiteSchema,
+  "public/content/politique-securite.json":        PolitiqueSecuriteSchema
 } as const satisfies Record<string, z.ZodTypeAny>;
 
 export type AllowedPath = keyof typeof ALLOWED_CONTENT;

@@ -266,6 +266,61 @@ export const GalerieSchema = z.object({
   photos: z.array(PhotoRefSchema).max(200)
 }).strict();
 
+// ---------- reservation.json ----------
+
+export const ReservationSchema = z.object({
+  hero: z.object({
+    eyebrow:    OptStr(120),
+    title:      NonEmptyStr(80),
+    script_sub: OptStr(120)
+  }).strict(),
+  reserv_section: z.object({
+    eyebrow: OptStr(120),
+    title:   NonEmptyStr(80)
+  }).strict(),
+  how_to: z.object({
+    eyebrow: OptStr(120),
+    title:   NonEmptyStr(200)
+  }).strict(),
+  policies_section: z.object({
+    eyebrow: OptStr(120),
+    title:   NonEmptyStr(80)
+  }).strict(),
+  policies: z.object({
+    depot:      NonEmptyStr(60),
+    retard:     NonEmptyStr(60),
+    paiement:   NonEmptyStr(60),
+    annulation: NonEmptyStr(60)
+  }).strict()
+}).strict();
+
+// ---------- politique-confidentialite.json ----------
+
+export const PolitiqueConfidentialiteSchema = z.object({
+  hero: z.object({
+    eyebrow:    OptStr(120),
+    title:      NonEmptyStr(120),
+    script_sub: OptStr(120)
+  }).strict(),
+  meta: z.object({
+    last_update: OptStr(40),
+    toc_title:   OptStr(60)
+  }).strict()
+}).strict();
+
+// ---------- politique-securite.json ----------
+
+export const PolitiqueSecuriteSchema = z.object({
+  hero: z.object({
+    eyebrow:    OptStr(120),
+    title:      NonEmptyStr(120),
+    script_sub: OptStr(120)
+  }).strict(),
+  meta: z.object({
+    last_update: OptStr(40)
+  }).strict()
+}).strict();
+
 export type Home = z.infer<typeof HomeSchema>;
 export type Onglerie = z.infer<typeof OnglerieSchema>;
 export type Faq = z.infer<typeof FaqSchema>;
@@ -273,3 +328,6 @@ export type Epilation = z.infer<typeof EpilationSchema>;
 export type Apropos = z.infer<typeof AproposSchema>;
 export type Galerie = z.infer<typeof GalerieSchema>;
 export type PhotoRef = z.infer<typeof PhotoRefSchema>;
+export type Reservation = z.infer<typeof ReservationSchema>;
+export type PolitiqueConfidentialite = z.infer<typeof PolitiqueConfidentialiteSchema>;
+export type PolitiqueSecurite = z.infer<typeof PolitiqueSecuriteSchema>;
