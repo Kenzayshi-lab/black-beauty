@@ -266,6 +266,30 @@ export const GalerieSchema = z.object({
   photos: z.array(PhotoRefSchema).max(200)
 }).strict();
 
+// ---------- site.json (identite globale du studio) ----------
+
+const InstagramHandle = z.string().regex(/^@[a-zA-Z0-9_.]{1,30}$/, "Doit commencer par @ (max 30 caracteres).");
+const InstagramUrl = z.string().regex(/^https:\/\/www\.instagram\.com\//, "Doit etre une URL https://www.instagram.com/...");
+const InstagramDm = z.string().regex(/^https:\/\/ig\.me\/m\//, "Doit etre une URL https://ig.me/m/...");
+const TiktokUrl = z.string().regex(/^https:\/\/www\.tiktok\.com\//, "Doit etre une URL https://www.tiktok.com/...");
+const HttpsUrl = z.string().regex(/^https:\/\//, "Doit etre une URL https://").max(500);
+const MailtoHref = z.string().regex(/^mailto:/, "Doit commencer par mailto:").max(500);
+
+export const SiteSchema = z.object({
+  name:              NonEmptyStr(120),
+  tagline:           OptStr(200),
+  city:              OptStr(80),
+  email:             z.string().email().max(200),
+  email_href:        MailtoHref,
+  instagram_handle:  InstagramHandle,
+  instagram_url:     InstagramUrl,
+  instagram_dm:      InstagramDm,
+  tiktok_handle:     InstagramHandle,
+  tiktok_url:        TiktokUrl,
+  square_url:        HttpsUrl,
+  responsable_loi25: OptStr(120)
+}).strict();
+
 // ---------- reservation.json ----------
 
 export const ReservationSchema = z.object({
@@ -331,3 +355,4 @@ export type PhotoRef = z.infer<typeof PhotoRefSchema>;
 export type Reservation = z.infer<typeof ReservationSchema>;
 export type PolitiqueConfidentialite = z.infer<typeof PolitiqueConfidentialiteSchema>;
 export type PolitiqueSecurite = z.infer<typeof PolitiqueSecuriteSchema>;
+export type Site = z.infer<typeof SiteSchema>;

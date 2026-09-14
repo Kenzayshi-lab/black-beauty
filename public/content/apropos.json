@@ -43,7 +43,7 @@
   },
   "appointment_card": {
     "title": "Prendre rendez-vous",
-    "description": "Écrivez-moi en message privé sur Instagram pour réserver votre créneau. Je vous confirme rapidement une disponibilité.",
-    "button_text": "✠ Réserver sur Instagram"
+    "description": "Réservez votre créneau directement en ligne — choisissez votre service, votre date et votre heure. Confirmation immédiate par courriel.",
+    "button_text": "✠ Réserver un rendez-vous"
   }
 }

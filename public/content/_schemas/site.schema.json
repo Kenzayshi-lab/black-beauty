@@ -16,6 +16,7 @@
     "instagram_dm":      { "type": "string", "pattern": "^https://ig\\.me/m/" },
     "tiktok_handle":     { "type": "string", "pattern": "^@[a-zA-Z0-9_.]{1,30}$" },
     "tiktok_url":        { "type": "string", "pattern": "^https://www\\.tiktok\\.com/" },
+    "square_url":        { "type": "string", "pattern": "^https://", "maxLength": 500 },
     "responsable_loi25": { "type": "string", "maxLength": 120 }
   }
 }
