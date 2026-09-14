@@ -1,19 +1,35 @@
+import Link from "next/link";
 import { auth } from "@/auth";
 
 export const runtime = "nodejs";
 
+type SectionCard = {
+  title: string;
+  desc: string;
+  href?: string;
+};
+
 /**
- * Dashboard - placeholder pour l'instant.
- * Les ecrans reels (Theme, Home, Onglerie, etc.) arriveront aux chunks 24-26.
+ * Dashboard - liste des ecrans de gestion.
+ * L'ecran Theme (chunk 24) est actif; les autres arriveront aux chunks 25-27.
  */
 export default async function DashboardPage() {
   const session = await auth();
   const user = session?.user as { email?: string } | undefined;
 
+  const sections: SectionCard[] = [
+    { title: "Theme",    desc: "Couleurs et polices",     href: "/theme" },
+    { title: "Accueil",  desc: "Textes et sections" },
+    { title: "Onglerie", desc: "Services et prix" },
+    { title: "Epilation", desc: "Services et prix" },
+    { title: "Galerie",  desc: "Photos" },
+    { title: "FAQ",      desc: "Questions frequentes" }
+  ];
+
   return (
     <div className="max-w-6xl mx-auto px-6 py-12">
       <div className="text-center mb-12">
-        <p className="text-rose text-xs tracking-[0.4em] uppercase mb-3">
+        <p className="text-rose-metal text-xs tracking-[0.4em] uppercase mb-3">
           ✠ Bienvenue ✠
         </p>
         <h2 className="font-titre text-2xl md:text-3xl text-argent-givre mb-4">
@@ -26,28 +42,36 @@ export default async function DashboardPage() {
       </div>
 
       <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {[
-          { title: "Theme", desc: "Couleurs et polices" },
-          { title: "Accueil", desc: "Textes et sections" },
-          { title: "Onglerie", desc: "Services et prix" },
-          { title: "Epilation", desc: "Services et prix" },
-          { title: "Galerie", desc: "Photos" },
-          { title: "FAQ", desc: "Questions frequentes" }
-        ].map((item) => (
-          <div
-            key={item.title}
-            className="border border-white/5 bg-noir-velours p-5 opacity-50 cursor-not-allowed"
-            aria-disabled="true"
-          >
-            <h3 className="font-titre text-argent-givre text-sm tracking-wider uppercase mb-1">
-              {item.title}
-            </h3>
-            <p className="text-argent-doux text-xs">{item.desc}</p>
-            <p className="text-rose/60 text-[10px] tracking-[0.3em] uppercase mt-3">
-              a venir
-            </p>
-          </div>
-        ))}
+        {sections.map((item) => {
+          const cardClass =
+            "border p-5 h-full transition-colors " +
+            (item.href
+              ? "border-white/10 bg-noir-velours hover:border-rose-metal/40 hover:bg-noir-marbre cursor-pointer"
+              : "border-white/5 bg-noir-velours opacity-50 cursor-not-allowed");
+          const content = (
+            <>
+              <h3 className="font-titre text-argent-givre text-sm tracking-wider uppercase mb-1">
+                {item.title}
+              </h3>
+              <p className="text-argent-doux text-xs">{item.desc}</p>
+              {!item.href && (
+                <p className="text-rose-metal/60 text-[10px] tracking-[0.3em] uppercase mt-3">
+                  a venir
+                </p>
+              )}
+            </>
+          );
+
+          return item.href ? (
+            <Link key={item.title} href={item.href} className={cardClass}>
+              {content}
+            </Link>
+          ) : (
+            <div key={item.title} className={cardClass} aria-disabled="true">
+              {content}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

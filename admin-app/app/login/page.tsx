@@ -16,13 +16,13 @@ export default async function LoginPage() {
     <main className="min-h-screen flex items-center justify-center px-6 py-16">
       <div className="w-full max-w-md">
         <header className="text-center mb-10">
-          <p className="text-rose text-xs tracking-[0.4em] uppercase mb-3">
+          <p className="text-rose-metal text-xs tracking-[0.4em] uppercase mb-3">
             ✠ Studio prive ✠
           </p>
           <h1 className="font-titre text-3xl md:text-4xl text-argent-givre tracking-wide">
             Black &amp; Beauty
           </h1>
-          <p className="font-script text-3xl text-rose mt-2">
+          <p className="font-script text-3xl text-rose-metal mt-2">
             console admin
           </p>
         </header>
