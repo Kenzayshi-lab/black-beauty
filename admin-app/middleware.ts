@@ -17,8 +17,13 @@ import { authConfig } from "./auth.config";
 const { auth } = NextAuth(authConfig);
 
 export default auth((request) => {
-  // Nonce cryptographique — crypto.randomUUID est disponible en Edge
-  const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
+  // Nonce cryptographique — 16 bytes (128 bits d'entropie) encodes en base64.
+  // crypto.getRandomValues est disponible en Edge; Buffer.from sur Uint8Array
+  // encode les octets bruts (contrairement a Buffer.from sur string qui
+  // encoderait l'UTF-8 des caracteres — fix audit M1).
+  const nonceBytes = new Uint8Array(16);
+  crypto.getRandomValues(nonceBytes);
+  const nonce = Buffer.from(nonceBytes).toString("base64");
 
   const csp = [
     `default-src 'self'`,
@@ -29,7 +34,8 @@ export default auth((request) => {
     `object-src 'none'`,
     `base-uri 'self'`,
     `form-action 'self'`,
-    `frame-ancestors 'self' https://admin.blackandbeautystudio.ca`,
+    // L'admin n'a jamais a etre iframe (fix audit M4).
+    `frame-ancestors 'none'`,
     `connect-src 'self' https://api.github.com`,
     `upgrade-insecure-requests`
   ].join("; ");

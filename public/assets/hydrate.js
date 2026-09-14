@@ -102,9 +102,13 @@
     return fetch(url, opts)
       .then(function (res) {
         if (!res.ok) return null;
-        var ct = res.headers.get('content-type') || '';
-        // accepte application/json (ideal) ou text/plain (Vercel sert parfois les .json en text)
-        if (ct.indexOf('json') === -1 && ct.indexOf('text/plain') === -1 && ct.indexOf('text/') === -1) return null;
+        var ct = (res.headers.get('content-type') || '').toLowerCase();
+        // Accepte uniquement application/json (Vercel sert bien les .json avec
+        // ce Content-Type) ou application/octet-stream (fallback rare).
+        // Retire text/plain et text/* (trop laxiste — accepterait une page
+        // d'erreur HTML ou du texte quelconque).
+        if (ct.indexOf('application/json') === -1 &&
+            ct.indexOf('application/octet-stream') === -1) return null;
         return res.text();
       })
       .then(function (text) {
