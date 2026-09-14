@@ -12,7 +12,7 @@ function SubmitButton() {
     <button
       type="submit"
       disabled={pending}
-      className="w-full bg-rubis text-rose-poudre font-titre text-xs tracking-[0.25em] uppercase py-4 mt-2 border border-rose/30 hover:bg-rubis-sang disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
+      className="w-full bg-rouge-rubis text-rose-poudre font-titre text-xs tracking-[0.25em] uppercase py-4 mt-2 border border-rose-metal/30 hover:bg-rouge-sang disabled:opacity-60 disabled:cursor-not-allowed transition-colors"
       aria-busy={pending}
     >
       {pending ? "Connexion..." : "Se connecter"}
@@ -28,7 +28,7 @@ export function LoginForm() {
       {state.error && (
         <p
           role="alert"
-          className="text-rose-poudre text-sm border-l-2 border-rubis pl-4 py-2 bg-rubis/10"
+          className="text-rose-poudre text-sm border-l-2 border-rouge-rubis pl-4 py-2 bg-rouge-rubis/10"
         >
           {state.error}
         </p>
@@ -49,7 +49,7 @@ export function LoginForm() {
           required
           maxLength={200}
           placeholder="votre@courriel.com"
-          className="w-full bg-noir-profond border border-white/10 px-4 py-3 text-argent-givre placeholder:text-argent-doux/40 focus:border-rose focus:outline-none"
+          className="w-full bg-noir-profond border border-white/10 px-4 py-3 text-argent-givre placeholder:text-argent-doux/40 focus:border-rose-metal focus:outline-none"
         />
       </div>
 
@@ -69,7 +69,7 @@ export function LoginForm() {
           minLength={8}
           maxLength={4096}
           placeholder="••••••••"
-          className="w-full bg-noir-profond border border-white/10 px-4 py-3 text-argent-givre placeholder:text-argent-doux/40 focus:border-rose focus:outline-none"
+          className="w-full bg-noir-profond border border-white/10 px-4 py-3 text-argent-givre placeholder:text-argent-doux/40 focus:border-rose-metal focus:outline-none"
         />
       </div>
 
