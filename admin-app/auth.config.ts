@@ -17,6 +17,10 @@ import type { NextAuthConfig } from "next-auth";
 
 const SESSION_TTL = 15 * 60; // 15 min — matche env().SESSION_TTL cote Node
 
+// Rejette le token JWT (=> redirect /login au premier appel `auth()` cote Node).
+// Auth.js interprete un jwt callback qui throw comme "session invalide".
+export const KILLED_SESSION_MSG = "session-invalidated-by-kill-switch";
+
 export const authConfig = {
   session: {
     strategy: "jwt",
@@ -44,11 +48,14 @@ export const authConfig = {
     // Auth.js merge les providers correctement au chargement.
   ],
   callbacks: {
-    // Enrichit le JWT — pas d'IO ici, safe pour Edge
+    // Enrichit le JWT — pas d'IO ici, safe pour Edge.
+    // La verification du sessionVersion vs Redis est faite dans auth.ts (Node)
+    // qui override ce callback en preservant l'enrichissement de base.
     jwt: async ({ token, user }) => {
       if (user) {
         token.id = user.id;
         token.role = (user as { role?: string }).role ?? "editor";
+        token.sessionVersion = (user as { sessionVersion?: number }).sessionVersion ?? 1;
       }
       return token;
     },

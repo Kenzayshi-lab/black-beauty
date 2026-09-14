@@ -20,7 +20,7 @@ import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
 import { authConfig } from "./auth.config";
 import { verifyPassword } from "@/lib/password";
-import { getUserByEmail, touchLastLogin, toPublic } from "@/lib/users";
+import { getUserByEmail, getUserById, touchLastLogin, toPublic } from "@/lib/users";
 import { checkRateLimit, resetRateLimit } from "@/lib/rate-limit";
 import { logAuditEvent } from "@/lib/audit-log";
 import { hashIp } from "@/lib/ip";
@@ -38,6 +38,41 @@ const DUMMY_HASH =
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   ...authConfig,
+  callbacks: {
+    ...authConfig.callbacks,
+    // Override du callback jwt d'auth.config.ts pour ajouter le check
+    // sessionVersion vs Redis. Ce callback tourne cote Node (route handlers,
+    // server components) — le middleware Edge utilise celui d'auth.config
+    // qui ne fait pas d'IO.
+    jwt: async ({ token, user }) => {
+      // Enrichissement au signIn (premiere fois: user est defini)
+      if (user) {
+        token.id = user.id;
+        token.role = (user as { role?: string }).role ?? "editor";
+        token.sessionVersion = (user as { sessionVersion?: number }).sessionVersion ?? 1;
+        return token;
+      }
+
+      // Refresh subsequent: verifier sessionVersion vs Redis
+      const tokenUserId = token.id as string | undefined;
+      const tokenSessionVersion = (token as { sessionVersion?: number }).sessionVersion ?? 1;
+      if (!tokenUserId) return null;
+
+      try {
+        const dbUser = await getUserById(tokenUserId);
+        if (!dbUser) return null; // User supprime
+        if ((dbUser.sessionVersion ?? 1) !== tokenSessionVersion) {
+          // Kill switch declenche ou reset password: session invalidee
+          return null;
+        }
+      } catch {
+        // Fail-open sur erreur Redis (log serveur, mais on laisse passer):
+        // preferer laisser l'user connecte plutot que le kicker en cas de
+        // panne temporaire de Redis.
+      }
+      return token;
+    }
+  },
   providers: [
     Credentials({
       credentials: {

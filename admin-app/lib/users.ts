@@ -24,23 +24,34 @@ import { redis, KEY } from "./redis";
 import { hashPassword } from "./password";
 
 export const UserSchema = z.object({
-  id:            z.string().uuid(),
-  email:         z.string().email().toLowerCase(),
-  passwordHash:  z.string().startsWith("$argon2"),
-  role:          z.enum(["admin", "editor"]).default("admin"),
-  createdAt:     z.string().datetime(),
-  lastLoginAt:   z.string().datetime().nullable().default(null),
-  mfaSecret:     z.string().nullable().default(null),
-  mfaEnabled:    z.boolean().default(false)
+  id:             z.string().uuid(),
+  email:          z.string().email().toLowerCase(),
+  passwordHash:   z.string().startsWith("$argon2"),
+  role:           z.enum(["admin", "editor"]).default("admin"),
+  createdAt:      z.string().datetime(),
+  lastLoginAt:    z.string().datetime().nullable().default(null),
+  mfaSecret:      z.string().nullable().default(null),
+  mfaEnabled:     z.boolean().default(false),
+  // Incremente a chaque "kick all sessions" ou reset password.
+  // Toute session dont le JWT porte un sessionVersion different est invalidee
+  // au premier appel d'auth() cote Node (voir auth.ts).
+  sessionVersion: z.number().int().nonnegative().default(1)
 });
 
 export type User = z.infer<typeof UserSchema>;
 
-// Version "safe" sans champs sensibles (a exposer au client / a la session)
-export type PublicUser = Pick<User, "id" | "email" | "role">;
+// Version "safe" sans champs sensibles (a exposer au client / a la session).
+// sessionVersion est inclus pour que le callback jwt puisse le porter dans
+// le token au moment du login.
+export type PublicUser = Pick<User, "id" | "email" | "role" | "sessionVersion">;
 
 export function toPublic(user: User): PublicUser {
-  return { id: user.id, email: user.email, role: user.role };
+  return {
+    id: user.id,
+    email: user.email,
+    role: user.role,
+    sessionVersion: user.sessionVersion ?? 1
+  };
 }
 
 /**
@@ -64,14 +75,15 @@ export async function createUser(input: {
 
   const passwordHash = await hashPassword(input.password);
   const user: User = UserSchema.parse({
-    id:            randomUUID(),
+    id:             randomUUID(),
     email,
     passwordHash,
-    role:          input.role ?? "admin",
-    createdAt:     new Date().toISOString(),
-    lastLoginAt:   null,
-    mfaSecret:     null,
-    mfaEnabled:    false
+    role:           input.role ?? "admin",
+    createdAt:      new Date().toISOString(),
+    lastLoginAt:    null,
+    mfaSecret:      null,
+    mfaEnabled:     false,
+    sessionVersion: 1
   });
 
   // Atomique: user + index email en une seule commande MULTI
@@ -115,11 +127,32 @@ export async function touchLastLogin(id: string): Promise<void> {
 /**
  * Reinitialise le mot de passe d'un utilisateur existant.
  * Utilise par le CLI create-user avec --reset.
+ *
+ * Bump automatiquement sessionVersion pour invalider toutes les sessions
+ * en cours (Fix audit #6).
  */
 export async function resetPassword(email: string, newPassword: string): Promise<User> {
   const user = await getUserByEmail(email);
   if (!user) throw new Error(`Utilisateur introuvable: ${email}`);
   user.passwordHash = await hashPassword(newPassword);
+  user.sessionVersion = (user.sessionVersion ?? 1) + 1;
   await redis().set(KEY.user(user.id), JSON.stringify(user));
   return user;
+}
+
+/**
+ * Incremente sessionVersion pour invalider toutes les sessions actives
+ * de l'utilisateur. Utilise par le "kill switch" (deconnecter tous mes appareils).
+ *
+ * Le check reel se fait dans le callback jwt cote Node (auth.ts):
+ * a chaque refresh de token, on compare token.sessionVersion avec
+ * user.sessionVersion; si different, la session est refusee et l'user
+ * est redirige vers /login.
+ */
+export async function bumpSessionVersion(userId: string): Promise<number> {
+  const user = await getUserById(userId);
+  if (!user) throw new Error(`Utilisateur introuvable: ${userId}`);
+  user.sessionVersion = (user.sessionVersion ?? 1) + 1;
+  await redis().set(KEY.user(user.id), JSON.stringify(user));
+  return user.sessionVersion;
 }
