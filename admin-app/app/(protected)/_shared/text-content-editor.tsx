@@ -2,17 +2,14 @@
 
 /**
  * Composant generique pour editer un JSON de contenu structure
- * en sections (niveau 1) contenant des champs texte (niveau 2).
+ * en sections (niveau 1) contenant des champs texte.
  *
- * Compatible home.json, onglerie.json, faq.json et tout JSON de meme forme.
+ * Supporte deux formes:
+ *   - fields terminaux (niveau 2): `data[section][field] = "string"`
+ *   - fields groupes (niveau 3): `data[section][field][subfield] = "string"`
  *
- * Usage:
- *   <TextContentEditor
- *     path="home.json"
- *     initialData={data}
- *     initialSha={sha}
- *     schema={SectionsMeta}
- *   />
+ * Compatible home.json, onglerie.json, faq.json, epilation.json,
+ * apropos.json et tout JSON de meme forme.
  *
  * schema decrit uniquement les LABELS d'affichage — la validation reelle
  * est faite par le proxy /api/content/[...path] avec le schema Zod.
@@ -25,6 +22,9 @@ export type FieldMeta = {
   hint?: string;
   longText?: boolean; // rend un textarea au lieu d'un input
   maxLength?: number;
+  // Si present, ce field n'est pas un input direct mais un groupe qui
+  // contient d'autres fields. Data path: data[section][field][subKey].
+  subfields?: Record<string, FieldMeta>;
 };
 
 export type SectionMeta = {
@@ -35,7 +35,19 @@ export type SectionMeta = {
 
 export type SectionsMeta = Record<string, SectionMeta>;
 
-type DataShape = Record<string, Record<string, string>>;
+// Value stockee dans data[section][field] est soit une string (field terminal)
+// soit un objet { subkey: string } (field groupe).
+type FieldValue = string | Record<string, string>;
+type DataShape = Record<string, Record<string, FieldValue>>;
+
+function equalValue(a: FieldValue | undefined, b: FieldValue | undefined): boolean {
+  if (typeof a === "string" || typeof b === "string") return a === b;
+  if (!a && !b) return true;
+  if (!a || !b) return false;
+  const keys = new Set([...Object.keys(a), ...Object.keys(b)]);
+  for (const k of keys) if (a[k] !== b[k]) return false;
+  return true;
+}
 
 function equalData(a: DataShape, b: DataShape): boolean {
   const sections = new Set([...Object.keys(a), ...Object.keys(b)]);
@@ -43,9 +55,16 @@ function equalData(a: DataShape, b: DataShape): boolean {
     const av = a[s] ?? {};
     const bv = b[s] ?? {};
     const keys = new Set([...Object.keys(av), ...Object.keys(bv)]);
-    for (const k of keys) if (av[k] !== bv[k]) return false;
+    for (const k of keys) if (!equalValue(av[k], bv[k])) return false;
   }
   return true;
+}
+
+function getString(v: FieldValue | undefined, subKey?: string): string {
+  if (v === undefined) return "";
+  if (typeof v === "string") return v;
+  if (subKey) return v[subKey] ?? "";
+  return "";
 }
 
 export function TextContentEditor(props: {
@@ -63,11 +82,26 @@ export function TextContentEditor(props: {
 
   const dirty = !equalData(data, baseline);
 
-  function updateField(section: string, field: string, value: string) {
+  function updateTerminal(section: string, field: string, value: string) {
     setData((prev) => ({
       ...prev,
       [section]: { ...(prev[section] ?? {}), [field]: value }
     }));
+    setFeedback(null);
+  }
+
+  function updateSubfield(section: string, field: string, subKey: string, value: string) {
+    setData((prev) => {
+      const sectionData = prev[section] ?? {};
+      const existing = sectionData[field];
+      const currentGroup: Record<string, string> =
+        typeof existing === "object" && existing !== null ? { ...existing } : {};
+      currentGroup[subKey] = value;
+      return {
+        ...prev,
+        [section]: { ...sectionData, [field]: currentGroup }
+      };
+    });
     setFeedback(null);
   }
 
@@ -184,74 +218,141 @@ export function TextContentEditor(props: {
 
             <div className="p-6 space-y-4">
               {Object.entries(sectionMeta.fields).map(([fieldKey, fieldMeta]) => {
-                const value = sectionData[fieldKey] ?? "";
-                const changed = value !== (sectionBaseline[fieldKey] ?? "");
-                const id = `${sectionKey}-${fieldKey}`;
-
-                return (
-                  <div key={fieldKey}>
-                    <label
-                      htmlFor={id}
-                      className="block text-argent-givre text-sm font-medium mb-1"
+                // Field groupe (niveau 3)
+                if (fieldMeta.subfields) {
+                  const groupData = sectionData[fieldKey];
+                  const groupBaseline = sectionBaseline[fieldKey];
+                  return (
+                    <fieldset
+                      key={fieldKey}
+                      className="border border-white/10 rounded p-4"
                     >
-                      {fieldMeta.label}
-                      {changed && (
-                        <span className="text-yellow-400/90 text-[10px] ml-2 uppercase tracking-widest">
-                          modifié
-                        </span>
+                      <legend className="px-2 text-argent-givre text-sm font-medium">
+                        {fieldMeta.label}
+                      </legend>
+                      {fieldMeta.hint && (
+                        <p className="text-argent-doux/60 text-[11px] mb-3">
+                          {fieldMeta.hint}
+                        </p>
                       )}
-                    </label>
-                    {fieldMeta.hint && (
-                      <p className="text-argent-doux/60 text-[11px] mb-2">
-                        {fieldMeta.hint}
-                      </p>
-                    )}
-                    {fieldMeta.longText ? (
-                      <textarea
-                        id={id}
-                        value={value}
-                        maxLength={fieldMeta.maxLength}
-                        onChange={(e) => updateField(sectionKey, fieldKey, e.target.value)}
-                        rows={3}
-                        className={`w-full bg-black/40 border rounded px-3 py-2 text-argent-givre text-sm focus:outline-none focus:border-rose-metal/40 resize-y ${
-                          changed ? "border-rouge-rubis/60" : "border-white/10"
-                        }`}
-                        spellCheck={true}
-                      />
-                    ) : (
-                      <input
-                        id={id}
-                        type="text"
-                        value={value}
-                        maxLength={fieldMeta.maxLength}
-                        onChange={(e) => updateField(sectionKey, fieldKey, e.target.value)}
-                        className={`w-full bg-black/40 border rounded px-3 py-2 text-argent-givre text-sm focus:outline-none focus:border-rose-metal/40 ${
-                          changed ? "border-rouge-rubis/60" : "border-white/10"
-                        }`}
-                        spellCheck={true}
-                      />
-                    )}
-                    <div className="flex justify-between mt-1">
-                      <code className="text-argent-doux/40 text-[10px]">{fieldKey}</code>
-                      {fieldMeta.maxLength && (
-                        <span
-                          className={`text-[10px] ${
-                            value.length > (fieldMeta.maxLength * 0.9)
-                              ? "text-yellow-400/70"
-                              : "text-argent-doux/40"
-                          }`}
-                        >
-                          {value.length} / {fieldMeta.maxLength}
-                        </span>
-                      )}
-                    </div>
-                  </div>
+                      <code className="text-argent-doux/40 text-[10px] block mb-3">
+                        {fieldKey}
+                      </code>
+                      <div className="space-y-3">
+                        {Object.entries(fieldMeta.subfields).map(([subKey, subMeta]) => {
+                          const value = getString(groupData, subKey);
+                          const changed = value !== getString(groupBaseline, subKey);
+                          const id = `${sectionKey}-${fieldKey}-${subKey}`;
+                          return (
+                            <TerminalField
+                              key={subKey}
+                              id={id}
+                              value={value}
+                              changed={changed}
+                              meta={subMeta}
+                              onChange={(v) => updateSubfield(sectionKey, fieldKey, subKey, v)}
+                              rawKey={subKey}
+                            />
+                          );
+                        })}
+                      </div>
+                    </fieldset>
+                  );
+                }
+
+                // Field terminal (niveau 2)
+                const value = getString(sectionData[fieldKey]);
+                const changed = value !== getString(sectionBaseline[fieldKey]);
+                const id = `${sectionKey}-${fieldKey}`;
+                return (
+                  <TerminalField
+                    key={fieldKey}
+                    id={id}
+                    value={value}
+                    changed={changed}
+                    meta={fieldMeta}
+                    onChange={(v) => updateTerminal(sectionKey, fieldKey, v)}
+                    rawKey={fieldKey}
+                  />
                 );
               })}
             </div>
           </section>
         );
       })}
+    </div>
+  );
+}
+
+/**
+ * Rendu d'un field texte terminal (input ou textarea) + label + hint +
+ * indicateur "modifié" + compteur de caracteres.
+ */
+function TerminalField(props: {
+  id: string;
+  value: string;
+  changed: boolean;
+  meta: FieldMeta;
+  onChange: (value: string) => void;
+  rawKey: string;
+}) {
+  const { id, value, changed, meta, onChange, rawKey } = props;
+
+  return (
+    <div>
+      <label
+        htmlFor={id}
+        className="block text-argent-givre text-sm font-medium mb-1"
+      >
+        {meta.label}
+        {changed && (
+          <span className="text-yellow-400/90 text-[10px] ml-2 uppercase tracking-widest">
+            modifié
+          </span>
+        )}
+      </label>
+      {meta.hint && (
+        <p className="text-argent-doux/60 text-[11px] mb-2">{meta.hint}</p>
+      )}
+      {meta.longText ? (
+        <textarea
+          id={id}
+          value={value}
+          maxLength={meta.maxLength}
+          onChange={(e) => onChange(e.target.value)}
+          rows={3}
+          className={`w-full bg-black/40 border rounded px-3 py-2 text-argent-givre text-sm focus:outline-none focus:border-rose-metal/40 resize-y ${
+            changed ? "border-rouge-rubis/60" : "border-white/10"
+          }`}
+          spellCheck={true}
+        />
+      ) : (
+        <input
+          id={id}
+          type="text"
+          value={value}
+          maxLength={meta.maxLength}
+          onChange={(e) => onChange(e.target.value)}
+          className={`w-full bg-black/40 border rounded px-3 py-2 text-argent-givre text-sm focus:outline-none focus:border-rose-metal/40 ${
+            changed ? "border-rouge-rubis/60" : "border-white/10"
+          }`}
+          spellCheck={true}
+        />
+      )}
+      <div className="flex justify-between mt-1">
+        <code className="text-argent-doux/40 text-[10px]">{rawKey}</code>
+        {meta.maxLength && (
+          <span
+            className={`text-[10px] ${
+              value.length > meta.maxLength * 0.9
+                ? "text-yellow-400/70"
+                : "text-argent-doux/40"
+            }`}
+          >
+            {value.length} / {meta.maxLength}
+          </span>
+        )}
+      </div>
     </div>
   );
 }
