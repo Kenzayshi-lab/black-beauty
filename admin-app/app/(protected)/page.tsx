@@ -19,11 +19,11 @@ export default async function DashboardPage() {
 
   const sections: SectionCard[] = [
     { title: "Theme",    desc: "Couleurs et polices",     href: "/theme" },
-    { title: "Accueil",  desc: "Textes et sections" },
-    { title: "Onglerie", desc: "Services et prix" },
+    { title: "Accueil",  desc: "Textes de la page d'accueil", href: "/home" },
+    { title: "Onglerie", desc: "Textes et prix", href: "/onglerie" },
+    { title: "FAQ",      desc: "Questions frequentes", href: "/faq" },
     { title: "Epilation", desc: "Services et prix" },
-    { title: "Galerie",  desc: "Photos" },
-    { title: "FAQ",      desc: "Questions frequentes" }
+    { title: "Galerie",  desc: "Photos" }
   ];
 
   return (

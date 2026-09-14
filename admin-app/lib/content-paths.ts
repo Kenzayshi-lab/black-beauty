@@ -12,6 +12,7 @@
  */
 
 import { z } from "zod";
+import { HomeSchema, OnglerieSchema, FaqSchema } from "./content-schemas";
 
 // Schema pour theme.json — chaque valeur est une couleur hex OU une valeur
 // typographique/geometrique selon le prefixe de la cle.
@@ -43,7 +44,10 @@ export type Theme = z.infer<typeof ThemeSchema>;
 // Whitelist. Cle = path relatif dans le repo, valeur = schema de validation.
 // Les chemins listes ici sont les SEULS que le proxy accepte.
 export const ALLOWED_CONTENT = {
-  "public/content/theme.json": ThemeSchema
+  "public/content/theme.json":    ThemeSchema,
+  "public/content/home.json":     HomeSchema,
+  "public/content/onglerie.json": OnglerieSchema,
+  "public/content/faq.json":      FaqSchema
 } as const satisfies Record<string, z.ZodTypeAny>;
 
 export type AllowedPath = keyof typeof ALLOWED_CONTENT;
