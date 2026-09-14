@@ -2,9 +2,18 @@ version: 2
 # Dependabot: surveillance automatique des vulnerabilites et mises a jour
 # des dependances. Ouvre une PR quand une version safer/majeure est dispo.
 # Docs: https://docs.github.com/en/code-security/dependabot
+#
+# Config strictement conservatrice: seuls les patches (bugfixes) et minors
+# (compatibles) sont proposes automatiquement. Les MAJORS sont ignores pour
+# les libs critiques (Next, TypeScript, ioredis, next-auth, Zod, Tailwind,
+# @types/node) car ils cassent regulierement le build ou introduisent des
+# breaking changes sournois.
+#
+# Pour un upgrade major, faire une PR MANUELLE apres avoir teste en local:
+#   cd admin-app && npm install <lib>@<version> && npm run build && npm run lint
 
 updates:
-  # npm de la console admin (Next.js, next-auth, argon2, ioredis, zod, etc.)
+  # npm de la console admin
   - package-ecosystem: "npm"
     directory: "/admin-app"
     schedule:
@@ -16,19 +25,42 @@ updates:
     labels:
       - "dependencies"
       - "admin-app"
-    # Grouper les mises a jour patch/minor par ecosysteme pour eviter
-    # d'inonder le repo de PRs. Les majors restent en PRs separees pour
-    # review manuelle.
+    # Grouper les mises a jour patch/minor pour eviter d'inonder le repo
     groups:
       minor-and-patch:
         applies-to: version-updates
         update-types:
           - "minor"
           - "patch"
-    # Alerte immediate si vulnerabilite (independant du schedule hebdo)
-    open-pull-requests-limit: 10
+    # IGNORE les majors des libs critiques — trop souvent breaking.
+    # Une alerte de securite (CVE) contournera automatiquement ces ignores.
+    ignore:
+      - dependency-name: "next"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "next-auth"
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-dom"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "ioredis"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@node-rs/argon2"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "zod"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "tailwindcss"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/react-dom"
+        update-types: ["version-update:semver-major"]
 
-  # GitHub Actions workflows (ex: gitleaks ci-dessous)
+  # GitHub Actions workflows
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
@@ -36,3 +68,13 @@ updates:
     labels:
       - "dependencies"
       - "github-actions"
+    # Idem: bloquer les majors des actions officielles pour eviter les
+    # surprises (une action GitHub qui saute plusieurs versions peut
+    # changer d'input format).
+    ignore:
+      - dependency-name: "actions/checkout"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "actions/setup-node"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "gitleaks/gitleaks-action"
+        update-types: ["version-update:semver-major"]
