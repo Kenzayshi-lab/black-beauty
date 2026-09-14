@@ -1,0 +1,38 @@
+version: 2
+# Dependabot: surveillance automatique des vulnerabilites et mises a jour
+# des dependances. Ouvre une PR quand une version safer/majeure est dispo.
+# Docs: https://docs.github.com/en/code-security/dependabot
+
+updates:
+  # npm de la console admin (Next.js, next-auth, argon2, ioredis, zod, etc.)
+  - package-ecosystem: "npm"
+    directory: "/admin-app"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "08:00"
+      timezone: "America/Montreal"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "admin-app"
+    # Grouper les mises a jour patch/minor par ecosysteme pour eviter
+    # d'inonder le repo de PRs. Les majors restent en PRs separees pour
+    # review manuelle.
+    groups:
+      minor-and-patch:
+        applies-to: version-updates
+        update-types:
+          - "minor"
+          - "patch"
+    # Alerte immediate si vulnerabilite (independant du schedule hebdo)
+    open-pull-requests-limit: 10
+
+  # GitHub Actions workflows (ex: gitleaks ci-dessous)
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    labels:
+      - "dependencies"
+      - "github-actions"
