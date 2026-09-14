@@ -14,14 +14,15 @@ on:
     branches: [main]
 
 # Concurrence: annule les runs precedents sur la meme branche si un
-# nouveau push arrive. Evite le gaspillage de minutes CI.
+# nouveau push arrive.
 concurrency:
   group: security-${{ github.ref }}
   cancel-in-progress: true
 
-# Permissions minimales (principe du moindre privilege)
+# Permissions minimales — gitleaks a besoin de contents:read + pull-requests:read
 permissions:
   contents: read
+  pull-requests: read
 
 jobs:
   gitleaks:
@@ -38,6 +39,9 @@ jobs:
       - name: Run gitleaks
         uses: gitleaks/gitleaks-action@v2
         env:
+          # Token GitHub automatique — requis par gitleaks-action v2
+          # pour scanner les PRs
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # Utilise notre config custom .gitleaks.toml (regles + allowlist)
           GITLEAKS_CONFIG: ${{ github.workspace }}/.gitleaks.toml
           # Aucune telemetrie externe
@@ -53,17 +57,21 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
-          cache-dependency-path: admin-app/package-lock.json
+          # Node 22 = version LTS active. Notre package.json exige >= 20.
+          node-version: '22'
+          # PAS de cache: package-lock.json n'est pas commite dans le repo
+          # (build Vercel le regenere a chaque deploiement). Le cache
+          # setup-node echouerait sans lock.
 
-      - name: Install dependencies
+      # Installe sans lock et sans executer les scripts postinstall
+      # (evite d'exposer le runner a du code arbitraire).
+      - name: Install dependencies (sans scripts)
         working-directory: admin-app
-        run: npm ci --ignore-scripts
+        run: npm install --no-audit --no-fund --ignore-scripts
 
       # `npm audit` retourne un exit code non-zero si des vulns sont
-      # trouvees. --audit-level=high bloque uniquement sur les high/critical
-      # (les moderate/low peuvent apparaitre en warning sans bloquer).
+      # trouvees. --audit-level=high bloque uniquement sur high/critical
+      # (les moderate/low apparaissent en warning sans bloquer).
       - name: Run npm audit
         working-directory: admin-app
         run: npm audit --audit-level=high --production
