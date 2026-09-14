@@ -13,6 +13,7 @@
 import { randomUUID, createHash } from "node:crypto";
 import { z } from "zod";
 import { redis, KEY } from "./redis";
+import { env } from "./env";
 
 export const AuditEventSchema = z.object({
   id:         z.string().uuid(),
@@ -53,11 +54,14 @@ const ENTRY_TTL_SECONDS = 90 * 24 * 60 * 60; // 90 jours
 /**
  * Hash SHA-256 d'un email (utilise le meme sel que hashIp pour
  * coherence; permet de re-identifier via re-hash si necessaire cote admin).
- * Retourne "unknown" pour null/vide.
+ * Retourne null pour vide.
+ *
+ * Utilise env() (Zod-validated) plutot que process.env pour eviter
+ * qu'un sel manquant/vide rende les hashes previsibles (fix audit E1).
  */
 function hashEmail(email: string | null | undefined): string | null {
   if (!email) return null;
-  const salt = process.env.IP_HASH_SALT ?? "";
+  const salt = env().IP_HASH_SALT;
   return createHash("sha256").update(salt).update(":").update(email.toLowerCase()).digest("hex");
 }
 
