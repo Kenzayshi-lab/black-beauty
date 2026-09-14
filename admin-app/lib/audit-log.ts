@@ -105,7 +105,7 @@ export async function logAuditEvent(input: {
 
 /**
  * Lit les N derniers evenements. Utilise par un futur ecran admin
- * "Journal de mes connexions" (Phase 3 chunk 27).
+ * global (chunk 27b).
  */
 export async function readRecentAuditEvents(limit: number = 30): Promise<AuditEvent[]> {
   const cap = Math.min(Math.max(limit, 1), 200);
@@ -122,4 +122,21 @@ export async function readRecentAuditEvents(limit: number = 30): Promise<AuditEv
     }
   }
   return events;
+}
+
+/**
+ * Lit les N derniers evenements filtrant pour un user donne.
+ * On scan la liste globale (max scanLimit=500 pour ne pas exploser Redis)
+ * puis on filtre en memoire. Pour un usage plus lourd on maintiendrait
+ * une liste par-user, mais pour 1 admin ce simple filtrage suffit.
+ */
+export async function readRecentByUser(
+  userId: string,
+  limit: number = 30
+): Promise<AuditEvent[]> {
+  const cap = Math.min(Math.max(limit, 1), 100);
+  const scanLimit = 500;
+  const all = await readRecentAuditEvents(scanLimit);
+  const filtered = all.filter((e) => e.actorUserId === userId);
+  return filtered.slice(0, cap);
 }

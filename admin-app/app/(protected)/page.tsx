@@ -28,7 +28,8 @@ export default async function DashboardPage() {
     { title: "Galerie",       desc: "Photos et portfolio",             href: "/galerie" },
     { title: "Réservation",   desc: "Textes de la page réservation",   href: "/reservation" },
     { title: "Confidentialité", desc: "En-tête + date de mise à jour", href: "/politique-confidentialite" },
-    { title: "Sécurité",      desc: "En-tête + date de mise à jour",   href: "/politique-securite" }
+    { title: "Sécurité",      desc: "En-tête + date de mise à jour",   href: "/politique-securite" },
+    { title: "🔒 Journal",    desc: "Connexions récentes + kill switch", href: "/journal" }
   ];
 
   return (
