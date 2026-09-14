@@ -18,12 +18,13 @@ export default async function DashboardPage() {
   const user = session?.user as { email?: string } | undefined;
 
   const sections: SectionCard[] = [
-    { title: "Theme",    desc: "Couleurs et polices",     href: "/theme" },
-    { title: "Accueil",  desc: "Textes de la page d'accueil", href: "/home" },
-    { title: "Onglerie", desc: "Textes et prix", href: "/onglerie" },
-    { title: "FAQ",      desc: "Questions frequentes", href: "/faq" },
-    { title: "Epilation", desc: "Services et prix" },
-    { title: "Galerie",  desc: "Photos" }
+    { title: "Theme",     desc: "Couleurs et polices",         href: "/theme" },
+    { title: "Accueil",   desc: "Textes de la page d'accueil", href: "/home" },
+    { title: "Onglerie",  desc: "Textes et prix",              href: "/onglerie" },
+    { title: "Epilation", desc: "Textes et prix",              href: "/epilation" },
+    { title: "À propos",  desc: "Histoire, valeurs, contact",  href: "/apropos" },
+    { title: "FAQ",       desc: "Questions frequentes",        href: "/faq" },
+    { title: "Galerie",   desc: "Photos" }
   ];
 
   return (

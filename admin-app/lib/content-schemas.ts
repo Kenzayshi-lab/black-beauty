@@ -129,6 +129,120 @@ export const FaqSchema = z.object({
   }).strict()
 }).strict();
 
+// ---------- epilation.json ----------
+
+export const EpilationSchema = z.object({
+  hero: z.object({
+    eyebrow:    OptStr(120),
+    title:      NonEmptyStr(80),
+    script_sub: OptStr(120)
+  }).strict(),
+  prices_section: z.object({
+    eyebrow: OptStr(120),
+    title:   NonEmptyStr(80)
+  }).strict(),
+  visage: z.object({
+    title:            NonEmptyStr(40),
+    sourcils:         PriceStr,
+    levre_superieure: PriceStr,
+    menton:           PriceStr,
+    joues:            PriceStr,
+    visage_complet:   PriceStr
+  }).strict(),
+  corps: z.object({
+    title:         NonEmptyStr(40),
+    aisselles:     PriceStr,
+    bras_complets: PriceStr,
+    demi_bras:     PriceStr,
+    mains_doigts:  PriceStr,
+    torse:         PriceStr,
+    ventre:        PriceStr,
+    bas_dos:       PriceStr,
+    dos_complet:   PriceStr
+  }).strict(),
+  maillot: z.object({
+    title:                 NonEmptyStr(40),
+    classique:             PriceStr,
+    echancre:              PriceStr,
+    integral:              PriceStr,
+    bresilien:             PriceStr,
+    integral_interfessier: PriceStr,
+    interfessier:          PriceStr
+  }).strict(),
+  jambes: z.object({
+    title:            NonEmptyStr(40),
+    demi_jambes:      PriceStr,
+    jambes_completes: PriceStr,
+    cuisses:          PriceStr,
+    genoux:           PriceStr,
+    pieds_orteils:    PriceStr
+  }).strict(),
+  a_savoir: z.object({
+    title:  NonEmptyStr(40),
+    line_1: OptStr(200),
+    line_2: OptStr(200),
+    merci:  OptStr(120)
+  }).strict(),
+  info_before: z.object({
+    eyebrow: OptStr(120),
+    title:   NonEmptyStr(120)
+  }).strict(),
+  info_reserve: z.object({
+    eyebrow: OptStr(120),
+    title:   NonEmptyStr(120)
+  }).strict()
+}).strict();
+
+// ---------- apropos.json ----------
+
+const ValueCard = z.object({
+  title:       NonEmptyStr(40),
+  description: OptStr(400)
+}).strict();
+
+export const AproposSchema = z.object({
+  hero: z.object({
+    eyebrow:    OptStr(120),
+    title:      NonEmptyStr(80),
+    script_sub: OptStr(120)
+  }).strict(),
+  story_section: z.object({
+    eyebrow:     OptStr(80),
+    title:       NonEmptyStr(120),
+    paragraph_1: OptStr(800),
+    paragraph_2: OptStr(800)
+  }).strict(),
+  values_section: z.object({
+    eyebrow: OptStr(80),
+    title:   NonEmptyStr(120)
+  }).strict(),
+  values: z.object({
+    excellence:    ValueCard,
+    hygiene:       ValueCard,
+    bienveillance: ValueCard
+  }).strict(),
+  contact_section: z.object({
+    eyebrow: OptStr(80),
+    title:   NonEmptyStr(120)
+  }).strict(),
+  contact_card: z.object({
+    title:             NonEmptyStr(60),
+    label_address:     OptStr(40),
+    label_email:       OptStr(40),
+    label_appointment: OptStr(40),
+    appointment_text:  OptStr(120),
+    label_instagram:   OptStr(40),
+    label_tiktok:      OptStr(40)
+  }).strict(),
+  appointment_card: z.object({
+    title:       NonEmptyStr(60),
+    description: OptStr(400),
+    button_text: NonEmptyStr(60)
+  }).strict()
+}).strict();
+
 export type Home = z.infer<typeof HomeSchema>;
 export type Onglerie = z.infer<typeof OnglerieSchema>;
 export type Faq = z.infer<typeof FaqSchema>;
+export type Epilation = z.infer<typeof EpilationSchema>;
+export type Apropos = z.infer<typeof AproposSchema>;
