@@ -141,7 +141,8 @@ export async function touchLastLogin(id: string): Promise<void> {
  * en cours (Fix audit #6).
  */
 export async function resetPassword(email: string, newPassword: string): Promise<User> {
-  const user = await getUserByEmail(email);
+  // Trim + lowercase pour matcher l'index Redis (fix audit F3).
+  const user = await getUserByEmail(email.trim().toLowerCase());
   if (!user) throw new Error(`Utilisateur introuvable: ${email}`);
   user.passwordHash = await hashPassword(newPassword);
   user.sessionVersion = (user.sessionVersion ?? 1) + 1;

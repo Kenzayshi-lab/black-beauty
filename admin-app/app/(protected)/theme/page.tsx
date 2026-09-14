@@ -31,9 +31,9 @@ export default async function ThemePage() {
     // theme.default.json peut contenir un _meta descriptif — on le retire
     // pour ne comparer/appliquer que les valeurs CSS.
     const raw = defRes.data as ThemeRecord & { _meta?: unknown };
-    const { _meta: _ignored, ...defOnly } = raw;
-    void _ignored;
-    defaults = defOnly;
+    defaults = Object.fromEntries(
+      Object.entries(raw).filter(([k]) => k !== "_meta")
+    ) as ThemeRecord;
   } catch (err) {
     loadError = err instanceof Error ? err.message : "Erreur inconnue";
     current = {};

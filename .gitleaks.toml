@@ -1,0 +1,61 @@
+# Configuration gitleaks — scan les commits pour eviter que des secrets
+# (mots de passe, tokens GitHub, cles Redis, secrets Auth.js) soient
+# accidentellement pousses.
+#
+# Utilise avec l'action GitHub .github/workflows/gitleaks.yml et
+# optionnellement en pre-commit local via `gitleaks protect --staged`.
+
+title = "Black & Beauty Studio — gitleaks config"
+
+[extend]
+# Herite des regles par defaut de gitleaks (~150 patterns connus:
+# AWS, GCP, GitHub PAT, Stripe, JWT, etc.)
+useDefault = true
+
+[[rules]]
+id = "auth-secret-lookalike"
+description = "AUTH_SECRET Next-Auth (32+ bytes base64)"
+regex = '''(?i)(auth[_-]?secret|nextauth[_-]?secret)['"\s]*[:=]['"\s]*[A-Za-z0-9+/=]{32,}'''
+tags = ["nextauth", "secret"]
+
+[[rules]]
+id = "ip-hash-salt-lookalike"
+description = "IP_HASH_SALT (Loi 25)"
+regex = '''(?i)ip[_-]?hash[_-]?salt['"\s]*[:=]['"\s]*[A-Za-z0-9+/=]{16,}'''
+tags = ["salt", "secret"]
+
+[[rules]]
+id = "github-pat-fine-grained"
+description = "GitHub Fine-Grained Personal Access Token"
+regex = '''github_pat_[0-9a-zA-Z_]{82}'''
+tags = ["github", "token"]
+
+[[rules]]
+id = "redis-url-with-password"
+description = "Redis URL (rediss://) avec password inline"
+regex = '''rediss?://[^:]+:[^@]+@[a-z0-9.-]+'''
+tags = ["redis", "url", "secret"]
+
+# --- Exclusions (faux positifs connus) ---
+[allowlist]
+description = "Fichiers et patterns exclus du scan"
+
+paths = [
+  # Docs qui expliquent la structure sans exposer de vraies valeurs
+  '''docs/registre-loi25\.md''',
+  '''docs/procedure-incident-loi25\.md''',
+  '''docs/rotation-secrets\.md''',
+  # .env.example (template avec placeholders)
+  '''\.env\.example$''',
+  # Node_modules et build artifacts
+  '''node_modules/''',
+  '''\.next/''',
+]
+
+regexes = [
+  # DUMMY_HASH d'exemple dans commentaires historiques (n'est plus utilise
+  # depuis fix M6 mais peut apparaitre dans le diff)
+  '''\$argon2id\$v=19\$m=65536,t=3,p=4\$AAAA''',
+  # Placeholders evidents
+  '''(?i)placeholder|example|changez[_-]?moi|your[_-]?secret[_-]?here|xxx''',
+]

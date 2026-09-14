@@ -51,6 +51,9 @@ export default auth((request) => {
 
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.svg|.*\\.png|.*\\.jpg|.*\\.woff2).*)"
+    // Exclut les assets statiques du pipeline auth+CSP (fix audit F5:
+    // ajout webp/avif/gif/ico/woff pour ne pas payer la CSP dynamique
+    // sur des ressources sans exec context).
+    "/((?!_next/static|_next/image|favicon\\.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|avif|ico|woff|woff2)).*)"
   ]
 };
