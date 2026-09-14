@@ -139,3 +139,62 @@ export async function writeJson(input: {
   const json = (await res.json()) as { commit: { sha: string }; content: { sha: string } };
   return { commitSha: json.commit.sha, contentSha: json.content.sha };
 }
+
+/**
+ * Ecrit un fichier binaire (image, etc.) dans le repo.
+ * Si `sha` est fourni, c'est un update (remplace le fichier existant).
+ * Sinon c'est une creation (le fichier ne doit pas exister — GitHub 422 sinon).
+ */
+export async function writeBinary(input: {
+  path: string;
+  bytes: Uint8Array;
+  sha?: string;         // absent = creation, present = update
+  message: string;
+  authorName?: string;
+  authorEmail?: string;
+}): Promise<{ commitSha: string; contentSha: string }> {
+  const { headers, owner, repo, branch } = auth();
+  const url = `${GITHUB_API}/repos/${owner}/${repo}/contents/${encodeURI(input.path)}`;
+
+  const contentB64 = Buffer.from(input.bytes).toString("base64");
+
+  const body: Record<string, unknown> = {
+    message: input.message,
+    content: contentB64,
+    branch
+  };
+  if (input.sha) body.sha = input.sha;
+
+  if (input.authorName && input.authorEmail) {
+    body.committer = { name: input.authorName, email: input.authorEmail };
+    body.author = { name: input.authorName, email: input.authorEmail };
+  }
+
+  const res = await fetch(url, {
+    method: "PUT",
+    headers: { ...headers, "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+    cache: "no-store"
+  });
+
+  if (res.status === 409) {
+    throw new Error(
+      `Conflit sur ${input.path}: le fichier a change depuis ta derniere lecture.`
+    );
+  }
+  if (res.status === 422) {
+    // 422 pendant creation = le fichier existe deja (pas de sha fourni)
+    throw new Error(
+      input.sha
+        ? `GitHub 422 sur PUT ${input.path}: SHA obsolete ou branche invalide.`
+        : `Le fichier ${input.path} existe deja — choisis un autre nom.`
+    );
+  }
+  if (!res.ok) {
+    const errBody = await res.text().catch(() => "");
+    throw new Error(`GitHub API ${res.status} sur PUT ${input.path}: ${errBody.slice(0, 200)}`);
+  }
+
+  const json = (await res.json()) as { commit: { sha: string }; content: { sha: string } };
+  return { commitSha: json.commit.sha, contentSha: json.content.sha };
+}

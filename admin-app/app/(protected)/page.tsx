@@ -24,7 +24,7 @@ export default async function DashboardPage() {
     { title: "Epilation", desc: "Textes et prix",              href: "/epilation" },
     { title: "À propos",  desc: "Histoire, valeurs, contact",  href: "/apropos" },
     { title: "FAQ",       desc: "Questions frequentes",        href: "/faq" },
-    { title: "Galerie",   desc: "Photos" }
+    { title: "Galerie",   desc: "Photos et portfolio",         href: "/galerie" }
   ];
 
   return (

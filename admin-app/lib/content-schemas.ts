@@ -241,8 +241,35 @@ export const AproposSchema = z.object({
   }).strict()
 }).strict();
 
+// ---------- galerie.json ----------
+
+const PhotoRefSchema = z.object({
+  src:  z.string().regex(/^(\/assets\/|https:\/\/)[A-Za-z0-9._/-]+$/, "Doit etre un path /assets/... ou une URL https://").max(500),
+  alt:  z.string().min(1, "Le texte alternatif est obligatoire").max(200),
+  link: z.string().regex(/^https:\/\//, "Doit etre une URL https://").max(500).optional()
+}).strict();
+
+export const GalerieSchema = z.object({
+  hero: z.object({
+    eyebrow:    OptStr(120),
+    title:      NonEmptyStr(80),
+    script_sub: OptStr(120)
+  }).strict(),
+  intro: OptStr(500),
+  instagram_button_text: OptStr(60),
+  cta_final: z.object({
+    eyebrow:     OptStr(120),
+    title:       NonEmptyStr(120),
+    description: OptStr(400),
+    button_text: NonEmptyStr(60)
+  }).strict(),
+  photos: z.array(PhotoRefSchema).max(200)
+}).strict();
+
 export type Home = z.infer<typeof HomeSchema>;
 export type Onglerie = z.infer<typeof OnglerieSchema>;
 export type Faq = z.infer<typeof FaqSchema>;
 export type Epilation = z.infer<typeof EpilationSchema>;
 export type Apropos = z.infer<typeof AproposSchema>;
+export type Galerie = z.infer<typeof GalerieSchema>;
+export type PhotoRef = z.infer<typeof PhotoRefSchema>;
