@@ -21,7 +21,8 @@ import {
   GalerieSchema,
   ReservationSchema,
   PolitiqueConfidentialiteSchema,
-  PolitiqueSecuriteSchema
+  PolitiqueSecuriteSchema,
+  SiteSchema
 } from "./content-schemas";
 
 // Schema pour theme.json — chaque valeur est une couleur hex OU une valeur
@@ -63,7 +64,8 @@ export const ALLOWED_CONTENT = {
   "public/content/galerie.json":                   GalerieSchema,
   "public/content/reservation.json":               ReservationSchema,
   "public/content/politique-confidentialite.json": PolitiqueConfidentialiteSchema,
-  "public/content/politique-securite.json":        PolitiqueSecuriteSchema
+  "public/content/politique-securite.json":        PolitiqueSecuriteSchema,
+  "public/content/site.json":                      SiteSchema
 } as const satisfies Record<string, z.ZodTypeAny>;
 
 export type AllowedPath = keyof typeof ALLOWED_CONTENT;

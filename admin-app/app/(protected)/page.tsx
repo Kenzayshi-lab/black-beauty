@@ -18,6 +18,7 @@ export default async function DashboardPage() {
   const user = session?.user as { email?: string } | undefined;
 
   const sections: SectionCard[] = [
+    { title: "Coordonnées",   desc: "Contact, réseaux, lien Square",   href: "/site" },
     { title: "Theme",         desc: "Couleurs et polices",             href: "/theme" },
     { title: "Accueil",       desc: "Textes de la page d'accueil",     href: "/home" },
     { title: "Onglerie",      desc: "Textes et prix",                  href: "/onglerie" },

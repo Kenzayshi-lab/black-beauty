@@ -106,32 +106,50 @@
 
 <section class="section">
   <div class="reserv-layout">
-    <!-- Amelia -->
+    <!-- Réservation Square + fallback Instagram -->
     <div>
       <div class="eyebrow" style="margin-bottom: 16px;" data-cms="reservation.reserv_section.eyebrow">✠ Pour réserver ✠</div>
-      <h2 style="font-size: 36px; margin-bottom: 24px;" class="title-metal" data-cms="reservation.reserv_section.title">Réservation via Instagram</h2>
+      <h2 style="font-size: 36px; margin-bottom: 24px;" class="title-metal" data-cms="reservation.reserv_section.title">Prendre rendez-vous</h2>
       <div class="amelia-zone" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:32px;padding:60px 40px;">
         <svg viewBox="0 0 64 64" fill="none" stroke="var(--rouge-rubis)" stroke-width="1.5" style="width:64px;height:64px;">
           <rect x="8" y="8" width="48" height="48" rx="14"/>
-          <circle cx="32" cy="32" r="12"/>
-          <circle cx="46" cy="18" r="3" fill="var(--rouge-rubis)" stroke="none"/>
+          <path d="M 8 22 L 56 22"/>
+          <path d="M 20 8 L 20 22 M 44 8 L 44 22"/>
+          <circle cx="20" cy="36" r="2" fill="var(--rouge-rubis)" stroke="none"/>
+          <circle cx="32" cy="36" r="2" fill="var(--rouge-rubis)" stroke="none"/>
+          <circle cx="44" cy="36" r="2" fill="var(--rouge-rubis)" stroke="none"/>
+          <circle cx="20" cy="46" r="2" fill="var(--rouge-rubis)" stroke="none"/>
+          <circle cx="32" cy="46" r="2" fill="var(--rouge-rubis)" stroke="none"/>
         </svg>
         <div>
-          <div class="eyebrow" style="margin-bottom:12px;" data-cms="reservation.how_to.eyebrow">✠ Comment réserver ✠</div>
+          <div class="eyebrow" style="margin-bottom:12px;" data-cms="reservation.how_to.eyebrow">✠ Système de réservation en ligne ✠</div>
           <h3 style="font-family:var(--titre);font-size:22px;letter-spacing:0.2em;text-transform:uppercase;color:var(--rose-metal);margin-bottom:20px;" data-cms="reservation.how_to.title">
-            Envoyez-moi un message sur Instagram
+            Réservez votre créneau
           </h3>
           <p style="font-size:14px;line-height:1.9;color:var(--argent-givre);max-width:380px;margin:0 auto 32px;">
-            Pour prendre rendez-vous, écrivez-moi directement en <strong style="color:var(--rose-metal);">message privé</strong> sur Instagram. Précisez le service désiré et vos disponibilités — je vous confirme un créneau rapidement.
+            Choisissez votre service, votre date et votre heure directement depuis notre système de réservation en ligne. <strong style="color:var(--rose-metal);">Confirmation immédiate</strong> par courriel.
           </p>
-          <a href="https://ig.me/m/black_and_beauty_studio" target="_blank" rel="noopener"
-             data-cms-attr="href:site.instagram_dm"
+          <a href="https://ahustlabeauty.square.site/" target="_blank" rel="noopener noreferrer"
+             data-cms-attr="href:site.square_url"
              style="display:inline-flex;align-items:center;gap:12px;padding:18px 40px;background:linear-gradient(135deg,var(--rouge-rubis),rgba(var(--rouge-rubis-rgb), 0.7));color:#fff;font-family:var(--titre);font-size:13px;letter-spacing:0.3em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(var(--rose-metal-rgb), 0.3);transition:all 0.3s;"
              onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
-            ✠ &nbsp; M'écrire sur Instagram
+            ✠ &nbsp; Réserver maintenant
           </a>
-          <div style="margin-top:24px;font-size:12px;color:var(--argent-doux);letter-spacing:0.15em;">
-            @black_and_beauty_studio
+
+          <!-- Fallback: Instagram DM (plus discret) -->
+          <div style="margin-top:36px;padding-top:28px;border-top:1px solid rgba(var(--rose-metal-rgb), 0.15);">
+            <div style="font-size:11px;color:var(--argent-doux);letter-spacing:0.25em;text-transform:uppercase;margin-bottom:12px;">
+              Ou par message privé
+            </div>
+            <a href="https://ig.me/m/black_and_beauty_studio" target="_blank" rel="noopener noreferrer"
+               data-cms-attr="href:site.instagram_dm"
+               style="display:inline-flex;align-items:center;gap:8px;padding:10px 24px;color:var(--rose-metal);font-family:var(--titre);font-size:11px;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(var(--rose-metal-rgb), 0.3);transition:all 0.3s;"
+               onmouseover="this.style.borderColor='var(--rose-metal)'" onmouseout="this.style.borderColor='rgba(226,169,179,0.3)'">
+              M'écrire sur Instagram
+            </a>
+            <div style="margin-top:12px;font-size:11px;color:var(--argent-doux);letter-spacing:0.15em;">
+              @black_and_beauty_studio
+            </div>
           </div>
         </div>
       </div>
