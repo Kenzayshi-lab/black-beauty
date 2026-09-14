@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth, signOut } from "@/auth";
 
@@ -20,14 +21,14 @@ export default async function ProtectedLayout({
     <div className="min-h-screen flex flex-col">
       <header className="border-b border-white/5 bg-noir-velours">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
-          <div>
-            <p className="text-rose-metal text-[10px] tracking-[0.4em] uppercase mb-1">
+          <Link href="/" className="block group">
+            <p className="text-rose-metal text-[10px] tracking-[0.4em] uppercase mb-1 group-hover:text-rose-poudre transition-colors">
               ✠ Console admin ✠
             </p>
-            <h1 className="font-titre text-lg text-argent-givre tracking-wide">
+            <h1 className="font-titre text-lg text-argent-givre tracking-wide group-hover:text-white transition-colors">
               Black &amp; Beauty
             </h1>
-          </div>
+          </Link>
 
           <div className="flex items-center gap-4">
             <span className="text-argent-doux text-xs hidden sm:inline">
