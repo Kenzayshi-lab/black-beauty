@@ -71,8 +71,13 @@ export async function GET(
       headers: { "Cache-Control": "no-store" }
     });
   } catch (err) {
+    // Log le vrai message cote serveur (visible dans les logs Vercel) mais
+    // renvoie un message generique au client (evite de leaker infos internes
+    // GitHub, tokens, structure du repo).
+    // eslint-disable-next-line no-console
+    console.error("[content/GET]", target, err instanceof Error ? err.message : err);
     return NextResponse.json(
-      { error: err instanceof Error ? err.message : "Erreur GitHub" },
+      { error: "Impossible de charger le contenu — contacte l'administrateur." },
       { status: 502 }
     );
   }
@@ -179,8 +184,20 @@ export async function PUT(
       userAgent,
       details: { failed: msg }
     });
-    // 409 pour conflit (SHA obsolete), 502 sinon
-    const status = /conflit/i.test(msg) ? 409 : 502;
-    return NextResponse.json({ error: msg }, { status });
+    // Log le vrai message cote serveur (audit + console)
+    // eslint-disable-next-line no-console
+    console.error("[content/PUT]", target, msg);
+    // Distingue les cas actionnables cote UI: conflit SHA => 409 avec un
+    // message parlant, tout le reste => 502 generique.
+    if (/conflit/i.test(msg)) {
+      return NextResponse.json(
+        { error: "Le contenu a été modifié entretemps — recharge la page." },
+        { status: 409 }
+      );
+    }
+    return NextResponse.json(
+      { error: "Impossible d'enregistrer — réessaie dans quelques secondes." },
+      { status: 502 }
+    );
   }
 }

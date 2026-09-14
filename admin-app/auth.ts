@@ -19,7 +19,7 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
 import { authConfig } from "./auth.config";
-import { verifyPassword } from "@/lib/password";
+import { verifyPassword, dummyHash } from "@/lib/password";
 import { getUserByEmail, getUserById, touchLastLogin, toPublic } from "@/lib/users";
 import { checkRateLimit, resetRateLimit } from "@/lib/rate-limit";
 import { logAuditEvent } from "@/lib/audit-log";
@@ -30,11 +30,11 @@ const CredentialsSchema = z.object({
   password: z.string().min(8).max(4096)
 });
 
-// Timing-attack safe: hash bidon pour appeler verifyPassword meme si
-// l'utilisateur n'existe pas, evitant l'enumeration d'emails par le
-// temps de reponse.
-const DUMMY_HASH =
-  "$argon2id$v=19$m=65536,t=3,p=4$AAAAAAAAAAAAAAAA$AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+// Note: le hash timing-safe pour email inexistant est genere via dummyHash()
+// (lib/password.ts) qui utilise les MEMES ARGON2_PARAMS que les vrais hashes,
+// et cache le resultat en memoire apres le premier appel. Cela evite les
+// timing attacks meme si on change les parametres Argon2 dans le futur
+// (fix audit M6).
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   ...authConfig,
@@ -125,7 +125,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
 
         const user = await getUserByEmail(email);
-        const hashToCheck = user?.passwordHash ?? DUMMY_HASH;
+        const hashToCheck = user?.passwordHash ?? (await dummyHash());
         const passwordOk = await verifyPassword(password, hashToCheck);
 
         if (!user || !passwordOk) {

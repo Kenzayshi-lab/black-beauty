@@ -166,8 +166,13 @@ export async function PUT(
       userAgent,
       details: { failed: msg }
     });
-    // 422 si fichier existe deja, 502 sinon
-    const status = /existe deja/i.test(msg) ? 409 : 502;
-    return json({ error: msg }, status);
+    // Log le vrai message cote serveur, retour generique cote client
+    // (evite de leaker les infos GitHub API).
+    // eslint-disable-next-line no-console
+    console.error("[media/PUT]", target, msg);
+    if (/existe deja/i.test(msg)) {
+      return json({ error: "Une photo avec ce nom existe déjà — recharge la page." }, 409);
+    }
+    return json({ error: "Impossible d'uploader la photo — réessaie dans quelques secondes." }, 502);
   }
 }
