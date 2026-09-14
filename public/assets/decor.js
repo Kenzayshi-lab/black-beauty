@@ -179,10 +179,36 @@ window.initLegalFooterLinks = function() {
   bottom.appendChild(wrap);
 };
 
-// Auto-initialisation sur chaque page
+// Auto-initialisation sur chaque page.
+// Lit les data-attributes de <body> pour piloter le comportement au lieu
+// d'un <script> inline par page (permet de retirer 'unsafe-inline' du CSP).
+//   data-page       : ex. "home" — active le lien de nav correspondant
+//   data-sparkles   : nb de sparkles pour seedAmbiance (defaut 8)
+//   data-smokes     : nb de smokes pour seedAmbiance (defaut 3)
+//   #ambiance-host  : element racine pour l'effet d'ambiance (optionnel)
 window.initSiteChrome = function() {
   window.initMobileNav();
   window.initLegalFooterLinks();
+
+  var body = document.body || document.documentElement;
+  var host = document.getElementById('ambiance-host');
+  if (host && typeof window.seedAmbiance === 'function') {
+    var sparkles = parseInt(body.getAttribute('data-sparkles'), 10);
+    var smokes = parseInt(body.getAttribute('data-smokes'), 10);
+    window.seedAmbiance(host, {
+      sparkles: isNaN(sparkles) ? 8 : sparkles,
+      smokes:   isNaN(smokes)   ? 3 : smokes
+    });
+  }
+
+  if (typeof window.initFadeUps === 'function') {
+    window.initFadeUps();
+  }
+
+  var page = body.getAttribute('data-page');
+  if (page && typeof window.setActiveNav === 'function') {
+    window.setActiveNav(page);
+  }
 };
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', window.initSiteChrome);
