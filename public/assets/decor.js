@@ -1,5 +1,13 @@
 // Black & Beauty — Décorations animées partagées
 
+// Marque l'HTML comme "JS actif" immediatement : ca permet a styles.css
+// d'appliquer .fade-up cache par defaut UNIQUEMENT quand decor.js execute.
+// Si ce script echoue (CSP, cache, reseau), .fade-up reste visible.
+(function () {
+  var root = document.documentElement;
+  if (root && root.classList) root.classList.add('js-anim');
+})();
+
 // SVG ROSE GOTHIQUE — utilisé en coin de section
 window.GOTHIC_ROSE_SVG = `
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
@@ -102,12 +110,35 @@ window.seedAmbiance = function(container, opts = {}) {
   }
 };
 
-// Reveal au scroll
+// Reveal au scroll. Filet de securite : si IntersectionObserver n'est pas
+// disponible, ou si un element reste cache 4s apres le chargement (bug,
+// browser lent, section jamais atteinte), on retire .js-anim pour tout
+// reveler d'un coup — le contenu ne doit JAMAIS rester invisible.
 window.initFadeUps = function() {
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
-  }, { threshold: 0.15 });
-  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+  var root = document.documentElement;
+  var els = document.querySelectorAll('.fade-up');
+
+  if (typeof IntersectionObserver !== 'function') {
+    if (root && root.classList) root.classList.remove('js-anim');
+    return;
+  }
+
+  try {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.15 });
+    els.forEach(function (el) { obs.observe(el); });
+  } catch (err) {
+    if (root && root.classList) root.classList.remove('js-anim');
+    return;
+  }
+
+  // Filet de securite : apres 4s, revele tout ce qui serait reste cache.
+  setTimeout(function () {
+    els.forEach(function (el) {
+      if (!el.classList.contains('in')) el.classList.add('in');
+    });
+  }, 4000);
 };
 
 // Nav active
