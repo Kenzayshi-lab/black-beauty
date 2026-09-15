@@ -407,8 +407,12 @@ h1, h2, h3, h4 {
   text-shadow: 0 0 8px rgba(var(--rouge-rubis-rgb), 0.6);
 }
 
-/* —— Animations entrée —— */
-.fade-up { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
+/* —— Animations entrée ——
+   Par defaut visible : si JS echoue (CSP, cache navigateur, connexion
+   coupee), le contenu reste lisible. L'animation d'apparition n'est
+   activee que quand decor.js pose la classe .js-anim sur <html>. */
+.fade-up { opacity: 1; transform: none; transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+html.js-anim .fade-up:not(.in) { opacity: 0; transform: translateY(40px); }
 .fade-up.in { opacity: 1; transform: translateY(0); }
 
 /* —— Menu mobile (hamburger + panneau) —— */
