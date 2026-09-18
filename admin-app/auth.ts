@@ -12,7 +12,7 @@
  *   - app/login/actions.ts                   (signIn)
  *   - app/(protected)/**                     (auth() pour lire la session)
  *
- * NE PAS importer depuis middleware.ts — voir auth.config.ts pour ca.
+ * NE PAS importer depuis proxy.ts (ex-middleware.ts sous Next <=15) — voir auth.config.ts pour ca.
  */
 
 import NextAuth from "next-auth";

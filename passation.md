@@ -67,7 +67,7 @@ Fond noir, rouge rubis, rose métal, argent givré, polices **Cinzel** /
     ├── .env.example                → template des vars requises
     ├── auth.config.ts              → NextAuthConfig Edge-safe (utilisé par middleware)
     ├── auth.ts                     → NextAuth complet Node (Credentials + Argon2 + Redis)
-    ├── middleware.ts               → Auth.js + CSP nonces dynamiques par requête
+    ├── proxy.ts                    → Auth.js + CSP nonces dynamiques par requête (Next 16 ; ex-middleware.ts)
     ├── app/
     │   ├── layout.tsx              → root (injecte le nonce dans <meta property="csp-nonce">)
     │   ├── api/auth/[...nextauth]/route.ts → handlers Auth.js
