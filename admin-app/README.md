@@ -92,7 +92,7 @@ Via `vercel.json` (statiques):
   - Cross-Origin-Opener/Resource-Policy same-origin
   - X-Robots-Tag noindex/nofollow/noimageindex
 
-Via `middleware.ts` (dynamique):
+Via `proxy.ts` (dynamique, Next 16 — anciennement `middleware.ts`) :
   - Content-Security-Policy avec nonce cryptographique par requete
   - script-src 'self' 'nonce-XXX' 'strict-dynamic' (plus de unsafe-inline!)
 

@@ -1,7 +1,7 @@
 /**
  * Configuration Auth.js **Edge-compatible**.
  *
- * ⚠️ Ce fichier est importe par middleware.ts qui tourne en Edge runtime.
+ * ⚠️ Ce fichier est importe par proxy.ts (Next 16 — anciennement middleware.ts) qui tourne en Edge runtime.
  * IL NE DOIT PAS importer:
  *   - @node-rs/argon2 (module natif)
  *   - ioredis (utilise node:crypto, node:diagnostics_channel)
