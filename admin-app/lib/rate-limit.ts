@@ -10,6 +10,7 @@
  */
 
 import { redis, KEY } from "./redis";
+import { hasRedis } from "./env";
 
 export interface RateLimitResult {
   ok: boolean;
@@ -39,6 +40,11 @@ export interface RateLimitOptions {
  * si on prefere blocker par prudence.
  */
 export async function checkRateLimit(opts: RateLimitOptions): Promise<RateLimitResult> {
+  // Pas de Redis configure -> pas de rate limit (fail-open). Firebase Auth
+  // assure deja sa propre protection anti-brute-force sur le login.
+  if (!hasRedis()) {
+    return { ok: true, remaining: opts.max, resetInSeconds: opts.windowSeconds };
+  }
   const key = KEY.rateLimit(opts.kind, opts.subject);
   try {
     const count = await redis().incr(key);

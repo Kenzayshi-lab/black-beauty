@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { auth } from "@/auth";
+import { headers } from "next/headers";
 
 export const runtime = "nodejs";
 
@@ -14,8 +14,8 @@ type SectionCard = {
  * L'ecran Theme (chunk 24) est actif; les autres arriveront aux chunks 25-27.
  */
 export default async function DashboardPage() {
-  const session = await auth();
-  const user = session?.user as { email?: string } | undefined;
+  const email = (await headers()).get("x-user-email") ?? undefined;
+  const user = { email };
 
   const sections: SectionCard[] = [
     { title: "Coordonnées",   desc: "Contact, réseaux, lien Square",   href: "/site" },
@@ -29,7 +29,7 @@ export default async function DashboardPage() {
     { title: "Réservation",   desc: "Textes de la page réservation",   href: "/reservation" },
     { title: "Confidentialité", desc: "En-tête + date de mise à jour", href: "/politique-confidentialite" },
     { title: "Sécurité",      desc: "En-tête + date de mise à jour",   href: "/politique-securite" },
-    { title: "🔒 Journal",    desc: "Connexions récentes + kill switch", href: "/journal" }
+    { title: "🔒 Journal",    desc: "Activité récente du compte",        href: "/journal" }
   ];
 
   return (

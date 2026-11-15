@@ -17,6 +17,10 @@ let client: Redis | null = null;
 export function redis(): Redis {
   if (client) return client;
   const url = env().REDIS_URL;
+  if (!url) {
+    // Ne doit pas arriver : les appelants verifient hasRedis() avant.
+    throw new Error("REDIS_URL non configure");
+  }
 
   client = new Redis(url, {
     // Timeout court en cas de latence anormale (evite de bloquer une

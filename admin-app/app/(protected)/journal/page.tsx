@@ -1,27 +1,21 @@
 /**
- * Page /journal — journal des connexions + kill switch.
+ * Page /journal — activité récente du compte (journal d'audit).
  *
- * Affiche les 30 dernieres activites de session de l'utilisateur courant
- * (login.success, login.failure, login.rate_limited, logout). Permet de
- * declencher le kill switch (deconnecter tous les autres appareils).
+ * Le journal n'est disponible que si une base Redis est configurée. Sinon la
+ * liste est vide (l'app fonctionne quand même — c'est une fonctionnalité de
+ * confort, pas critique).
  */
 
-import { redirect } from "next/navigation";
-import { auth } from "@/auth";
-import { readRecentByUser } from "@/lib/audit-log";
+import { headers } from "next/headers";
+import { readRecentAuditEvents } from "@/lib/audit-log";
 import { JournalView } from "./journal-view";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-type SessionUser = { id?: string; email?: string };
-
 export default async function JournalPage() {
-  const session = await auth();
-  const user = session?.user as SessionUser | undefined;
-  if (!user?.id) redirect("/login");
-
-  const events = await readRecentByUser(user.id, 30);
+  const email = (await headers()).get("x-user-email") ?? undefined;
+  const events = await readRecentAuditEvents(30);
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-10">
@@ -30,12 +24,11 @@ export default async function JournalPage() {
           ✠ Sécurité & activité ✠
         </p>
         <h1 className="font-titre text-3xl text-argent-givre tracking-wide">
-          Journal de mes connexions
+          Journal d&apos;activité
         </h1>
         <p className="text-argent-doux text-sm mt-2 max-w-2xl">
-          Les 30 dernières activités liées à ton compte
-          {user.email ? <> (<code className="text-argent-givre">{user.email}</code>)</> : null}.
-          Regarde régulièrement pour repérer une connexion suspecte.
+          Les dernières activités enregistrées
+          {email ? <> pour <code className="text-argent-givre">{email}</code></> : null}.
         </p>
       </header>
 

@@ -13,7 +13,7 @@
 import { randomUUID, createHash } from "node:crypto";
 import { z } from "zod";
 import { redis, KEY } from "./redis";
-import { env } from "./env";
+import { env, hasRedis } from "./env";
 
 export const AuditEventSchema = z.object({
   id:         z.string().uuid(),
@@ -63,7 +63,7 @@ const ENTRY_TTL_SECONDS = 90 * 24 * 60 * 60; // 90 jours
  */
 function hashEmail(email: string | null | undefined): string | null {
   if (!email) return null;
-  const salt = env().IP_HASH_SALT;
+  const salt = env().IP_HASH_SALT ?? "";
   return createHash("sha256").update(salt).update(":").update(email.toLowerCase()).digest("hex");
 }
 
@@ -76,6 +76,8 @@ export async function logAuditEvent(input: {
   userAgent?: string | null;
   details?: Record<string, unknown>;
 }): Promise<void> {
+  // Pas de Redis -> pas de journal (best-effort). Ne bloque jamais l'action.
+  if (!hasRedis()) return;
   const event: AuditEvent = AuditEventSchema.parse({
     id:             randomUUID(),
     timestamp:      new Date().toISOString(),
@@ -114,6 +116,7 @@ export async function logAuditEvent(input: {
  * global (chunk 27b).
  */
 export async function readRecentAuditEvents(limit: number = 30): Promise<AuditEvent[]> {
+  if (!hasRedis()) return [];
   const cap = Math.min(Math.max(limit, 1), 200);
   const ids = await redis().lrange(KEY.auditLogList(), 0, cap - 1);
   if (ids.length === 0) return [];

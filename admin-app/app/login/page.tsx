@@ -1,17 +1,11 @@
-import { redirect } from "next/navigation";
-import { auth } from "@/auth";
 import { LoginForm } from "./login-form";
 
-// Runtime Node explicite — auth() charge auth.ts qui pull Argon2 + ioredis
-export const runtime = "nodejs";
-
 /**
- * Page login. Si deja authentifie, redirige vers le dashboard.
+ * Page login. L'authentification est gérée par Firebase côté client
+ * (voir login-form.tsx). Si l'utilisateur est déjà connecté, le formulaire
+ * le redirige vers le tableau de bord.
  */
-export default async function LoginPage() {
-  const session = await auth();
-  if (session?.user) redirect("/");
-
+export default function LoginPage() {
   return (
     <main className="min-h-screen flex items-center justify-center px-6 py-16">
       <div className="w-full max-w-md">
