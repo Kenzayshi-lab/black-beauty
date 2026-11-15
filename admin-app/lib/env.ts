@@ -22,6 +22,14 @@ const envSchema = z.object({
   GITHUB_REPO: z.string().default("black-beauty"),
   GITHUB_DEFAULT_BRANCH: z.string().default("main"),
 
+  // Envoi d'e-mail transactionnel (flux "mot de passe oublie").
+  // Optionnels : si absents, la demande de reset echoue proprement cote
+  // serveur et la cliente voit un message generique (voir lib/email.ts).
+  //   RESEND_API_KEY   : cle API Resend
+  //   RESET_FROM_EMAIL : expediteur verifie, ex "Black & Beauty <no-reply@blackandbeautystudio.ca>"
+  RESEND_API_KEY: z.string().optional(),
+  RESET_FROM_EMAIL: z.string().optional(),
+
   // Duree de session en secondes (defaut: 15 min)
   SESSION_TTL: z.coerce.number().int().positive().default(900),
 

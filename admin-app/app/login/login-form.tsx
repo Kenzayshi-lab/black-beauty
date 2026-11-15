@@ -74,6 +74,15 @@ export function LoginForm() {
       </div>
 
       <SubmitButton />
+
+      <p className="text-center pt-2">
+        <a
+          href="/forgot-password"
+          className="text-argent-doux/70 text-xs tracking-[0.15em] uppercase hover:text-rose-metal transition-colors"
+        >
+          Mot de passe oublié ?
+        </a>
+      </p>
     </form>
   );
 }

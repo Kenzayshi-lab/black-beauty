@@ -74,9 +74,13 @@ export const authConfig = {
       const path = request.nextUrl.pathname;
       const isLoginPage = path === "/login";
       const isAuthEndpoint = path.startsWith("/api/auth");
+      // Pages publiques du flux "mot de passe oublie" (pas de session requise).
+      const isPasswordResetPage =
+        path === "/forgot-password" || path === "/reset-password";
 
       if (isAuthEndpoint) return true;
       if (isLoginPage) return true;
+      if (isPasswordResetPage) return true;
       return isLoggedIn;
     }
   },
