@@ -51,5 +51,9 @@ export const KEY = {
   session: (id: string) => `bb:session:${id}`,
   rateLimit: (kind: string, subject: string) => `bb:rate:${kind}:${subject}`,
   auditLogList: () => `bb:audit:list`,
-  auditLogEntry: (id: string) => `bb:audit:${id}`
+  auditLogEntry: (id: string) => `bb:audit:${id}`,
+  // Token de reset mot de passe — la cle contient le HASH du token
+  // (jamais le token en clair), pour qu'une fuite Redis ne permette
+  // pas de reinitialiser un compte.
+  passwordReset: (tokenHash: string) => `bb:pwreset:${tokenHash}`
 } as const;

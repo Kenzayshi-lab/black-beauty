@@ -25,6 +25,8 @@ type AuditEvent = {
     | "media.delete"
     | "user.created"
     | "user.password_reset"
+    | "user.password_reset_requested"
+    | "user.password_reset_completed"
     | "user.mfa_enabled"
     | "user.mfa_disabled";
   ipHash: string;
@@ -44,6 +46,8 @@ const ACTION_LABELS: Record<AuditEvent["action"], { label: string; kind: "ok" | 
   "media.delete":        { label: "Suppression de photo", kind: "info" },
   "user.created":        { label: "Utilisateur créé", kind: "info" },
   "user.password_reset": { label: "Mot de passe réinitialisé", kind: "warn" },
+  "user.password_reset_requested": { label: "Réinitialisation demandée", kind: "warn" },
+  "user.password_reset_completed": { label: "Mot de passe réinitialisé (lien courriel)", kind: "warn" },
   "user.mfa_enabled":    { label: "2FA activé", kind: "info" },
   "user.mfa_disabled":   { label: "2FA désactivé", kind: "warn" }
 };

@@ -50,32 +50,45 @@ function isCommonPassword(plaintext: string): boolean {
 }
 
 /**
+ * Valide la force d'un mot de passe SANS le hasher. Retourne un message
+ * d'erreur (chaine) si invalide, ou null si OK.
+ *
+ * Extrait de hashPassword pour permettre a l'appelant de valider en amont
+ * (ex: flux "mot de passe oublie" — verifier la force AVANT de consommer
+ * le token a usage unique, pour ne pas le gacher sur une saisie faible).
+ */
+export function validatePasswordStrength(plaintext: unknown): string | null {
+  if (typeof plaintext !== "string") {
+    return "Mot de passe manquant";
+  }
+  if (plaintext.length < MIN_PASSWORD_LENGTH) {
+    return `Mot de passe trop court (min ${MIN_PASSWORD_LENGTH} caracteres)`;
+  }
+  if (plaintext.length > MAX_PASSWORD_LENGTH) {
+    return `Mot de passe trop long (max ${MAX_PASSWORD_LENGTH} caracteres)`;
+  }
+  if (isCommonPassword(plaintext)) {
+    return (
+      "Mot de passe trop previsible (dans la liste des mots de passe communs). " +
+      "Choisis quelque chose de plus original."
+    );
+  }
+  return null;
+}
+
+/**
  * Hash un mot de passe. Le sel est genere aleatoirement par la lib.
  * Le hash retourne inclut les parametres — verify() sait les relire.
  * Format: `$argon2id$v=19$m=65536,t=3,p=4$SALT$HASH`
  *
- * Refuse:
+ * Refuse (via validatePasswordStrength):
  *   - < 12 caracteres (OWASP 2024)
  *   - > 4096 caracteres (DoS defensif)
  *   - Mots de passe communs / previsibles (fix audit E3)
  */
 export async function hashPassword(plaintext: string): Promise<string> {
-  if (typeof plaintext !== "string") {
-    throw new Error("Mot de passe manquant");
-  }
-  if (plaintext.length < MIN_PASSWORD_LENGTH) {
-    throw new Error(`Mot de passe trop court (min ${MIN_PASSWORD_LENGTH} caracteres)`);
-  }
-  if (plaintext.length > MAX_PASSWORD_LENGTH) {
-    // Cap defensif contre DoS — hasher un GB de "AAAA" prendrait des heures
-    throw new Error(`Mot de passe trop long (max ${MAX_PASSWORD_LENGTH} caracteres)`);
-  }
-  if (isCommonPassword(plaintext)) {
-    throw new Error(
-      "Mot de passe trop previsible (dans la liste des mots de passe communs). " +
-      "Choisis quelque chose de plus original."
-    );
-  }
+  const err = validatePasswordStrength(plaintext);
+  if (err) throw new Error(err);
   return hash(plaintext, ARGON2_PARAMS);
 }
 

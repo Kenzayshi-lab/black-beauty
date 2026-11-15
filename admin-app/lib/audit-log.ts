@@ -30,6 +30,8 @@ export const AuditEventSchema = z.object({
     "media.delete",
     "user.created",
     "user.password_reset",
+    "user.password_reset_requested",
+    "user.password_reset_completed",
     "user.mfa_enabled",
     "user.mfa_disabled"
   ]),

@@ -151,6 +151,24 @@ export async function resetPassword(email: string, newPassword: string): Promise
 }
 
 /**
+ * Change le mot de passe d'un utilisateur identifie par son ID (et non son
+ * email). Utilise par le flux "mot de passe oublie" ou l'userId provient du
+ * token de reset consomme.
+ *
+ * Bump automatiquement sessionVersion pour invalider toutes les sessions
+ * en cours — apres un reset, les anciennes sessions (potentiellement celle
+ * d'un attaquant) sont kickees.
+ */
+export async function setPasswordByUserId(userId: string, newPassword: string): Promise<User> {
+  const user = await getUserById(userId);
+  if (!user) throw new Error(`Utilisateur introuvable: ${userId}`);
+  user.passwordHash = await hashPassword(newPassword);
+  user.sessionVersion = (user.sessionVersion ?? 1) + 1;
+  await redis().set(KEY.user(user.id), JSON.stringify(user));
+  return user;
+}
+
+/**
  * Incremente sessionVersion pour invalider toutes les sessions actives
  * de l'utilisateur. Utilise par le "kill switch" (deconnecter tous mes appareils).
  *
