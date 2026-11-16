@@ -58,4 +58,10 @@ regexes = [
   '''\$argon2id\$v=19\$m=65536,t=3,p=4\$AAAA''',
   # Placeholders evidents
   '''(?i)placeholder|example|changez[_-]?moi|your[_-]?secret[_-]?here|xxx''',
+  # Cle API web Firebase — PUBLIQUE par design (identifie le projet, n'autorise
+  # rien par elle-meme ; la securite vient des regles Firebase + domaines
+  # autorises + liste blanche admin). Google documente qu'elle n'est pas un
+  # secret. Autorisee pour cette valeur exacte uniquement ; tout autre AIza...
+  # declenche toujours le scan. Voir admin-app/lib/firebase-client.ts.
+  '''AIzaSyA6JGk5QBtjLpZsZ6_bko-7Juaow7NTZZU''',
 ]

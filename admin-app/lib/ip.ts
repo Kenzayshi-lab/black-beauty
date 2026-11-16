@@ -34,7 +34,9 @@ export function getClientIp(headers: Headers): string | null {
  */
 export function hashIp(ip: string): string {
   if (typeof ip !== "string" || ip.length === 0) return "unknown";
-  const salt = env().IP_HASH_SALT;
+  // Sel optionnel : si IP_HASH_SALT n'est pas configure, on hache sans sel
+  // (toujours impossible a inverser trivialement ; best-effort).
+  const salt = env().IP_HASH_SALT ?? "";
   return createHash("sha256").update(salt).update(":").update(ip).digest("hex");
 }
 

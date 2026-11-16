@@ -1,24 +1,21 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { auth, signOut } from "@/auth";
+import { headers } from "next/headers";
+import { AuthSync, LogoutButton } from "./_shared/auth-client";
 
-// Runtime Node explicite — auth.ts pull Argon2 + ioredis (incompatibles Edge)
+// L'accès est garanti par le middleware (Firebase) : si on arrive ici, la
+// session est valide et autorisée. On lit l'email vérifié dans l'en-tête.
 export const runtime = "nodejs";
 
-/**
- * Layout des routes protegees. Verifie la session cote server;
- * redirige vers /login si absente. Bouton de deconnexion permanent.
- */
 export default async function ProtectedLayout({
   children
 }: Readonly<{ children: React.ReactNode }>) {
-  const session = await auth();
-  if (!session?.user) redirect("/login");
-
-  const user = session.user as { email?: string; role?: string };
+  const email = (await headers()).get("x-user-email") ?? undefined;
 
   return (
     <div className="min-h-screen flex flex-col">
+      {/* Garde le cookie de session frais + redirige si déconnecté */}
+      <AuthSync />
+
       <header className="border-b border-white/5 bg-noir-velours">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
           <Link href="/" className="block group">
@@ -32,21 +29,9 @@ export default async function ProtectedLayout({
 
           <div className="flex items-center gap-4">
             <span className="text-argent-doux text-xs hidden sm:inline">
-              {user.email ?? "—"}
+              {email ?? "—"}
             </span>
-            <form
-              action={async () => {
-                "use server";
-                await signOut({ redirectTo: "/login" });
-              }}
-            >
-              <button
-                type="submit"
-                className="text-argent-doux text-xs tracking-[0.2em] uppercase border border-white/10 px-3 py-2 hover:border-rose-metal hover:text-rose-metal transition-colors"
-              >
-                Deconnexion
-              </button>
-            </form>
+            <LogoutButton />
           </div>
         </div>
       </header>

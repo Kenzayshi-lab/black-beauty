@@ -8,15 +8,15 @@ const nextConfig = {
   images: {
     remotePatterns: []
   },
-  // Packages Node natifs — laisses en require() runtime, jamais bundles
-  // (serverExternalPackages ne suffit pas toujours pour ioredis qui importe
-  // node:diagnostics_channel au top level).
-  serverExternalPackages: ["@node-rs/argon2", "ioredis"],
+  // ioredis importe node:diagnostics_channel au top level — on le laisse en
+  // require() runtime plutot que bundle (serverExternalPackages ne suffit pas
+  // toujours seul).
+  serverExternalPackages: ["ioredis"],
   webpack: (config, { isServer, nextRuntime }) => {
     if (isServer && nextRuntime === "nodejs") {
       config.externals = [
         ...(Array.isArray(config.externals) ? config.externals : []),
-        { ioredis: "commonjs ioredis", "@node-rs/argon2": "commonjs @node-rs/argon2" }
+        { ioredis: "commonjs ioredis" }
       ];
     }
     return config;

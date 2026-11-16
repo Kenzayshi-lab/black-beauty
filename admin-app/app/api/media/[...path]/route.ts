@@ -19,7 +19,6 @@
  */
 
 import { NextResponse } from "next/server";
-import { auth } from "@/auth";
 import { writeBinary } from "@/lib/github";
 import {
   resolveAllowedMediaPath,
@@ -33,7 +32,10 @@ import { hashIp } from "@/lib/ip";
 
 export const runtime = "nodejs";
 
-type SessionUser = { id?: string; email?: string; role?: string };
+// Auth garantie par le middleware (Firebase) ; email verifie en en-tete.
+function actorEmail(req: Request): string | null {
+  return req.headers.get("x-user-email");
+}
 
 function json(body: unknown, status = 200): Response {
   return NextResponse.json(body, {
@@ -52,11 +54,9 @@ export async function PUT(
   request: Request,
   ctx: { params: Promise<{ path: string[] }> }
 ): Promise<Response> {
-  const session = await auth();
-  if (!session?.user) return json({ error: "Non authentifie" }, 401);
-  const user = session.user as SessionUser;
-  const userId = user.id ?? null;
-  const userEmail = user.email ?? null;
+  const userEmail = actorEmail(request);
+  if (!userEmail) return json({ error: "Non authentifie" }, 401);
+  const userId = null;
 
   const { path: segments } = await ctx.params;
   const target = resolveAllowedMediaPath(segments);

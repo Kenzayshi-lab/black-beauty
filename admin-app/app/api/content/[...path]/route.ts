@@ -18,7 +18,6 @@
 
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { auth } from "@/auth";
 import { readJson, writeJson } from "@/lib/github";
 import {
   resolveAllowedPath,
@@ -32,7 +31,12 @@ import { hashIp } from "@/lib/ip";
 
 export const runtime = "nodejs";
 
-type SessionUser = { id?: string; email?: string; role?: string };
+// L'authentification est garantie par le middleware (Firebase) : toute requete
+// qui arrive ici est deja authentifiee et autorisee. Le middleware depose
+// l'email verifie dans l'en-tete x-user-email.
+function actorEmail(req: Request): string | null {
+  return req.headers.get("x-user-email");
+}
 
 function unauthorized() {
   return NextResponse.json({ error: "Non authentifie" }, { status: 401 });
@@ -56,8 +60,7 @@ export async function GET(
   request: Request,
   ctx: { params: Promise<{ path: string[] }> }
 ): Promise<Response> {
-  const session = await auth();
-  if (!session?.user) return unauthorized();
+  if (!actorEmail(request)) return unauthorized();
 
   const { path: segments } = await ctx.params;
   const writable = resolveAllowedPath(segments);
@@ -93,12 +96,9 @@ export async function PUT(
   request: Request,
   ctx: { params: Promise<{ path: string[] }> }
 ): Promise<Response> {
-  const session = await auth();
-  if (!session?.user) return unauthorized();
-
-  const user = session.user as SessionUser;
-  const userId = user.id ?? null;
-  const userEmail = user.email ?? null;
+  const userEmail = actorEmail(request);
+  if (!userEmail) return unauthorized();
+  const userId = null; // plus de UUID interne depuis Firebase — on trace par email
 
   const { path: segments } = await ctx.params;
   const target: AllowedPath | null = resolveAllowedPath(segments);
