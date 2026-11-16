@@ -17,7 +17,7 @@ import {
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
   onAuthStateChanged
-} from "firebase/auth";
+} from "@firebase/auth";
 import { firebaseAuth } from "@/lib/firebase-client";
 
 async function postSession(idToken: string): Promise<boolean> {

@@ -13,7 +13,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { onIdTokenChanged, signOut } from "firebase/auth";
+import { onIdTokenChanged, signOut } from "@firebase/auth";
 import { firebaseAuth } from "@/lib/firebase-client";
 
 async function syncSession(idToken: string): Promise<void> {

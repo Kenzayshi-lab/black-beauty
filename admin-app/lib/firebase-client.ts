@@ -11,8 +11,8 @@
  * Projet : blackandbeautystudio-464a9
  */
 
-import { initializeApp, getApps, getApp, type FirebaseApp } from "firebase/app";
-import { getAuth, setPersistence, browserLocalPersistence, type Auth } from "firebase/auth";
+import { initializeApp, getApps, getApp, type FirebaseApp } from "@firebase/app";
+import { getAuth, setPersistence, browserLocalPersistence, type Auth } from "@firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA6JGk5QBtjLpZsZ6_bko-7Juaow7NTZZU",

@@ -11,7 +11,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "firebase": "^13.3.0",
+    "@firebase/app": "^0.14.4",
+    "@firebase/auth": "^1.12.0",
     "ioredis": "^5.4.2",
     "jose": "^6.2.17",
     "next": "^15.1.0",
