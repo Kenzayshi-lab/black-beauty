@@ -13,15 +13,7 @@
 
 import { initializeApp, getApps, getApp, type FirebaseApp } from "@firebase/app";
 import { getAuth, setPersistence, browserLocalPersistence, type Auth } from "@firebase/auth";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyA6JGk5QBtjLpZsZ6_bko-7Juaow7NTZZU",
-  authDomain: "blackandbeautystudio-464a9.firebaseapp.com",
-  projectId: "blackandbeautystudio-464a9",
-  storageBucket: "blackandbeautystudio-464a9.firebasestorage.app",
-  messagingSenderId: "760313723100",
-  appId: "1:760313723100:web:167ec61bc4fc47117c5c19"
-};
+import { firebaseConfig } from "./firebase-config";
 
 // Singleton — evite de reinitialiser Firebase a chaque hot-reload.
 let app: FirebaseApp;
@@ -41,4 +33,8 @@ export function firebaseAuth(): Auth {
   return authInstance;
 }
 
-export const FIREBASE_PROJECT_ID = firebaseConfig.projectId;
+// Note : FIREBASE_PROJECT_ID vit désormais dans ./firebase-config (module
+// neutre) pour que le code serveur/Edge puisse l'importer sans passer par ce
+// fichier "use client" (sinon la valeur arrive en référence client = undefined
+// côté serveur → échec de vérif des tokens).
+export { FIREBASE_PROJECT_ID } from "./firebase-config";

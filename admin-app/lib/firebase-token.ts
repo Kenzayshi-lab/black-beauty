@@ -13,7 +13,7 @@
  */
 
 import { jwtVerify, createRemoteJWKSet, type JWTPayload } from "jose";
-import { FIREBASE_PROJECT_ID } from "./firebase-client";
+import { FIREBASE_PROJECT_ID } from "./firebase-config";
 
 // Cles publiques Google pour les ID tokens Firebase (format JWK).
 // createRemoteJWKSet met en cache les cles et gere leur rotation.
